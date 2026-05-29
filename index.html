@@ -79,15 +79,16 @@ select{
 <script>
 
 const medicines = {
-    "Paracetamol": [
+    Paracetamol: [
         "Adol 120 mg / 5 ml syrup",
         "Adol 250 mg / 5 ml syrup",
         "Panadol 240 mg / 5 ml syrup"
     ],
 
-    "Cetrizine": [
+    Cetrizine: [
         "Zyrtec / Cetralon syrup"
         "Zyrtec drops"
+
     ]
 };
 
@@ -95,25 +96,28 @@ const ingredientSelect = document.getElementById("ingredientSelect");
 const brandSelect = document.getElementById("brandSelect");
 const result = document.getElementById("result");
 
-ingredientSelect.addEventListener("change", function(){
+ingredientSelect.addEventListener("change", () => {
 
-    const selectedIngredient = this.value;
+    const selectedIngredient = ingredientSelect.value;
 
+    // Clear old options
     brandSelect.innerHTML =
         '<option value="">Select Brand Name</option>';
 
-    result.innerHTML = "Please select a medicine";
-
-    if(selectedIngredient === ""){
+    // Disable if nothing selected
+    if (!selectedIngredient) {
         brandSelect.disabled = true;
         return;
     }
 
+    // Enable dropdown
     brandSelect.disabled = false;
 
-    medicines[selectedIngredient].forEach(function(brand){
+    // Add new options
+    medicines[selectedIngredient].forEach((brand) => {
 
         const option = document.createElement("option");
+
         option.value = brand;
         option.textContent = brand;
 
@@ -123,18 +127,19 @@ ingredientSelect.addEventListener("change", function(){
 
 });
 
-brandSelect.addEventListener("change", function(){
+brandSelect.addEventListener("change", () => {
 
-    if(this.value === ""){
+    if (brandSelect.value === "") {
+
         result.innerHTML = "Please select a medicine";
+
     } else {
+
         result.innerHTML =
-            "Selected Medicine: " + this.value;
+            "Selected Medicine: " + brandSelect.value;
+
     }
 
 });
 
 </script>
-
-</body>
-</html>
