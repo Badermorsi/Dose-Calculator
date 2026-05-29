@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medicine Finder</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f4f4f4;
+    padding:40px;
+}
+
+.container{
+    max-width:550px;
+    margin:auto;
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 0 10px rgba(0,0,0,0.1);
+}
+
+h2{
+    margin-bottom:25px;
+}
+
+label{
+    font-weight:bold;
+    display:block;
+    margin-top:15px;
+    margin-bottom:8px;
+}
+
+select{
+    width:100%;
+    padding:12px;
+    font-size:16px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.result{
+    margin-top:25px;
+    padding:15px;
+    background:#f9f9f9;
+    border-radius:8px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h2>Medicine Finder</h2>
+
+    <!-- Active Ingredient -->
+    <label>Active Ingredient</label>
+    <select id="ingredientSelect">
+        <option value="">Select Active Ingredient</option>
+        <option value="Paracetamol">Paracetamol</option>
+        <option value="Cetrizine">Cetrizine</option>
+    </select>
+
+    <!-- Brand Name -->
+    <label>Brand Name</label>
+    <select id="brandSelect" disabled>
+        <option value="">Select Brand Name</option>
+    </select>
+
+    <div class="result" id="result">
+        Please select a medicine
+    </div>
+
+</div>
+
+<script>
+
+const medicines = {
+    "Paracetamol": [
+        "Adol 120 mg / 5 ml syrup",
+        "Adol 250 mg / 5 ml syrup",
+        "Panadol 240 mg / 5 ml syrup"
+    ],
+
+    "Cetrizine": [
+        "Zyrtec / Cetralon syrup"
+        "Zyrtec drops"
+    ]
+};
+
+const ingredientSelect = document.getElementById("ingredientSelect");
+const brandSelect = document.getElementById("brandSelect");
+const result = document.getElementById("result");
+
+ingredientSelect.addEventListener("change", function(){
+
+    const selectedIngredient = this.value;
+
+    brandSelect.innerHTML =
+        '<option value="">Select Brand Name</option>';
+
+    result.innerHTML = "Please select a medicine";
+
+    if(selectedIngredient === ""){
+        brandSelect.disabled = true;
+        return;
+    }
+
+    brandSelect.disabled = false;
+
+    medicines[selectedIngredient].forEach(function(brand){
+
+        const option = document.createElement("option");
+        option.value = brand;
+        option.textContent = brand;
+
+        brandSelect.appendChild(option);
+
+    });
+
+});
+
+brandSelect.addEventListener("change", function(){
+
+    if(this.value === ""){
+        result.innerHTML = "Please select a medicine";
+    } else {
+        result.innerHTML =
+            "Selected Medicine: " + this.value;
+    }
+
+});
+
+</script>
+
+</body>
+</html>
