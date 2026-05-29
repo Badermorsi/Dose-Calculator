@@ -85,6 +85,7 @@ input{
     <select id="ingredientSelect">
         <option value="">Select Active Ingredient</option>
         <option value="Paracetamol">Paracetamol</option>
+        <option value="Ibuprofen">Ibuprofen</option>
         <option value="Cetrizine">Cetrizine</option>
     </select>
 
@@ -186,6 +187,16 @@ const medicines = {
         }
 
     ],
+
+Ibuprofen: [
+    
+        {
+            name: "Brufen Syrup",
+            concentration: 100,
+            type: "weight"
+        }
+
+    ],      
 
     Cetrizine: [
 
@@ -292,15 +303,25 @@ brandSelect.addEventListener("change", () => {
             med => med.name === brand
         );
 
-    // Weight-based medicines
-    if (selectedMedicine.type === "weight") {
+// Weight-based medicines
+if (selectedMedicine.type === "weight") {
 
-        weightDiv.style.display = "block";
-        doseContainer.style.display = "flex";
+    weightDiv.style.display = "block";
+    doseContainer.style.display = "flex";
+
+    if (ingredient === "Paracetamol") {
 
         calculateParacetamolDose();
 
     }
+
+    else if (ingredient === "Ibuprofen") {
+
+        calculateIbuprofenDose();
+
+    }
+
+}
 
     // Age-based medicines
     if (selectedMedicine.type === "age") {
@@ -363,15 +384,76 @@ function calculateParacetamolDose() {
 // Auto recalculate on weight input
 weightInput.addEventListener("input", () => {
 
-    calculateParacetamolDose();
+    const ingredient =
+        ingredientSelect.value;
+
+    if (ingredient === "Paracetamol") {
+
+        calculateParacetamolDose();
+
+    }
+
+    else if (ingredient === "Ibuprofen") {
+
+        calculateIbuprofenDose();
+
+    }
 
 });
 
 // ============================
+// Ibuprofen Dose Calculation
+// ============================
+
+function calculateIbuprofenDose() {
+
+    const ingredient =
+        ingredientSelect.value;
+
+    const brand =
+        brandSelect.value;
+
+    const weight =
+        parseFloat(weightInput.value);
+
+    if (!weight || !brand) {
+
+        minDose.innerHTML = "-";
+        maxDose.innerHTML = "-";
+
+        return;
+
+    }
+
+    const selectedMedicine =
+        medicines[ingredient].find(
+            med => med.name === brand
+        );
+
+    const concentration =
+        selectedMedicine.concentration;
+
+    // Minimum Dose
+    const min =
+        (5 * weight * 5) / concentration;
+
+    // Maximum Dose
+    const max =
+        (10 * weight * 5) / concentration;
+
+    minDose.innerHTML =
+        min.toFixed(1) + " ml";
+
+    maxDose.innerHTML =
+        max.toFixed(1) + " ml";
+
+}
+
+    
+// ============================
 // Age-Based Calculation
 // ============================
 
-```javascript
 ageInput.addEventListener("input", () => {
 
     const age =
@@ -421,4 +503,3 @@ ageInput.addEventListener("input", () => {
 
 </body>
 </html>
-```
