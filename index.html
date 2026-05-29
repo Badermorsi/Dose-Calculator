@@ -261,24 +261,35 @@ ingredientSelect.addEventListener("change", () => {
     weightInput.value = "";
     ageInput.value = "";
 
-    if (!selectedIngredient) return;
+if (!selectedIngredient) return;
 
-    medicines[selectedIngredient].forEach((medicine) => {
+medicines[selectedIngredient].forEach((medicine) => {
 
-        const option =
-            document.createElement("option");
+    const option =
+        document.createElement("option");
 
-        option.value = medicine.name;
-        option.textContent = medicine.name;
+    option.value = medicine.name;
+    option.textContent = medicine.name;
 
-        brandSelect.appendChild(option);
-
-    });
-
-    brandSelect.disabled = false;
+    brandSelect.appendChild(option);
 
 });
 
+brandSelect.disabled = false;
+
+// Auto select Brufen for Ibuprofen
+if (selectedIngredient === "Ibuprofen") {
+
+    brandSelect.value = "Brufen Syrup";
+
+    brandSelect.dispatchEvent(
+        new Event("change")
+ );
+
+}
+
+});
+    
 // ============================
 // Brand Change
 // ============================
