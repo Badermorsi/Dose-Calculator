@@ -371,6 +371,7 @@ weightInput.addEventListener("input", () => {
 // Age-Based Calculation
 // ============================
 
+```javascript
 ageInput.addEventListener("input", () => {
 
     const age =
@@ -383,17 +384,27 @@ ageInput.addEventListener("input", () => {
 
     }
 
-    if (age >= 5) {
+    // 2 - 5 years
+    if (age >= 2 && age <= 5) {
 
         ageResult.innerHTML =
-            "Recommended Dose: 5 ml";
+            "Recommended Dose: 2.5 ml OD or BID";
 
     }
 
-    else if (age >= 2) {
+    // 6 - 11 years
+    else if (age >= 6 && age <= 11) {
 
         ageResult.innerHTML =
-            "Recommended Dose: 2.5 ml";
+            "Recommended Dose: 5 ml OD or BID";
+
+    }
+
+    // 12 years and older
+    else if (age >= 12) {
+
+        ageResult.innerHTML =
+            "Recommended Dose: 10 ml OD";
 
     }
 
@@ -405,6 +416,8 @@ ageInput.addEventListener("input", () => {
     }
 
 });
+```
+
 
 </script>
 
