@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +7,7 @@
 <title>Medicine Finder</title>
 
 <style>
+
 body{
     font-family: Arial, sans-serif;
     background:#f4f4f4;
@@ -32,12 +34,14 @@ label{
     margin-bottom:8px;
 }
 
-select{
+select,
+input{
     width:100%;
     padding:12px;
     font-size:16px;
     border:1px solid #ccc;
     border-radius:8px;
+    box-sizing:border-box;
 }
 
 .result{
@@ -47,6 +51,25 @@ select{
     border-radius:8px;
     font-weight:bold;
 }
+
+.dose-container{
+    display:none;
+    gap:15px;
+    margin-top:20px;
+}
+
+.dose-box{
+    flex:1;
+    background:#f4f4f4;
+    padding:15px;
+    border-radius:10px;
+}
+
+.dose-title{
+    font-weight:bold;
+    margin-bottom:10px;
+}
+
 </style>
 </head>
 
@@ -58,6 +81,7 @@ select{
 
     <!-- Active Ingredient -->
     <label>Active Ingredient</label>
+
     <select id="ingredientSelect">
         <option value="">Select Active Ingredient</option>
         <option value="Paracetamol">Paracetamol</option>
@@ -66,12 +90,73 @@ select{
 
     <!-- Brand Name -->
     <label>Brand Name</label>
+
     <select id="brandSelect" disabled>
         <option value="">Select Brand Name</option>
     </select>
 
-    <div class="result" id="result">
-        Please select a medicine
+    <!-- Weight -->
+    <div id="weightDiv" style="display:none;">
+
+        <label>Weight (kg)</label>
+
+        <input
+            type="number"
+            id="weightInput"
+            placeholder="Enter weight in kg"
+        >
+
+    </div>
+
+    <!-- Age -->
+    <div id="ageDiv" style="display:none;">
+
+        <label>Age (Years)</label>
+
+        <input
+            type="number"
+            id="ageInput"
+            placeholder="Enter age in years"
+        >
+
+    </div>
+
+    <!-- Dose Boxes -->
+    <div class="dose-container" id="doseContainer">
+
+        <div class="dose-box">
+
+            <div class="dose-title">
+                Minimum Dose
+            </div>
+
+            <div id="minDose">
+                -
+            </div>
+
+        </div>
+
+        <div class="dose-box">
+
+            <div class="dose-title">
+                Maximum Dose
+            </div>
+
+            <div id="maxDose">
+                -
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Age Result -->
+    <div
+        id="ageResult"
+        class="result"
+        style="display:none;"
+    >
+        -
     </div>
 
 </div>
@@ -81,114 +166,76 @@ select{
 const medicines = {
 
     Paracetamol: [
+
         {
             name: "Adol 120 mg / 5 ml Syrup",
             concentration: 120,
             type: "weight"
         },
+
         {
             name: "Adol 250 mg / 5 ml Syrup",
             concentration: 250,
             type: "weight"
         },
+
         {
             name: "Panadol 240 mg / 5 ml Syrup",
             concentration: 240,
             type: "weight"
         }
+
     ],
 
     Cetrizine: [
+
         {
-            name: "Zyrtec syrup",
+            name: "Zyrtec Syrup",
             type: "age"
         }
+
     ]
 
 };
 
-const ingredientSelect = document.getElementById("ingredientSelect");
-const brandSelect = document.getElementById("brandSelect");
-const result = document.getElementById("result");
+const ingredientSelect =
+    document.getElementById("ingredientSelect");
 
-// Create weight input
-const weightDiv = document.createElement("div");
-weightDiv.innerHTML = `
-    <label style="margin-top:20px;display:block;font-weight:bold;">
-        Weight (kg)
-    </label>
+const brandSelect =
+    document.getElementById("brandSelect");
 
-    <input
-        type="number"
-        id="weightInput"
-        placeholder="Enter weight in kg"
-        style="
-            width:100%;
-            padding:12px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:16px;
-            margin-top:8px;
-        "
-    >
-`;
+const weightDiv =
+    document.getElementById("weightDiv");
 
-document.querySelector(".container").appendChild(weightDiv);
+const weightInput =
+    document.getElementById("weightInput");
 
-weightDiv.style.display = "none";
+const ageDiv =
+    document.getElementById("ageDiv");
 
-// Create dose boxes
-const doseContainer = document.createElement("div");
+const ageInput =
+    document.getElementById("ageInput");
 
-doseContainer.style.display = "none";
-doseContainer.style.gap = "15px";
-doseContainer.style.marginTop = "20px";
-doseContainer.style.display = "flex";
+const doseContainer =
+    document.getElementById("doseContainer");
 
-doseContainer.innerHTML = `
+const minDose =
+    document.getElementById("minDose");
 
-<div style="
-    flex:1;
-    background:#f4f4f4;
-    padding:15px;
-    border-radius:10px;
-">
-    <div style="font-weight:bold;margin-bottom:10px;">
-        Minimum Dose
-    </div>
+const maxDose =
+    document.getElementById("maxDose");
 
-    <div id="minDose">
-        -
-    </div>
-</div>
+const ageResult =
+    document.getElementById("ageResult");
 
-<div style="
-    flex:1;
-    background:#f4f4f4;
-    padding:15px;
-    border-radius:10px;
-">
-    <div style="font-weight:bold;margin-bottom:10px;">
-        Maximum Dose
-    </div>
-
-    <div id="maxDose">
-        -
-    </div>
-</div>
-
-`;
-
-document.querySelector(".container").appendChild(doseContainer);
-
-const weightInput = document.getElementById("weightInput");
-const minDose = document.getElementById("minDose");
-const maxDose = document.getElementById("maxDose");
-
+// ============================
 // Ingredient Change
+// ============================
+
 ingredientSelect.addEventListener("change", () => {
 
-    const selectedIngredient = ingredientSelect.value;
+    const selectedIngredient =
+        ingredientSelect.value;
 
     brandSelect.innerHTML =
         '<option value="">Select Brand Name</option>';
@@ -196,13 +243,19 @@ ingredientSelect.addEventListener("change", () => {
     brandSelect.disabled = true;
 
     weightDiv.style.display = "none";
+    ageDiv.style.display = "none";
     doseContainer.style.display = "none";
+    ageResult.style.display = "none";
+
+    weightInput.value = "";
+    ageInput.value = "";
 
     if (!selectedIngredient) return;
 
     medicines[selectedIngredient].forEach((medicine) => {
 
-        const option = document.createElement("option");
+        const option =
+            document.createElement("option");
 
         option.value = medicine.name;
         option.textContent = medicine.name;
@@ -215,29 +268,37 @@ ingredientSelect.addEventListener("change", () => {
 
 });
 
+// ============================
 // Brand Change
+// ============================
+
 brandSelect.addEventListener("change", () => {
 
     weightDiv.style.display = "none";
-    doseContainer.style.display = "none";
-
     ageDiv.style.display = "none";
+    doseContainer.style.display = "none";
     ageResult.style.display = "none";
 
-    const ingredient = ingredientSelect.value;
-    const brand = brandSelect.value;
+    const ingredient =
+        ingredientSelect.value;
+
+    const brand =
+        brandSelect.value;
 
     if (!brand) return;
 
-    const selectedMedicine = medicines[ingredient].find(
-        med => med.name === brand
-    );
+    const selectedMedicine =
+        medicines[ingredient].find(
+            med => med.name === brand
+        );
 
     // Weight-based medicines
     if (selectedMedicine.type === "weight") {
 
         weightDiv.style.display = "block";
         doseContainer.style.display = "flex";
+
+        calculateParacetamolDose();
 
     }
 
@@ -251,26 +312,43 @@ brandSelect.addEventListener("change", () => {
 
 });
 
-// Weight Input
-weightInput.addEventListener("input", () => {
+// ============================
+// Paracetamol Dose Calculation
+// ============================
 
-    const ingredient = ingredientSelect.value;
-    const brand = brandSelect.value;
-    const weight = parseFloat(weightInput.value);
+function calculateParacetamolDose() {
 
-    if (!weight || !brand) return;
+    const ingredient =
+        ingredientSelect.value;
 
-    const selectedMedicine = medicines[ingredient].find(
-        med => med.name === brand
-    );
+    const brand =
+        brandSelect.value;
 
-    const concentration = selectedMedicine.concentration;
+    const weight =
+        parseFloat(weightInput.value);
 
-    // Minimum dose
+    if (!weight || !brand) {
+
+        minDose.innerHTML = "-";
+        maxDose.innerHTML = "-";
+
+        return;
+
+    }
+
+    const selectedMedicine =
+        medicines[ingredient].find(
+            med => med.name === brand
+        );
+
+    const concentration =
+        selectedMedicine.concentration;
+
+    // Minimum Dose
     const min =
         (10 * weight * 5) / concentration;
 
-    // Maximum dose
+    // Maximum Dose
     const max =
         (15 * weight * 5) / concentration;
 
@@ -280,55 +358,23 @@ weightInput.addEventListener("input", () => {
     maxDose.innerHTML =
         max.toFixed(1) + " ml";
 
-});    
-    
-// ================= AGE INPUT =================
+}
 
-// Create age input
-const ageDiv = document.createElement("div");
+// Auto recalculate on weight input
+weightInput.addEventListener("input", () => {
 
-ageDiv.innerHTML = `
-    <label style="margin-top:20px;display:block;font-weight:bold;">
-        Age (Years)
-    </label>
+    calculateParacetamolDose();
 
-    <input
-        type="number"
-        id="ageInput"
-        placeholder="Enter age in years"
-        style="
-            width:100%;
-            padding:12px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:16px;
-            margin-top:8px;
-        "
-    >
-`;
+});
 
-document.querySelector(".container").appendChild(ageDiv);
+// ============================
+// Age-Based Calculation
+// ============================
 
-ageDiv.style.display = "none";
-
-// Result box
-const ageResult = document.createElement("div");
-
-ageResult.style.display = "none";
-ageResult.style.marginTop = "20px";
-ageResult.style.background = "#f4f4f4";
-ageResult.style.padding = "15px";
-ageResult.style.borderRadius = "10px";
-ageResult.style.fontWeight = "bold";
-
-document.querySelector(".container").appendChild(ageResult);
-
-const ageInput = document.getElementById("ageInput");
-
-// Age calculation
 ageInput.addEventListener("input", () => {
 
-    const age = parseFloat(ageInput.value);
+    const age =
+        parseFloat(ageInput.value);
 
     if (!age) {
 
@@ -361,3 +407,7 @@ ageInput.addEventListener("input", () => {
 });
 
 </script>
+
+</body>
+</html>
+```
