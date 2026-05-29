@@ -79,66 +79,292 @@ select{
 <script>
 
 const medicines = {
+
     Paracetamol: [
-        "Adol 120 mg / 5 ml syrup",
-        "Adol 250 mg / 5 ml syrup",
-        "Panadol 240 mg / 5 ml syrup"
+        {
+            name: "Adol 120 mg / 5 ml Syrup",
+            concentration: 120,
+            type: "weight"
+        },
+        {
+            name: "Adol 250 mg / 5 ml Syrup",
+            concentration: 250,
+            type: "weight"
+        },
+        {
+            name: "Panadol 240 mg / 5 ml Syrup",
+            concentration: 240,
+            type: "weight"
+        }
     ],
 
     Cetrizine: [
-        "Zyrtec / Cetralon syrup",
-        "Zyrtec drops"
+        {
+            name: "Zyrtec syrup",
+            type: "age"
+        }
     ]
+
 };
 
 const ingredientSelect = document.getElementById("ingredientSelect");
 const brandSelect = document.getElementById("brandSelect");
 const result = document.getElementById("result");
 
+// Create weight input
+const weightDiv = document.createElement("div");
+weightDiv.innerHTML = `
+    <label style="margin-top:20px;display:block;font-weight:bold;">
+        Weight (kg)
+    </label>
+
+    <input
+        type="number"
+        id="weightInput"
+        placeholder="Enter weight in kg"
+        style="
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+            margin-top:8px;
+        "
+    >
+`;
+
+document.querySelector(".container").appendChild(weightDiv);
+
+weightDiv.style.display = "none";
+
+// Create dose boxes
+const doseContainer = document.createElement("div");
+
+doseContainer.style.display = "none";
+doseContainer.style.gap = "15px";
+doseContainer.style.marginTop = "20px";
+doseContainer.style.display = "flex";
+
+doseContainer.innerHTML = `
+
+<div style="
+    flex:1;
+    background:#f4f4f4;
+    padding:15px;
+    border-radius:10px;
+">
+    <div style="font-weight:bold;margin-bottom:10px;">
+        Minimum Dose
+    </div>
+
+    <div id="minDose">
+        -
+    </div>
+</div>
+
+<div style="
+    flex:1;
+    background:#f4f4f4;
+    padding:15px;
+    border-radius:10px;
+">
+    <div style="font-weight:bold;margin-bottom:10px;">
+        Maximum Dose
+    </div>
+
+    <div id="maxDose">
+        -
+    </div>
+</div>
+
+`;
+
+document.querySelector(".container").appendChild(doseContainer);
+
+const weightInput = document.getElementById("weightInput");
+const minDose = document.getElementById("minDose");
+const maxDose = document.getElementById("maxDose");
+
+// Ingredient Change
 ingredientSelect.addEventListener("change", () => {
 
     const selectedIngredient = ingredientSelect.value;
 
-    // Clear old options
     brandSelect.innerHTML =
         '<option value="">Select Brand Name</option>';
 
-    // Disable if nothing selected
-    if (!selectedIngredient) {
-        brandSelect.disabled = true;
-        return;
-    }
+    brandSelect.disabled = true;
 
-    // Enable dropdown
-    brandSelect.disabled = false;
+    weightDiv.style.display = "none";
+    doseContainer.style.display = "none";
 
-    // Add new options
-    medicines[selectedIngredient].forEach((brand) => {
+    if (!selectedIngredient) return;
+
+    medicines[selectedIngredient].forEach((medicine) => {
 
         const option = document.createElement("option");
 
-        option.value = brand;
-        option.textContent = brand;
+        option.value = medicine.name;
+        option.textContent = medicine.name;
 
         brandSelect.appendChild(option);
 
     });
 
+    brandSelect.disabled = false;
+
 });
 
+// Brand Change
 brandSelect.addEventListener("change", () => {
 
-    if (brandSelect.value === "") {
+    weightDiv.style.display = "none";
+    doseContainer.style.display = "none";
 
-        result.innerHTML = "Please select a medicine";
+    ageDiv.style.display = "none";
+    ageResult.style.display = "none";
 
-    } else {
+    const ingredient = ingredientSelect.value;
+    const brand = brandSelect.value;
 
-        result.innerHTML =
-            "Selected Medicine: " + brandSelect.value;
+    if (!brand) return;
+
+    const selectedMedicine = medicines[ingredient].find(
+        med => med.name === brand
+    );
+
+    // Weight-based medicines
+    if (selectedMedicine.type === "weight") {
+
+        weightDiv.style.display = "block";
+        doseContainer.style.display = "flex";
 
     }
 
+    // Age-based medicines
+    if (selectedMedicine.type === "age") {
+
+        ageDiv.style.display = "block";
+        ageResult.style.display = "block";
+
+    }
+
+});
+
+// Weight Input
+weightInput.addEventListener("input", () => {
+
+    const ingredient = ingredientSelect.value;
+    const brand = brandSelect.value;
+    const weight = parseFloat(weightInput.value);
+
+    if (!weight || !brand) return;
+
+    const selectedMedicine = medicines[ingredient].find(
+        med => med.name === brand
+    );
+
+    const concentration = selectedMedicine.concentration;
+
+    // Minimum dose
+    const min =
+        (10 * weight * 5) / concentration;
+
+    // Maximum dose
+    const max =
+        (15 * weight * 5) / concentration;
+
+    minDose.innerHTML =
+        min.toFixed(1) + " ml";
+
+    maxDose.innerHTML =
+        max.toFixed(1) + " ml";
+
+    }
+
+});
+    
+// ================= AGE INPUT =================
+
+// Create age input
+const ageDiv = document.createElement("div");
+
+ageDiv.innerHTML = `
+    <label style="margin-top:20px;display:block;font-weight:bold;">
+        Age (Years)
+    </label>
+
+    <input
+        type="number"
+        id="ageInput"
+        placeholder="Enter age in years"
+        style="
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+            margin-top:8px;
+        "
+    >
+`;
+
+document.querySelector(".container").appendChild(ageDiv);
+
+ageDiv.style.display = "none";
+
+// Result box
+const ageResult = document.createElement("div");
+
+ageResult.style.display = "none";
+ageResult.style.marginTop = "20px";
+ageResult.style.background = "#f4f4f4";
+ageResult.style.padding = "15px";
+ageResult.style.borderRadius = "10px";
+ageResult.style.fontWeight = "bold";
+
+document.querySelector(".container").appendChild(ageResult);
+
+const ageInput = document.getElementById("ageInput");
+
+// Age calculation
+ageInput.addEventListener("input", () => {
+
+    const age = parseFloat(ageInput.value);
+
+    if (!age) {
+
+        ageResult.innerHTML = "-";
+        return;
+
+    }
+
+    if (age >= 5) {
+
+        ageResult.innerHTML =
+            "Recommended Dose: 5 ml";
+
+    }
+
+    else if (age >= 2) {
+
+        ageResult.innerHTML =
+            "Recommended Dose: 2.5 ml";
+
+    }
+
+    else {
+
+        ageResult.innerHTML =
+            "Please consult doctor/pharmacist";
+
+    }
+
+});
+
+
+
+    
 });
 
 </script>
