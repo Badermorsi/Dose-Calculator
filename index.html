@@ -8,103 +8,127 @@
 <style>
 body{
     font-family:Arial,sans-serif;
-    background:#f4f4f4;
-    padding:20px;
+    background:linear-gradient(135deg,#f4f6ff,#eef7ff);
+    padding:15px;
 }
 
 .container{
     max-width:700px;
     margin:auto;
     background:white;
-    padding:25px;
-    border-radius:10px;
-    box-shadow:0 0 10px rgba(0,0,0,0.1);
+    padding:20px;
+    border-radius:16px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.08);
 }
 
 h2{
     text-align:center;
-}
-
-input,select,button{
-    width:100%;
-    padding:10px;
-    margin-top:10px;
-    box-sizing:border-box;
-}
-
-#result{
-    margin-top:20px;
-}
-
-.warning{
-    color:red;
-    font-weight:bold;
-}
-
-.warning-box{
-    background:#ffe5e5;
-    border:1px solid red;
-    color:red;
-    padding:15px;
-    border-radius:10px;
-    text-align:center;
-    font-weight:bold;
-}
-
-.search-box{
-    position:relative;
     margin-bottom:15px;
+    color:#1f3b73;
 }
 
+/* SEARCH BAR */
 .search-box input{
     width:100%;
-    padding:14px 15px;
+    padding:15px;
     font-size:16px;
     border:2px solid #d6e8ff;
-    border-radius:12px;
+    border-radius:14px;
     outline:none;
     transition:0.2s;
-    background:white;
 }
 
 .search-box input:focus{
     border-color:#4a90e2;
-    box-shadow:0 0 8px rgba(74,144,226,0.3);
-}   
+    box-shadow:0 0 10px rgba(74,144,226,0.25);
+}
+
+/* INPUTS */
+input,select{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border-radius:10px;
+    border:1px solid #ddd;
+    font-size:15px;
+}
+
+/* RESULT AREA */
+#result{
+    margin-top:20px;
+}
+
+/* WARNING */
+.warning-box{
+    background:#ffe5e5;
+    border:1px solid #ff4d4d;
+    color:#b30000;
+    padding:14px;
+    border-radius:12px;
+    text-align:center;
+    font-weight:bold;
+}
+
+/* DOSE CARDS */
 .dose-grid{
     display:flex;
-    gap:10px;
+    gap:12px;
+    margin-top:15px;
+    flex-wrap:wrap;
 }
 
-.dose-box{
+@media (max-width:600px){
+    .dose-column{
+        flex:100%;
+    }
+}
+
+.dose-column{
     flex:1;
-    background:#eef7ff;
-    border-radius:10px;
-    padding:15px;
-    text-align:center;
-    border:1px solid #d6e8ff;
 }
 
-.dose-title{
+.dose-heading{
+    text-align:center;
     font-weight:bold;
-    margin-bottom:10px;
+    margin-bottom:6px;
+    color:#333;
+}
+
+.dose-box {
+    animation: fadeUp 0.3s ease-out;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .dose-value{
-    font-size:24px;
+    font-size:22px;
     font-weight:bold;
-    color:#0066cc;
+    color:#0b63ce;
+    white-space:nowrap;
 }
 
 .dose-note{
-    margin-top:8px;
-    font-size:14px;
+    margin-top:6px;
+    font-size:13px;
+    color:#666;
+    white-space:nowrap;
 }
 
+/* SINGLE CARD */
 .single-dose{
     max-width:300px;
     margin:auto;
 }
+    
 </style>
 </head>
 <body>
@@ -143,17 +167,24 @@ const medicineInput = document.getElementById("medicine");
 const dynamicArea = document.getElementById("dynamicArea");
 const result = document.getElementById("result");
 
-medicineInput.addEventListener("input", renderInputs);
-medicineInput.addEventListener("change", renderInputs);
-    
+medicineInput.addEventListener("input", () => {
+    renderInputs();
+    setTimeout(calculate, 0);
+});
+
+medicineInput.addEventListener("change", () => {
+    renderInputs();
+    setTimeout(calculate, 0);
+});
+
 function renderInputs(){
 
-    result.innerHTML="";
-    dynamicArea.innerHTML="";
+    dynamicArea.innerHTML = "";
+    result.innerHTML = "";
 
     const med = medicineInput.value;
 
-    // Weight Based
+     // Weight Based
     if([
         "Adol 120mg/5ml Syrup",
         "Adol 250mg/5ml Syrup",
@@ -168,7 +199,7 @@ function renderInputs(){
         if(med==="Adol Drops"){
             html+=`
             <label>Calculate By</label>
-            <select id="dropMode" onchange="calculate()">           
+            <select id="dropMode" onchange="calculate()">
                 <option value="ml">mL</option>
                 <option value="drops">Drops</option>
             </select>
@@ -192,18 +223,15 @@ function renderInputs(){
         dynamicArea.innerHTML=`
         <label>Age Type</label>
         <select id="ageType" onchange="showAgeInput()">
-          <option value="">Select Age Type</option>
-          <option value="months">Age in Months</option>
-          <option value="years">Age in Years</option>
-</select>
+            <option value="">Select Age Type</option>
+            <option value="months">Age in Months</option>
+            <option value="years">Age in Years</option>
+        </select>
 
-<div id="ageContainer"></div>
-`;
+        <div id="ageContainer"></div>
+        `;
     }
-
-    setTimeout(() => {
-        calculate();
-    }, 0);
+}
 
 function showAgeInput(){
 
@@ -225,13 +253,12 @@ function showAgeInput(){
                oninput="calculate()">
     `;
 }
-    
+
 function calculate(){
 
     const med = medicineInput.value;
 
     // WEIGHT BASED
-
     if(document.getElementById("weight")){
 
         let w = parseFloat(document.getElementById("weight").value);
@@ -239,51 +266,102 @@ function calculate(){
         if(isNaN(w)){
             result.innerHTML="";
             return;
-}
+        }
 
         let text="";
 
         if(med==="Adol 120mg/5ml Syrup"){
-
             let min=(10*w*5/120).toFixed(1);
             let max=(15*w*5/120).toFixed(1);
 
-            text=`Minimum: ${min} mL Q6hr or Q8hr
-Maximum: ${max} mL Q6hr or Q8hr`;
-        }
+            text = `
+<div class="dose-grid">
 
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+</div>
+`;
+}
         else if(med==="Adol 250mg/5ml Syrup"){
-
             let min=(10*w*5/250).toFixed(1);
             let max=(15*w*5/250).toFixed(1);
 
-            text=`Minimum: ${min} mL Q6hr or Q8hr
-Maximum: ${max} mL Q6hr or Q8hr`;
-        }
+            text = `
+<div class="dose-grid">
 
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+</div>
+`;
+}
         else if(med==="Adol Drops"){
 
-            let mode=document.getElementById("dropMode").value;
+    let dropModeEl = document.getElementById("dropMode");
+    let mode = dropModeEl ? dropModeEl.value : "ml";
 
-            if(mode==="ml"){
+    let min, max, unit;
 
-                let min=(10*w*1/100).toFixed(1);
-                let max=(15*w*1/100).toFixed(1);
+    if(mode==="ml"){
+        min=(10*w*1/100).toFixed(1);
+        max=(15*w*1/100).toFixed(1);
+        unit="mL";
+    } else {
+        min=(10*w*1/100*20).toFixed(0);
+        max=(15*w*1/100*20).toFixed(0);
+        unit="drops";
+    }
 
-                text=`Minimum: ${min} mL Q6hr or Q8hr
-Maximum: ${max} mL Q6hr or Q8hr`;
-            }
+    text = `
+<div class="dose-grid">
 
-            else{
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min} ${unit}</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
 
-                let min=(10*w*1/100*20).toFixed(0);
-                let max=(15*w*1/100*20).toFixed(0);
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max} ${unit}</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
 
-                text=`Minimum: ${min} drops Q6hr or Q8hr
-Maximum: ${max} drops Q6hr or Q8hr`;
-            }
-        }
-
+</div>
+`;
+}
+            
         else if(med==="Adol Suppository"){
 
             let dose=15*w;
@@ -303,43 +381,76 @@ Maximum: ${max} drops Q6hr or Q8hr`;
         }
 
         else if(med==="Panadol 240mg/5ml Syrup"){
-
             let min=(10*w*5/240).toFixed(1);
             let max=(15*w*5/240).toFixed(1);
 
-            text=`Minimum: ${min} mL Q6hr or Q8hr
-Maximum: ${max} mL Q6hr or Q8hr`;
-        }
+            text = `
+<div class="dose-grid">
 
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+</div>
+`;
+}
         else if(med==="Brufen Syrup"){
-
             let min=(5*w*5/100).toFixed(1);
             let max=(10*w*5/100).toFixed(1);
 
-            text=`Minimum: ${min} mL Q8hr
-Maximum: ${max} mL Q8hr`;
-        }
+            text = `
+<div class="dose-grid">
 
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min} mL</div>
+            <div class="dose-note">Q8hr</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max} mL</div>
+            <div class="dose-note">Q8hr</div>
+        </div>
+    </div>
+
+</div>
+`;
+}
         result.innerHTML=text;
     }
 
     // AGE BASED
-
     if(document.getElementById("age")){
 
         let age=parseFloat(document.getElementById("age").value);
-        let ageTypeElement = document.getElementById("ageType");
+        let ageTypeElement=document.getElementById("ageType");
 
-if(!ageTypeElement) return;
+        if(!ageTypeElement) return;
 
-let type = ageTypeElement.value;
+        let type=ageTypeElement.value;
 
-if(!type) return;
-        
-    if(isNaN(age)){
-         result.innerHTML="";
-         return;
-}
+        if(!type) return;
+
+        if(isNaN(age)){
+            result.innerHTML="";
+            return;
+        }
 
         let months=(type==="years") ? age*12 : age;
 
@@ -356,36 +467,71 @@ if(!type) return;
                 return;
             }
             else if(months<72){
-                text="2.5 mL OD (Maximum 5 mL OD)";
-            }
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL OD</div>
+    <div class="dose-note">Maximum 5 mL OD</div>
+</div>
+`;
+        } 
+                
             else if(months<144){
-                text="5 mL OD (Maximum 10 mL OD)";
-            }
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL OD</div>
+    <div class="dose-note">Maximum 10 mL OD</div>
+</div>
+`;
+                
+       }         
             else{
-                text="10 mL OD";
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
             }
         }
 
         else if(med==="Zyrtec Drops"){
 
             if(months<6){
-                 result.innerHTML=`
-                 <div class="warning-box">
-                 Not recommended unless prescribed by a doctor
-                 </div>
-                 return;
+                result.innerHTML=`
+                <div class="warning-box">
+                Not recommended unless prescribed by a doctor
+                </div>
+                `;
+                return;
             }
             else if(months<24){
-                text="5 drops OD";
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops OD</div>
+</div>
+`;
             }
             else if(months<72){
-                text="5 drops OD (Maximum 10 drops OD)";
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops OD</div>
+    <div class="dose-note">Maximum 10 drops OD</div>
+</div>
+`;
             }
             else if(months<144){
-                text="10 drops OD (Maximum 20 drops OD)";
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 drops OD</div>
+    <div class="dose-note">Maximum 20 drops OD</div>
+</div>
+`;
             }
             else{
-                text="20 drops OD";
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">20 drops OD</div>
+</div>
+`;
             }
         }
 
