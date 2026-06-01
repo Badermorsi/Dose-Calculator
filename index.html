@@ -27,32 +27,69 @@ h2{
     color:#1f3b73;
 }
 
-.search-box input {
+.input-group {
+    margin-top: 12px;
+    padding: 14px;
+    background: #f7faff;
+    border: 1px solid #e6f0ff;
+    border-radius: 14px;
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+/* unified input look */
+.search-box input,
+input[type="number"],
+select {
     width: 100%;
-    padding: 12px;
+    padding: 14px 14px;
+    border-radius: 14px;
+    border: 1px solid #d6e8ff;
     font-size: 15px;
-    border: 2px solid #d6e8ff;
-    border-radius: 12px;
-    outline: none;
-    transition: 0.2s ease-in-out;
+    background: #f9fbff;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.04);
+    transition: all 0.25s ease;
 }
 
-.search-box input:focus {
+.search-box {
+    margin-bottom: 15px;
+}    
+    
+.search-box input:focus,
+input[type="number"]:focus,
+select:focus {
     border-color: #4a90e2;
-    box-shadow: 0 0 10px rgba(74,144,226,0.25);
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(74,144,226,0.15);
+    outline: none;
 }
 
-/* INPUTS */
-input, select {
-    width: 100%;
-    padding: 10px 12px;
-    margin-top: 8px;
-    border-radius: 10px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-    box-sizing: border-box;
+/* SEARCH BOX ICON UPGRADE */
+.search-box {
+    position: relative;
+    margin-bottom: 15px;
 }
 
+.search-box input {
+    padding-left: 42px;
+}
+
+.search-box::before {
+    content: "💊";
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    opacity: 0.7;
+}
+    
 /* RESULT AREA */
 #result{
     margin-top:20px;
@@ -80,8 +117,10 @@ input, select {
 @media (max-width:600px){
     .dose-column {
     flex: 1;
-    text-align: center;
-    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 }
 
 .dose-column{
@@ -96,10 +135,14 @@ input, select {
 }
 
 .dose-box {
-    background: #f8fbff;
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
     padding: 12px;
-    width: 100%;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
 }
 
 @keyframes fadeUp {
@@ -221,10 +264,12 @@ function renderInputs(){
             `;
         }
 
-        html+=`
-        <label>Weight (kg)</label>
-        <input type="number" id="weight" step="0.1" oninput="calculate()">
-        `;
+        html += `
+<div class="input-group">
+    <label>⚖️ Weight (kg)</label>
+    <input type="number" id="weight" step="0.1" oninput="calculate()" placeholder="Enter child weight">
+</div>
+`;
 
         dynamicArea.innerHTML=html;
     }
