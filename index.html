@@ -1,514 +1,304 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Medicine Finder</title>
+<title>Pediatric Dose Calculator</title>
 
 <style>
-
 body{
-    font-family: Arial, sans-serif;
+    font-family:Arial,sans-serif;
     background:#f4f4f4;
-    padding:40px;
+    padding:20px;
 }
 
 .container{
-    max-width:550px;
+    max-width:700px;
     margin:auto;
     background:white;
-    padding:30px;
-    border-radius:12px;
+    padding:25px;
+    border-radius:10px;
     box-shadow:0 0 10px rgba(0,0,0,0.1);
 }
 
 h2{
-    margin-bottom:25px;
+    text-align:center;
 }
 
-label{
-    font-weight:bold;
-    display:block;
-    margin-top:15px;
-    margin-bottom:8px;
-}
-
-select,
-input{
+input,select,button{
     width:100%;
-    padding:12px;
-    font-size:16px;
-    border:1px solid #ccc;
-    border-radius:8px;
+    padding:10px;
+    margin-top:10px;
     box-sizing:border-box;
 }
 
-.result{
-    margin-top:25px;
-    padding:15px;
-    background:#f9f9f9;
-    border-radius:8px;
-    font-weight:bold;
-}
-
-.dose-container{
-    display:none;
-    gap:15px;
+#result{
     margin-top:20px;
-}
-
-.dose-box{
-    flex:1;
-    background:#f4f4f4;
     padding:15px;
-    border-radius:10px;
+    background:#eef7ff;
+    border-radius:8px;
+    white-space:pre-line;
 }
 
-.dose-title{
+.warning{
+    color:red;
     font-weight:bold;
-    margin-bottom:10px;
 }
 
+label{
+    display:block;
+    margin-top:10px;
+}
 </style>
 </head>
-
 <body>
 
 <div class="container">
 
-    <h2>Medicine Finder</h2>
+<h2>Medicine Dose Calculator</h2>
 
-    <!-- Active Ingredient -->
-    <label>Active Ingredient</label>
+<input list="medicineList" id="medicine" placeholder="Search medicine...">
 
-    <select id="ingredientSelect">
-        <option value="">Select Active Ingredient</option>
-        <option value="Paracetamol">Paracetamol</option>
-        <option value="Ibuprofen">Ibuprofen</option>
-        <option value="Cetrizine">Cetrizine</option>
-    </select>
+<datalist id="medicineList">
+<option value="Adol 120mg/5ml Syrup">
+<option value="Adol 250mg/5ml Syrup">
+<option value="Adol Drops">
+<option value="Adol Suppository">
+<option value="Panadol 240mg/5ml Syrup">
+<option value="Brufen Syrup">
+<option value="Zyrtec / Cetralon Syrup">
+<option value="Zyrtec Drops">
+</datalist>
 
-    <!-- Brand Name -->
-    <label>Brand Name</label>
+<div id="dynamicArea"></div>
 
-    <select id="brandSelect" disabled>
-        <option value="">Select Brand Name</option>
-    </select>
-
-    <!-- Weight -->
-    <div id="weightDiv" style="display:none;">
-
-        <label>Weight (kg)</label>
-
-        <input
-            type="number"
-            id="weightInput"
-            placeholder="Enter weight in kg"
-        >
-
-    </div>
-
-    <!-- Age -->
-    <div id="ageDiv" style="display:none;">
-
-        <label>Age (Years)</label>
-
-        <input
-            type="number"
-            id="ageInput"
-            placeholder="Enter age in years"
-        >
-
-    </div>
-
-    <!-- Dose Boxes -->
-    <div class="dose-container" id="doseContainer">
-
-        <div class="dose-box">
-
-            <div class="dose-title">
-                Minimum Dose
-            </div>
-
-            <div id="minDose">
-                -
-            </div>
-
-        </div>
-
-        <div class="dose-box">
-
-            <div class="dose-title">
-                Maximum Dose
-            </div>
-
-            <div id="maxDose">
-                -
-            </div>
-
-        </div>
-
-    </div>
-
-    <!-- Age Result -->
-    <div
-        id="ageResult"
-        class="result"
-        style="display:none;"
-    >
-        -
-    </div>
+<div id="result"></div>
 
 </div>
 
 <script>
 
-const medicines = {
+const medicineInput = document.getElementById("medicine");
+const dynamicArea = document.getElementById("dynamicArea");
+const result = document.getElementById("result");
 
-    Paracetamol: [
+medicineInput.addEventListener("input", renderInputs);
+medicineInput.addEventListener("change", renderInputs);
+    
+function renderInputs(){
 
-        {
-            name: "Adol 120 mg / 5 ml Syrup",
-            concentration: 120,
-            type: "weight"
-        },
+    result.innerHTML="";
+    dynamicArea.innerHTML="";
 
-        {
-            name: "Adol 250 mg / 5 ml Syrup",
-            concentration: 250,
-            type: "weight"
-        },
+    const med = medicineInput.value;
 
-        {
-            name: "Panadol 240 mg / 5 ml Syrup",
-            concentration: 240,
-            type: "weight"
+    // Weight Based
+    if([
+        "Adol 120mg/5ml Syrup",
+        "Adol 250mg/5ml Syrup",
+        "Adol Drops",
+        "Adol Suppository",
+        "Panadol 240mg/5ml Syrup",
+        "Brufen Syrup"
+    ].includes(med))
+    {
+        let html="";
+
+        if(med==="Adol Drops"){
+            html+=`
+            <label>Calculate By</label>
+            <select id="dropMode" onchange="calculate()">           
+                <option value="ml">mL</option>
+                <option value="drops">Drops</option>
+            </select>
+            `;
         }
 
-    ],
+        html+=`
+        <label>Weight (kg)</label>
+        <input type="number" id="weight" step="0.1" oninput="calculate()">
+        `;
 
-Ibuprofen: [
-    
-        {
-            name: "Brufen Syrup",
-            concentration: 100,
-            type: "weight"
+        dynamicArea.innerHTML=html;
+    }
+
+    // Age Based
+    else if(
+        med==="Zyrtec / Cetralon Syrup" ||
+        med==="Zyrtec Drops"
+    )
+    {
+        dynamicArea.innerHTML=`
+        <label>Age Type</label>
+        <select id="ageType" onchange="calculate()">
+            <option value="months">Age in Months</option>
+            <option value="years">Age in Years</option>
+        </select>
+
+        <label>Enter Age</label>
+        <input type="number" id="age" step="0.1" oninput="calculate()">
+        `;
+    }
+
+    setTimeout(() => {
+        calculate();
+    }, 0);
+
+}
+
+function calculate(){
+
+    const med = medicineInput.value;
+
+    // WEIGHT BASED
+
+    if(document.getElementById("weight")){
+
+        let w = parseFloat(document.getElementById("weight").value);
+
+        if(isNaN(w)){
+            result.innerHTML="";
+            return;
+}
+
+        let text="";
+
+        if(med==="Adol 120mg/5ml Syrup"){
+
+            let min=(10*w*5/120).toFixed(1);
+            let max=(15*w*5/120).toFixed(1);
+
+            text=`Minimum: ${min} mL Q6hr or Q8hr
+Maximum: ${max} mL Q6hr or Q8hr`;
         }
 
-    ],      
+        else if(med==="Adol 250mg/5ml Syrup"){
 
-    Cetrizine: [
+            let min=(10*w*5/250).toFixed(1);
+            let max=(15*w*5/250).toFixed(1);
 
-        {
-            name: "Zyrtec Syrup",
-            type: "age"
+            text=`Minimum: ${min} mL Q6hr or Q8hr
+Maximum: ${max} mL Q6hr or Q8hr`;
         }
 
-    ]
+        else if(med==="Adol Drops"){
 
-};
+            let mode=document.getElementById("dropMode").value;
 
-const ingredientSelect =
-    document.getElementById("ingredientSelect");
+            if(mode==="ml"){
 
-const brandSelect =
-    document.getElementById("brandSelect");
+                let min=(10*w*1/100).toFixed(1);
+                let max=(15*w*1/100).toFixed(1);
 
-const weightDiv =
-    document.getElementById("weightDiv");
+                text=`Minimum: ${min} mL Q6hr or Q8hr
+Maximum: ${max} mL Q6hr or Q8hr`;
+            }
 
-const weightInput =
-    document.getElementById("weightInput");
+            else{
 
-const ageDiv =
-    document.getElementById("ageDiv");
+                let min=(10*w*1/100*20).toFixed(0);
+                let max=(15*w*1/100*20).toFixed(0);
 
-const ageInput =
-    document.getElementById("ageInput");
+                text=`Minimum: ${min} drops Q6hr or Q8hr
+Maximum: ${max} drops Q6hr or Q8hr`;
+            }
+        }
 
-const doseContainer =
-    document.getElementById("doseContainer");
+        else if(med==="Adol Suppository"){
 
-const minDose =
-    document.getElementById("minDose");
+            let dose=15*w;
 
-const maxDose =
-    document.getElementById("maxDose");
+            if(dose<125){
+                text="Can't use Adol Suppository";
+            }
+            else if(dose<250){
+                text="Adol 125mg Suppository Q8hr";
+            }
+            else if(dose<500){
+                text="Adol 250mg Suppository Q8hr";
+            }
+            else{
+                text="Adol 500mg Suppository Q8hr";
+            }
+        }
 
-const ageResult =
-    document.getElementById("ageResult");
+        else if(med==="Panadol 240mg/5ml Syrup"){
 
-// ============================
-// Ingredient Change
-// ============================
+            let min=(10*w*5/240).toFixed(1);
+            let max=(15*w*5/240).toFixed(1);
 
-ingredientSelect.addEventListener("change", () => {
+            text=`Minimum: ${min} mL Q6hr or Q8hr
+Maximum: ${max} mL Q6hr or Q8hr`;
+        }
 
-    const selectedIngredient =
-        ingredientSelect.value;
+        else if(med==="Brufen Syrup"){
 
-    brandSelect.innerHTML =
-        '<option value="">Select Brand Name</option>';
+            let min=(5*w*5/100).toFixed(1);
+            let max=(10*w*5/100).toFixed(1);
 
-    brandSelect.disabled = true;
+            text=`Minimum: ${min} mL Q8hr
+Maximum: ${max} mL Q8hr`;
+        }
 
-    weightDiv.style.display = "none";
-    ageDiv.style.display = "none";
-    doseContainer.style.display = "none";
-    ageResult.style.display = "none";
+        result.innerHTML=text;
+    }
 
-    weightInput.value = "";
-    ageInput.value = "";
+    // AGE BASED
 
-if (!selectedIngredient) return;
+    if(document.getElementById("age")){
 
-medicines[selectedIngredient].forEach((medicine) => {
+        let age=parseFloat(document.getElementById("age").value);
+        let type=document.getElementById("ageType").value;
 
-    const option =
-        document.createElement("option");
-
-    option.value = medicine.name;
-    option.textContent = medicine.name;
-
-    brandSelect.appendChild(option);
-
-});
-
-brandSelect.disabled = false;
-
-// Auto select Brufen for Ibuprofen
-if (selectedIngredient === "Ibuprofen") {
-
-    brandSelect.value = "Brufen Syrup";
-
-    brandSelect.dispatchEvent(
-        new Event("change")
- );
-
+    if(isNaN(age)){
+         result.innerHTML="";
+         return;
 }
 
-});
-    
-// ============================
-// Brand Change
-// ============================
+        let months=(type==="years") ? age*12 : age;
 
-brandSelect.addEventListener("change", () => {
+        let text="";
 
-    weightDiv.style.display = "none";
-    ageDiv.style.display = "none";
-    doseContainer.style.display = "none";
-    ageResult.style.display = "none";
+        if(med==="Zyrtec / Cetralon Syrup"){
 
-    const ingredient =
-        ingredientSelect.value;
+            if(months<24){
+                result.innerHTML='<span class="warning">Not recommended unless prescribed by a doctor</span>';
+                return;
+            }
+            else if(months<72){
+                text="2.5 mL OD (Maximum 5 mL OD)";
+            }
+            else if(months<144){
+                text="5 mL OD (Maximum 10 mL OD)";
+            }
+            else{
+                text="10 mL OD";
+            }
+        }
 
-    const brand =
-        brandSelect.value;
+        else if(med==="Zyrtec Drops"){
 
-    if (!brand) return;
+            if(months<6){
+                result.innerHTML='<span class="warning">Not recommended unless prescribed by a doctor</span>';
+                return;
+            }
+            else if(months<24){
+                text="5 drops OD";
+            }
+            else if(months<72){
+                text="5 drops OD (Maximum 10 drops OD)";
+            }
+            else if(months<144){
+                text="10 drops OD (Maximum 20 drops OD)";
+            }
+            else{
+                text="20 drops OD";
+            }
+        }
 
-    const selectedMedicine =
-        medicines[ingredient].find(
-            med => med.name === brand
-        );
-
-// Weight-based medicines
-if (selectedMedicine.type === "weight") {
-
-    weightDiv.style.display = "block";
-    doseContainer.style.display = "flex";
-
-    if (ingredient === "Paracetamol") {
-
-        calculateParacetamolDose();
-
+        result.innerHTML=text;
     }
-
-    else if (ingredient === "Ibuprofen") {
-
-        calculateIbuprofenDose();
-
-    }
-
 }
-
-    // Age-based medicines
-    if (selectedMedicine.type === "age") {
-
-        ageDiv.style.display = "block";
-        ageResult.style.display = "block";
-
-    }
-
-});
-
-// ============================
-// Paracetamol Dose Calculation
-// ============================
-
-function calculateParacetamolDose() {
-
-    const ingredient =
-        ingredientSelect.value;
-
-    const brand =
-        brandSelect.value;
-
-    const weight =
-        parseFloat(weightInput.value);
-
-    if (!weight || !brand) {
-
-        minDose.innerHTML = "-";
-        maxDose.innerHTML = "-";
-
-        return;
-
-    }
-
-    const selectedMedicine =
-        medicines[ingredient].find(
-            med => med.name === brand
-        );
-
-    const concentration =
-        selectedMedicine.concentration;
-
-    // Minimum Dose
-    const min =
-        (10 * weight * 5) / concentration;
-
-    // Maximum Dose
-    const max =
-        (15 * weight * 5) / concentration;
-
-    minDose.innerHTML =
-        min.toFixed(1) + " ml";
-
-    maxDose.innerHTML =
-        max.toFixed(1) + " ml";
-
-}
-
-// Auto recalculate on weight input
-weightInput.addEventListener("input", () => {
-
-    const ingredient =
-        ingredientSelect.value;
-
-    if (ingredient === "Paracetamol") {
-
-        calculateParacetamolDose();
-
-    }
-
-    else if (ingredient === "Ibuprofen") {
-
-        calculateIbuprofenDose();
-
-    }
-
-});
-
-// ============================
-// Ibuprofen Dose Calculation
-// ============================
-
-function calculateIbuprofenDose() {
-
-    const ingredient =
-        ingredientSelect.value;
-
-    const brand =
-        brandSelect.value;
-
-    const weight =
-        parseFloat(weightInput.value);
-
-    if (!weight || !brand) {
-
-        minDose.innerHTML = "-";
-        maxDose.innerHTML = "-";
-
-        return;
-
-    }
-
-    const selectedMedicine =
-        medicines[ingredient].find(
-            med => med.name === brand
-        );
-
-    const concentration =
-        selectedMedicine.concentration;
-
-    // Minimum Dose
-    const min =
-        (5 * weight * 5) / concentration;
-
-    // Maximum Dose
-    const max =
-        (10 * weight * 5) / concentration;
-
-    minDose.innerHTML =
-        min.toFixed(1) + " ml";
-
-    maxDose.innerHTML =
-        max.toFixed(1) + " ml";
-
-}
-
-    
-// ============================
-// Age-Based Calculation
-// ============================
-
-ageInput.addEventListener("input", () => {
-
-    const age =
-        parseFloat(ageInput.value);
-
-    if (!age) {
-
-        ageResult.innerHTML = "-";
-        return;
-
-    }
-
-    // 2 - 5 years
-    if (age >= 2 && age <= 5) {
-
-        ageResult.innerHTML =
-            "Recommended Dose: 2.5 ml OD or BID";
-
-    }
-
-    // 6 - 11 years
-    else if (age >= 6 && age <= 11) {
-
-        ageResult.innerHTML =
-            "Recommended Dose: 5 ml OD or BID";
-
-    }
-
-    // 12 years and older
-    else if (age >= 12) {
-
-        ageResult.innerHTML =
-            "Recommended Dose: 10 ml OD";
-
-    }
-
-    else {
-
-        ageResult.innerHTML =
-            "Please consult doctor/pharmacist";
-
-    }
-
-});
 
 </script>
 
