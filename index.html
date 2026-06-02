@@ -226,11 +226,13 @@ input[type=number] {
 
 /* TITLE (smaller + cleaner) */
 .avg-weight-box h3{
-    margin: 0 0 10px;
-    font-size: 13px;          /* 🔥 smaller title */
-    font-weight: 700;
+    margin: 0;
+    font-size: 14px;
     color: #1f3b73;
-    letter-spacing: 0.3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
 }
 
 /* INPUT */
@@ -317,14 +319,15 @@ input[type=number] {
 
 <div class="avg-weight-box" id="avgBox">
 
-    <div class="avg-header">
-    <h3>Average child weight calculator</h3>
-    <span id="avgToggle" onclick="toggleAvgBox()">▼</span>
-</div>
-    <div class="avg-body" id="avgBody">
+    <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
+        Average Weight Calculator <span id="arrow">▼</span>
+    </h3>
+
+    <div id="avgContent">
+        <label>Age (years)</label>
         <input type="number"
                id="avgAge"
-               placeholder="Age (years)"
+               placeholder="Enter age"
                oninput="calculateAverageWeight()">
 
         <div id="avgResult"></div>
@@ -778,18 +781,41 @@ function calculateAverageWeight(){
     "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
 }
 
+let isCollapsed = false;
+
 function toggleAvgBox(){
-    const box = document.getElementById("avgBox");
-    const toggle = document.getElementById("avgToggle");
+    const content = document.getElementById("avgContent");
+    const arrow = document.getElementById("arrow");
 
-    box.classList.toggle("collapsed");
+    isCollapsed = !isCollapsed;
 
-    if(box.classList.contains("collapsed")){
-        toggle.innerHTML = "▶";
+    if(isCollapsed){
+        content.style.display = "none";
+        arrow.innerHTML = "▶";
     } else {
-        toggle.innerHTML = "▼";
+        content.style.display = "block";
+        arrow.innerHTML = "▼";
     }
 }
+
+document.addEventListener("click", function (event) {
+    const box = document.getElementById("avgBox");
+    const content = document.getElementById("avgContent");
+    const arrow = document.getElementById("arrow");
+
+    if (!box || !content) return;
+
+    // already collapsed
+    if (isCollapsed) return;
+
+    // click inside box → ignore
+    if (box.contains(event.target)) return;
+
+    // collapse
+    content.style.display = "none";
+    arrow.innerHTML = "▶";
+    isCollapsed = true;
+});
     
 </script>
 
