@@ -365,6 +365,9 @@ input[type=number] {
 
 <script>
 
+let selectedWeight = null;
+let weightSource = "auto"; // auto OR manual
+    
 const medicineInput = document.getElementById("medicine");
 const dynamicArea = document.getElementById("dynamicArea");
 const result = document.getElementById("result");
@@ -420,10 +423,9 @@ function renderInputs(){
 <div class="small-input-box">
     <label>⚖️ Enter Weight</label>
     <input type="number"
-           id="weight"
-           step="0.1"
-           oninput="calculate()"
-           placeholder="kg">
+       id="weight"
+       oninput="setManualWeight(this.value)"
+       placeholder="kg">
 </div>
 `;
 
@@ -474,6 +476,20 @@ function showAgeInput(){
     
 }
 
+function setManualWeight(value){
+    if(value === "" || isNaN(value)){
+        selectedWeight = null;
+        weightSource = "auto";
+        calculate();
+        return;
+    }
+
+    selectedWeight = parseFloat(value);
+    weightSource = "manual";
+
+    calculate();
+}
+    
 function calculate(){
 
     const med = medicineInput.value;
@@ -481,12 +497,12 @@ function calculate(){
     // WEIGHT BASED
     if(document.getElementById("weight")){
 
-        let w = parseFloat(document.getElementById("weight").value);
+        let w = selectedWeight;
 
-        if(isNaN(w)){
-            result.innerHTML="";
-            return;
-        }
+if(isNaN(w) || w === null){
+    result.innerHTML = "";
+    return;
+}
 
         let text="";
 
@@ -798,8 +814,12 @@ function calculateAverageWeight(){
 
     let weight = (age * 2) + 8;
 
-    resultBox.innerHTML =
-    "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
+document.dispatchEvent(new CustomEvent("autoWeightUpdate", {
+    detail: weight
+}));
+
+resultBox.innerHTML =
+"Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
 }
 
 let isCollapsed = false;
@@ -819,6 +839,13 @@ function toggleAvgBox(){
     }
 }
 
+document.addEventListener("autoWeightUpdate", function(e){
+    selectedWeight = e.detail;
+    weightSource = "auto";
+
+    calculate(); // refresh medicine dose
+});
+    
 document.addEventListener("click", function (event) {
     const box = document.getElementById("avgBox");
     const content = document.getElementById("avgContent");
