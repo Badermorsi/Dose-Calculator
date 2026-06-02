@@ -320,7 +320,7 @@ input[type=number] {
 <div class="avg-weight-box" id="avgBox">
 
     <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
-        Average Weight Calculator <span id="arrow">▼</span>
+        Average weight calculator <span id="arrow">▼</span>
     </h3>
 
     <div id="avgContent">
@@ -584,21 +584,43 @@ function calculate(){
             
         else if(med==="Adol Suppository (Paracetamol)"){
 
-            let dose=15*w;
+    let dose = 15 * w;
 
-            if(dose<125){
-                text="Can't use Adol Suppository";
-            }
-            else if(dose<250){
-                text="Adol 125mg Suppository Q8hr";
-            }
-            else if(dose<500){
-                text="Adol 250mg Suppository Q8hr";
-            }
-            else{
-                text="Adol 500mg Suppository Q8hr";
-            }
-        }
+    if(dose < 125){
+    text = `
+    <div class="warning-box">
+        ❌ Not suitable for Adol Suppository
+        <div style="font-size:12px; margin-top:6px; font-weight:normal;">
+            Dose too low for suppository use
+        </div>
+    </div>
+    `;
+}
+    else if(dose < 250){
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Adol 125 mg</div>
+            <div class="dose-note">Suppository Q8hr</div>
+        </div>
+        `;
+    }
+    else if(dose < 500){
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Adol 250 mg</div>
+            <div class="dose-note">Suppository Q8hr</div>
+        </div>
+        `;
+    }
+    else{
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Adol 500 mg</div>
+            <div class="dose-note">Suppository Q8hr</div>
+        </div>
+        `;
+    }
+}
 
         else if(med==="Panadol 240mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/240).toFixed(1);
