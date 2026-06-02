@@ -499,8 +499,10 @@ function setManualWeight(){
         isManualWeight = true;
         autoWeight = null;
 
-        // ❌ hide badge when manual override
-        document.getElementById("autoBadge").style.display = "none";
+        let badge = document.getElementById("autoBadge");
+        badge.style.display = "inline-block";
+        badge.textContent = "MANUAL weight active";
+        badge.style.background = "#e74c3c";
     }
 }
     
@@ -509,14 +511,18 @@ function calculate(){
     const med = medicineInput.value;
 
     // WEIGHT BASED
-    if(document.getElementById("weight")){
+    if(document.getElementById("weight")) {
 
-        let w = selectedWeight;
+    let weightInput = document.getElementById("weight");
 
-if(isNaN(w) || w === null){
-    result.innerHTML = "";
-    return;
-}
+    let w = (autoWeight !== null && autoWeight !== undefined)
+        ? autoWeight
+        : parseFloat(weightInput.value);
+
+    if(isNaN(w)) {
+        result.innerHTML = "";
+        return;
+    }
 
         let text="";
 
@@ -830,15 +836,16 @@ function calculateAverageWeight(){
     }
 
     let weight = (age * 2) + 8;
+
     autoWeight = weight;
-    document.getElementById("autoBadge").style.display = "inline-block";
-    document.getElementById("autoBadge").style.display = "none";
-    document.getElementById("autoBadge").style.display = "none";
 
     resultBox.innerHTML =
     "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
 
-    // ✅ AUTO SHOW IN INPUT (only if user didn't override)
+    // show auto badge
+    document.getElementById("autoBadge").style.display = "inline-block";
+
+    // AUTO fill only if not manually edited
     if(weightInput && !isManualWeight){
         weightInput.value = weight.toFixed(1);
         calculate();
@@ -862,29 +869,28 @@ function toggleAvgBox(){
     }
 }
 
-document.addEventListener("click", function(e){
-
-    let box = document.querySelector(".container");
-    let weightInput = document.getElementById("weight");
-
-    if(!weightInput) return;
-
-    // if click inside weight input → clear everything and allow fresh manual entry
-    if(weightInput.contains(e.target)){
-        weightInput.value = "";
+document.addEventListener("focusin", function(e){
+    if(e.target && e.target.id === "weight"){
+        e.target.value = "";
         isManualWeight = false;
         autoWeight = null;
         result.innerHTML = "";
+
+        let badge = document.getElementById("autoBadge");
+        if(badge){
+            badge.style.display = "none";
+        }
     }
 });
-    
-document.addEventListener("autoWeightUpdate", function(e){
-    selectedWeight = e.detail;
-    weightSource = "auto";
 
-    calculate(); // refresh medicine dose
+// 2. Custom auto weight event
+document.addEventListener("autoWeightUpdate", function(e){
+    autoWeight = e.detail;
+
+    calculate();
 });
-    
+
+// 3. Collapse avg box when clicking outside
 document.addEventListener("click", function (event) {
     const box = document.getElementById("avgBox");
     const content = document.getElementById("avgContent");
@@ -892,13 +898,9 @@ document.addEventListener("click", function (event) {
 
     if (!box || !content) return;
 
-    // already collapsed
     if (isCollapsed) return;
-
-    // click inside box → ignore
     if (box.contains(event.target)) return;
 
-    // collapse
     content.style.display = "none";
     arrow.innerHTML = "▶";
     isCollapsed = true;
