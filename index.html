@@ -186,6 +186,22 @@ input[type=number]::-webkit-outer-spin-button {
 input[type=number] {
     -moz-appearance: textfield;
 }
+
+.small-input-box{
+    max-width: 220px;
+    margin: 15px auto;
+    text-align: center;
+}
+
+.small-input-box input{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.small-input-box label{
+    text-align: center;
+}
     
 </style>
 </head>
@@ -264,10 +280,14 @@ function renderInputs(){
             `;
         }
 
-        html += `
-<div class="input-group">
-    <label>⚖️ Weight (kg)</label>
-    <input type="number" id="weight" step="0.1" oninput="calculate()" placeholder="Enter child weight">
+       html += `
+<div class="small-input-box">
+    <label>⚖️ Enter Weight</label>
+    <input type="number"
+           id="weight"
+           step="0.1"
+           oninput="calculate()"
+           placeholder="kg">
 </div>
 `;
 
@@ -305,13 +325,17 @@ function showAgeInput(){
     }
 
     ageContainer.innerHTML=`
-        <label>Enter Age</label>
-        <input type="number"
-               id="age"
-               step="0.1"
-               min="0"
-               oninput="calculate()">
-    `;
+<div class="small-input-box">
+    <label>👶 Enter Age</label>
+    <input type="number"
+           id="age"
+           step="0.1"
+           min="0"
+           oninput="calculate()"
+           placeholder="${ageType === 'months' ? 'Months' : 'Years'}">
+</div>
+`;
+    
 }
 
 function calculate(){
