@@ -204,6 +204,27 @@ input[type=number] {
 .small-input-box label{
     text-align: center;
 }
+
+.avg-weight-box{
+    width:220px;
+    background:#f7faff;
+    border:1px solid #d6e8ff;
+    border-radius:14px;
+    padding:12px;
+    margin-bottom:20px;
+}
+
+.avg-weight-box h3{
+    margin:0 0 10px;
+    font-size:15px;
+    color:#1f3b73;
+}
+
+#avgResult{
+    margin-top:10px;
+    font-weight:bold;
+    color:#0b63ce;
+}
     
 </style>
 </head>
@@ -211,6 +232,17 @@ input[type=number] {
 
 <div class="container">
 
+<div class="avg-weight-box">
+    <h3>Average Child Weight</h3>
+
+    <input type="number"
+           id="avgAge"
+           placeholder="Enter age in years"
+           oninput="calculateAverageWeight()">
+
+    <div id="avgResult"></div>
+</div>
+    
 <h2>Medicine Dose Calculator</h2>
 
 <div class="search-box">
@@ -633,6 +665,28 @@ function calculate(){
     }
 }
 
+function calculateAverageWeight(){
+
+    let age = parseFloat(document.getElementById("avgAge").value);
+    let resultBox = document.getElementById("avgResult");
+
+    if(isNaN(age)){
+        resultBox.innerHTML = "";
+        return;
+    }
+
+    if(age > 10){
+        resultBox.innerHTML =
+        "<span style='color:red'>Ask customer for weight</span>";
+        return;
+    }
+
+    let weight = (age * 2) + 8;
+
+    resultBox.innerHTML =
+    "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
+}
+    
 </script>
 
 </body>
