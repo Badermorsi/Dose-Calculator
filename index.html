@@ -206,12 +206,19 @@ input[type=number] {
 }
 
 .avg-weight-box{
-    width:220px;
-    background:#f7faff;
-    border:1px solid #d6e8ff;
-    border-radius:14px;
-    padding:12px;
-    margin-bottom:20px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+
+    width: 220px;
+
+    background: white;
+    border: 1px solid #d6e8ff;
+    border-radius: 14px;
+    padding: 12px;
+
+    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    z-index: 1000;
 }
 
 .avg-weight-box h3{
@@ -228,20 +235,21 @@ input[type=number] {
     
 </style>
 </head>
-<body>
 
-<div class="container">
+<body>
 
 <div class="avg-weight-box">
     <h3>Average Child Weight</h3>
 
     <input type="number"
            id="avgAge"
-           placeholder="Enter age in years"
+           placeholder="Age (years)"
            oninput="calculateAverageWeight()">
 
     <div id="avgResult"></div>
 </div>
+
+<div class="container">
     
 <h2>Medicine Dose Calculator</h2>
 
@@ -307,7 +315,7 @@ function renderInputs(){
         "Adol Drops (Paracetamol)",
         "Adol Suppository (Paracetamol)",
         "Panadol 240mg/5ml Syrup (Paracetamol)",
-        "Brufen Syrup (Brufen)"
+        "Brufen Syrup (Ibuprofen)"
     ].includes(med))
     {
         let html="";
