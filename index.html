@@ -221,14 +221,14 @@ input[type=number] {
 </div>
 
 <datalist id="medicineList">
-<option value="Adol 120mg/5ml Syrup">
-<option value="Adol 250mg/5ml Syrup">
-<option value="Adol Drops">
-<option value="Adol Suppository">
-<option value="Panadol 240mg/5ml Syrup">
-<option value="Brufen Syrup">
-<option value="Zyrtec / Cetralon Syrup">
-<option value="Zyrtec Drops">
+<option value="Adol 120mg/5ml Syrup (Paracetamol)">
+<option value="Adol 250mg/5ml Syrup (Paracetamol)">
+<option value="Adol Drops (Paracetamol)">
+<option value="Adol Suppository (Paracetamol)">
+<option value="Panadol 240mg/5ml Syrup (Paracetamol)">
+<option value="Brufen Syrup (Ibuprofen)">
+<option value="Zyrtec / Cetralon Syrup (Cetrizine)">
+<option value="Zyrtec Drops (Cetrizine)">
 </datalist>
 
 <div id="dynamicArea"></div>
@@ -270,17 +270,17 @@ function renderInputs(){
 
      // Weight Based
     if([
-        "Adol 120mg/5ml Syrup",
-        "Adol 250mg/5ml Syrup",
-        "Adol Drops",
-        "Adol Suppository",
-        "Panadol 240mg/5ml Syrup",
-        "Brufen Syrup"
+        "Adol 120mg/5ml Syrup (Paracetamol)",
+        "Adol 250mg/5ml Syrup (Paracetamol)",
+        "Adol Drops (Paracetamol)",
+        "Adol Suppository (Paracetamol)",
+        "Panadol 240mg/5ml Syrup (Paracetamol)",
+        "Brufen Syrup (Brufen)"
     ].includes(med))
     {
         let html="";
 
-        if(med==="Adol Drops"){
+        if(med==="Adol Drops (Paracetamol)"){
             html+=`
             <label>Calculate By</label>
             <select id="dropMode" onchange="calculate()">
@@ -306,8 +306,8 @@ function renderInputs(){
 
     // Age Based
     else if(
-        med==="Zyrtec / Cetralon Syrup" ||
-        med==="Zyrtec Drops"
+        med==="Zyrtec / Cetralon Syrup (Cetrizine)" ||
+        med==="Zyrtec Drops (Cetrizine)"
     )
     {
         dynamicArea.innerHTML=`
@@ -364,7 +364,7 @@ function calculate(){
 
         let text="";
 
-        if(med==="Adol 120mg/5ml Syrup"){
+        if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/120).toFixed(1);
             let max=(15*w*5/120).toFixed(1);
 
@@ -390,7 +390,7 @@ function calculate(){
 </div>
 `;
 }
-        else if(med==="Adol 250mg/5ml Syrup"){
+        else if(med==="Adol 250mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/250).toFixed(1);
             let max=(15*w*5/250).toFixed(1);
 
@@ -416,7 +416,7 @@ function calculate(){
 </div>
 `;
 }
-        else if(med==="Adol Drops"){
+        else if(med==="Adol Drops (Paracetamol)"){
 
     let dropModeEl = document.getElementById("dropMode");
     let mode = dropModeEl ? dropModeEl.value : "ml";
@@ -456,7 +456,7 @@ function calculate(){
 `;
 }
             
-        else if(med==="Adol Suppository"){
+        else if(med==="Adol Suppository (Paracetamol)"){
 
             let dose=15*w;
 
@@ -474,7 +474,7 @@ function calculate(){
             }
         }
 
-        else if(med==="Panadol 240mg/5ml Syrup"){
+        else if(med==="Panadol 240mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/240).toFixed(1);
             let max=(15*w*5/240).toFixed(1);
 
@@ -500,7 +500,7 @@ function calculate(){
 </div>
 `;
 }
-        else if(med==="Brufen Syrup"){
+        else if(med==="Brufen Syrup (Ibuprofen)"){
             let min=(5*w*5/100).toFixed(1);
             let max=(10*w*5/100).toFixed(1);
 
@@ -550,7 +550,7 @@ function calculate(){
 
         let text="";
 
-        if(med==="Zyrtec / Cetralon Syrup"){
+        if(med==="Zyrtec / Cetralon Syrup (Cetrizine)"){
 
             if(months<24){
                 result.innerHTML=`
@@ -587,7 +587,7 @@ function calculate(){
             }
         }
 
-        else if(med==="Zyrtec Drops"){
+        else if(med==="Zyrtec Drops (Cetrizine)"){
 
             if(months<6){
                 result.innerHTML=`
