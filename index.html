@@ -263,21 +263,73 @@ input[type=number] {
     color: #d10000;
     font-weight: 700;
 }
+
+.avg-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 2px 4px;
+}
+
+.avg-header h3{
+    font-size: 13px;
+    margin: 0;
+    color: #1f3b73;
+}
+
+#avgToggle{
+    font-size: 14px;
+    color: #4a90e2;
+    cursor: pointer;
+    user-select: none;
+    transition: 0.2s;
+}
+
+#avgToggle:hover{
+    transform: scale(1.2);
+}
+
+.avg-body{
+    margin-top: 10px;
+    transition: all 0.25s ease;
+}
+
+.avg-weight-box.collapsed .avg-body{
+    display: none;
+}
+
+#avgAge{
+    width: 70%;
+    max-width: 120px;
+    padding: 5px 6px;
+    font-size: 12px;
+    border-radius: 6px;
+    text-align: center;
+    display: block;
+    margin: 6px auto;
+}
     
 </style>
 </head>
 
 <body>
 
-<div class="avg-weight-box">
-    <h3>Average Child Weight Calculator</h3>
+<div class="avg-weight-box" id="avgBox">
 
-    <input type="number"
-           id="avgAge"
-           placeholder="Age (years)"
-           oninput="calculateAverageWeight()">
+    <div class="avg-header">
+    <h3>Average child weight calculator</h3>
+    <span id="avgToggle" onclick="toggleAvgBox()">▼</span>
+</div>
+    <div class="avg-body" id="avgBody">
+        <input type="number"
+               id="avgAge"
+               placeholder="Age (years)"
+               oninput="calculateAverageWeight()">
 
-    <div id="avgResult"></div>
+        <div id="avgResult"></div>
+    </div>
+
 </div>
 
 <div class="container">
@@ -714,16 +766,29 @@ function calculateAverageWeight(){
         return;
     }
 
-    if(age > 10){
-        resultBox.innerHTML =
-        "<span style='color:red'>Ask customer for weight</span>";
-        return;
-    }
+    if (age < 1 || age > 10) {
+    resultBox.innerHTML =
+    "<span style='color:#b30000'>Used for 1 to 10 years old</span>";
+    return;
+}
 
     let weight = (age * 2) + 8;
 
     resultBox.innerHTML =
     "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
+}
+
+function toggleAvgBox(){
+    const box = document.getElementById("avgBox");
+    const toggle = document.getElementById("avgToggle");
+
+    box.classList.toggle("collapsed");
+
+    if(box.classList.contains("collapsed")){
+        toggle.innerHTML = "▶";
+    } else {
+        toggle.innerHTML = "▼";
+    }
 }
     
 </script>
