@@ -210,41 +210,58 @@ input[type=number] {
     top: 15px;
     left: 15px;
 
-    width: 220px;
+    width: 240px;
 
-    background: white;
+    background: linear-gradient(145deg, #ffffff, #f7faff);
     border: 1px solid #d6e8ff;
-    border-radius: 14px;
-    padding: 10px;
-    text-align: center;
+    border-radius: 16px;
+    padding: 14px;
 
-    box-shadow: 0 6px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
     z-index: 1000;
+
+    text-align: center;
+    font-family: Arial, sans-serif;
 }
 
+/* TITLE (smaller + cleaner) */
+.avg-weight-box h3{
+    margin: 0 0 10px;
+    font-size: 13px;          /* 🔥 smaller title */
+    font-weight: 700;
+    color: #1f3b73;
+    letter-spacing: 0.3px;
+}
+
+/* INPUT */
 .avg-weight-box input{
-    width: 80%;
-    max-width: 140px;
-    padding: 4px 6px;
-    font-size: 12px;
-    border-radius: 6px;
-    margin-top: 6px;   /* ✅ fix here */
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+    width: 90%;
+    padding: 6px 8px;
+    font-size: 13px;
+    border-radius: 8px;
+    border: 1px solid #cfe2ff;
+    outline: none;
+    text-align: center;
+    transition: 0.2s;
 }
 
-.avg-weight-box label{
-    font-size: 12px;
-    margin-bottom: 4px;
-    display: block;
-    color: #2c3e50;
+.avg-weight-box input:focus{
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74,144,226,0.15);
 }
 
+/* RESULT */
 #avgResult{
     margin-top: 10px;
-    font-weight: bold;
+    font-size: 13px;
+    font-weight: 600;
     color: #0b63ce;
+}
+
+/* warning style (if you use red text) */
+#avgResult span{
+    color: #d10000;
+    font-weight: 700;
 }
     
 </style>
@@ -253,7 +270,7 @@ input[type=number] {
 <body>
 
 <div class="avg-weight-box">
-    <h3>Average Child Weight</h3>
+    <h3>Average Child Weight Calculator</h3>
 
     <input type="number"
            id="avgAge"
