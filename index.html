@@ -58,7 +58,7 @@ select {
 }
 
 .search-box{
-    width: 90%;
+    width: 96%;
     margin-bottom: 15px;
     position: relative;
 }
@@ -253,6 +253,14 @@ medicineInput.addEventListener("change", () => {
     calculate();
 });
 
+medicineInput.addEventListener("click", () => {
+    if(medicineInput.value !== ""){
+        medicineInput.value = "";
+        dynamicArea.innerHTML = "";
+        result.innerHTML = "";
+    }
+});
+    
 function renderInputs(){
 
     dynamicArea.innerHTML = "";
