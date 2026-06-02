@@ -311,6 +311,19 @@ input[type=number] {
     display: block;
     margin: 6px auto;
 }
+
+.auto-badge{
+    margin-top:8px;
+    font-size:11px;
+    padding:4px 8px;
+    border-radius:20px;
+    background:#0b63ce;
+    color:white;
+    display:none;
+    width:fit-content;
+    margin-left:auto;
+    margin-right:auto;
+}
     
 </style>
 </head>
@@ -331,6 +344,7 @@ input[type=number] {
                oninput="calculateAverageWeight()">
 
         <div id="avgResult"></div>
+        <div id="autoBadge" class="auto-badge">AUTO weight active</div>
     </div>
 
 </div>
@@ -365,8 +379,8 @@ input[type=number] {
 
 <script>
 
-let selectedWeight = null;
-let weightSource = "auto"; // auto OR manual
+let autoWeight = null;
+let isManualWeight = false;
     
 const medicineInput = document.getElementById("medicine");
 const dynamicArea = document.getElementById("dynamicArea");
@@ -424,8 +438,9 @@ function renderInputs(){
     <label>⚖️ Enter Weight</label>
     <input type="number"
        id="weight"
-       oninput="setManualWeight(this.value)"
-       placeholder="kg">
+       step="0.1"
+       placeholder="kg"
+       oninput="setManualWeight(); calculate();">
 </div>
 `;
 
@@ -476,18 +491,17 @@ function showAgeInput(){
     
 }
 
-function setManualWeight(value){
-    if(value === "" || isNaN(value)){
-        selectedWeight = null;
-        weightSource = "auto";
-        calculate();
-        return;
+function setManualWeight(){
+
+    let weightInput = document.getElementById("weight");
+
+    if(weightInput.value !== ""){
+        isManualWeight = true;
+        autoWeight = null;
+
+        // ❌ hide badge when manual override
+        document.getElementById("autoBadge").style.display = "none";
     }
-
-    selectedWeight = parseFloat(value);
-    weightSource = "manual";
-
-    calculate();
 }
     
 function calculate(){
@@ -800,26 +814,35 @@ function calculateAverageWeight(){
 
     let age = parseFloat(document.getElementById("avgAge").value);
     let resultBox = document.getElementById("avgResult");
+    let weightInput = document.getElementById("weight");
 
     if(isNaN(age)){
         resultBox.innerHTML = "";
+        autoWeight = null;
         return;
     }
 
     if (age < 1 || age > 10) {
-    resultBox.innerHTML =
-    "<span style='color:#b30000'>Used for 1 to 10 years old</span>";
-    return;
-}
+        resultBox.innerHTML =
+        "<span style='color:#b30000'>Used for 1 to 10 years old</span>";
+        autoWeight = null;
+        return;
+    }
 
     let weight = (age * 2) + 8;
+    autoWeight = weight;
+    document.getElementById("autoBadge").style.display = "inline-block";
+    document.getElementById("autoBadge").style.display = "none";
+    document.getElementById("autoBadge").style.display = "none";
 
-document.dispatchEvent(new CustomEvent("autoWeightUpdate", {
-    detail: weight
-}));
+    resultBox.innerHTML =
+    "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
 
-resultBox.innerHTML =
-"Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
+    // ✅ AUTO SHOW IN INPUT (only if user didn't override)
+    if(weightInput && !isManualWeight){
+        weightInput.value = weight.toFixed(1);
+        calculate();
+    }
 }
 
 let isCollapsed = false;
@@ -839,6 +862,22 @@ function toggleAvgBox(){
     }
 }
 
+document.addEventListener("click", function(e){
+
+    let box = document.querySelector(".container");
+    let weightInput = document.getElementById("weight");
+
+    if(!weightInput) return;
+
+    // if click inside weight input → clear everything and allow fresh manual entry
+    if(weightInput.contains(e.target)){
+        weightInput.value = "";
+        isManualWeight = false;
+        autoWeight = null;
+        result.innerHTML = "";
+    }
+});
+    
 document.addEventListener("autoWeightUpdate", function(e){
     selectedWeight = e.detail;
     weightSource = "auto";
