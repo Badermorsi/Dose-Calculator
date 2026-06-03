@@ -369,6 +369,7 @@ input[type=number] {
 <option value="Brufen Syrup (Ibuprofen)">
 <option value="Iburon Suppository (Ibuprofen)">
 <option value="Dompy Syrup (Domperidone)">
+<option value="Nomit Syrup (Ondansetron)">
 <option value="Zyrtec / Cetralon Syrup (Cetrizine)">
 <option value="Zyrtec Drops (Cetrizine)">
 </datalist>
@@ -421,8 +422,9 @@ function renderInputs(){
         "Adol Suppository (Paracetamol)",
         "Panadol 240mg/5ml Syrup (Paracetamol)",
         "Brufen Syrup (Ibuprofen)",
-        "Iburon Suppository (Ibuprofen)",
-        "Dompy Syrup (Domperidone)"
+        "Iburon Suppository (Ibuprofen)"
+        "Dompy Syrup (Domperidone)",
+        "Nomit Syrup (Ondansetron)"
     ].includes(med))
     {
         let html="";
@@ -760,7 +762,17 @@ else if(med==="Dompy Syrup (Domperidone)"){
     </div>
     `;
 }
-        
+else if(med==="Nomit Syrup (Ondansetron)"){
+
+    let dose = (0.15 * w).toFixed(1);
+
+    text = `
+    <div class="dose-box single-dose">
+        <div class="dose-value">${dose} mL</div>
+        <div class="dose-note">Q8hr for 3 days</div>
+    </div>
+      `;
+}        
        result.innerHTML=text;
     }
 
