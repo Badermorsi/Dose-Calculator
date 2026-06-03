@@ -420,7 +420,8 @@ function renderInputs(){
         "Adol Suppository (Paracetamol)",
         "Panadol 240mg/5ml Syrup (Paracetamol)",
         "Brufen Syrup (Ibuprofen)",
-        "Iburon Suppository (Ibuprofen)"
+        "Iburon Suppository (Ibuprofen)",
+        "Dompy Syrup (Domperidone)"
     ].includes(med))
     {
         let html="";
@@ -741,9 +742,24 @@ function calculate(){
         </div>
         `;
     }
+
+else if(med==="Dompy Syrup (Domperidone)"){
+
+    let dose = (0.25 * w).toFixed(1);
+
+    text = `
+    <div class="dose-box single-dose">
+        <div class="dose-value">${dose} mL</div>
+        <div class="dose-note">Q8hr before food</div>
+    </div>
+
+    <div class="warning-box" style="margin-top:10px;">
+        Written in pamphlet: Above 12 years old
+    </div>
+    `;
 }
         
-        result.innerHTML=text;
+       result.innerHTML=text;
     }
 
     // AGE BASED
