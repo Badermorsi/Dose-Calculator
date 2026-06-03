@@ -367,6 +367,7 @@ input[type=number] {
 <option value="Adol Suppository (Paracetamol)">
 <option value="Panadol 240mg/5ml Syrup (Paracetamol)">
 <option value="Brufen Syrup (Ibuprofen)">
+<option value="Iburon Suppository (Ibuprofen)">
 <option value="Zyrtec / Cetralon Syrup (Cetrizine)">
 <option value="Zyrtec Drops (Cetrizine)">
 </datalist>
@@ -418,7 +419,8 @@ function renderInputs(){
         "Adol Drops (Paracetamol)",
         "Adol Suppository (Paracetamol)",
         "Panadol 240mg/5ml Syrup (Paracetamol)",
-        "Brufen Syrup (Ibuprofen)"
+        "Brufen Syrup (Ibuprofen)",
+        "Iburon Suppository (Ibuprofen)"
     ].includes(med))
     {
         let html="";
@@ -709,6 +711,38 @@ function calculate(){
 </div>
 `;
 }
+
+        else if(med==="Iburon Suppository (Ibuprofen)"){
+
+    let dose = 10 * w;
+
+    if(dose < 75){
+    text = `
+    <div class="warning-box">
+        ❌ Not suitable for Iburon Suppository
+        <div style="font-size:12px; margin-top:6px; font-weight:normal;">
+                   </div>
+    </div>
+    `;
+}
+    else if(dose < 150){
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Iburon 75 mg</div>
+            <div class="dose-note">Suppository Q8hr</div>
+        </div>
+        `;
+    }
+    else if(dose > 149){
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Iburon 150 mg</div>
+            <div class="dose-note">Suppository Q8hr</div>
+        </div>
+        `;
+    }
+}
+        
         result.innerHTML=text;
     }
 
@@ -738,7 +772,7 @@ function calculate(){
             if(months<24){
                 result.innerHTML=`
                 <div class="warning-box">
-                Not recommended unless prescribed by a doctor
+                Not recommended unless prescribed by a doctor (Above 2 years old)
                 </div>
                 `;
                 return;
@@ -775,7 +809,7 @@ function calculate(){
             if(months<6){
                 result.innerHTML=`
                 <div class="warning-box">
-                Not recommended unless prescribed by a doctor
+                Not recommended unless prescribed by a doctor (Above 6 month)
                 </div>
                 `;
                 return;
