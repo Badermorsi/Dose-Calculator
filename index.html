@@ -369,6 +369,7 @@ input[type=number] {
 <option value="Brufen Syrup (Ibuprofen)">
 <option value="Iburon Suppository (Ibuprofen)">
 <option value="Dompy Syrup (Domperidone)">
+<option value="Hidrasec / Diasec Sachets (Racecadotril)">
 <option value="Nomit Syrup (Ondansetron)">
 <option value="Zyrtec / Cetralon Syrup (Cetrizine)">
 <option value="Zyrtec Drops (Cetrizine)">
@@ -423,6 +424,7 @@ function renderInputs(){
         "Panadol 240mg/5ml Syrup (Paracetamol)",
         "Brufen Syrup (Ibuprofen)",
         "Iburon Suppository (Ibuprofen)",
+        "Hidrasec / Diasec Sachets (Racecadotril)",
         "Dompy Syrup (Domperidone)",
         "Nomit Syrup (Ondansetron)"
     ].includes(med))
@@ -747,6 +749,61 @@ function calculate(){
     }
 }        
 
+        else if(med==="Hidrasec / Diasec Sachets (Racecadotril)"){
+
+    let dose = w;
+
+    if(dose < 9){
+         text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Hidrasec 10 mg</div>
+            <div class="dose-note">1 sachet TID<br>Dissolve in 10-15 ml (water or milk)</div>
+        </div>
+        
+        <div class="warning-box" style="margin-top:10px;">
+       Used for 5-7 days (ADD ORS)
+        </div>
+           `;
+}
+    else if(dose < 13){
+         text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Hidrasec 10 mg</div>
+            <div class="dose-note">2 sachets TID<br>Dissolve in 10-15 ml (water or milk)</div>
+        </div>
+        
+        <div class="warning-box" style="margin-top:10px;">
+       Used for 5-7 days (ADD ORS)
+        </div>
+           `;
+    }
+    else if(dose <= 27){
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Hidrasec 30 mg</div>
+            <div class="dose-note">1 sachet TID<br>Dissolve in 10-15 ml (water or milk)</div>
+        </div>
+        
+        <div class="warning-box" style="margin-top:10px;">
+       Used for 5-7 days (ADD ORS)
+        </div>
+           `;
+    }
+    else{
+       text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">Hidrasec 30 mg</div>
+            <div class="dose-note">2 sachets TID<br>Dissolve in 10-15 ml (water or milk)</div>
+        </div>
+        
+        <div class="warning-box" style="margin-top:10px;">
+       Used for 5-7 days (ADD ORS)
+        </div>
+           `;
+    }
+}
+
+            
 else if(med==="Dompy Syrup (Domperidone)"){
 
     let dose = (0.25 * w).toFixed(1);
