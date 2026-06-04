@@ -998,18 +998,21 @@ function calculateAverageWeight(){
         return;
     }
 
-    let weight = (age * 2) + 8;
+    // RESET MANUAL MODE
+    isManualWeight = false;
 
+    let weight = (age * 2) + 8;
     autoWeight = weight;
 
     resultBox.innerHTML =
     "Average Weight: <b>" + weight.toFixed(1) + " kg</b>";
 
-    // show auto badge
-    document.getElementById("autoBadge").style.display = "inline-block";
+    let badge = document.getElementById("autoBadge");
+    badge.style.display = "inline-block";
+    badge.textContent = "AUTO weight active";
+    badge.style.background = "#0b63ce";
 
-    // AUTO fill only if not manually edited
-    if(weightInput && !isManualWeight){
+    if(weightInput){
         weightInput.value = weight.toFixed(1);
         calculate();
     }
