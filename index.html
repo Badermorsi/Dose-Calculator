@@ -812,18 +812,20 @@ function calculate(){
             
 else if(med==="Dompy Syrup (Domperidone)"){
 
-    let dose = (0.25 * w).toFixed(1);
+    let doseText;
+
+    if(w >= 35){
+        doseText = "10 mL";
+    } else {
+        doseText = (0.25 * w).toFixed(1) + " mL";
+    }
 
     text = `
     <div class="dose-box single-dose">
-        <div class="dose-value">${dose} mL</div>
+        <div class="dose-value">${doseText}</div>
         <div class="dose-note">Q8hr before food</div>
     </div>
-
-    <div class="warning-box" style="margin-top:10px;">
-        Written in pamphlet: Above 12 years old
-    </div>
-    `;
+       `;
 }
 else if(med==="Nomit Syrup (Ondansetron)"){
 
