@@ -373,7 +373,8 @@ input[type=number] {
 <option value="Nomit Syrup (Ondansetron)">
 <option value="Zyrtec / Cetralon Syrup (Cetrizine)">
 <option value="Zyrtec Drops (Cetrizine)">
-<option value="Fenistil Drops (Dimetindene maleate)">   
+<option value="Fenistil Drops (Dimetindene maleate)">
+<option value="Sinecod Syrup (Butamirate)">   
 </datalist>
 
 <div id="dynamicArea"></div>
@@ -460,7 +461,8 @@ function renderInputs(){
     else if(
         med==="Zyrtec / Cetralon Syrup (Cetrizine)" ||
         med==="Zyrtec Drops (Cetrizine)" ||
-        med==="Fenistil Drops (Dimetindene maleate)"
+        med==="Fenistil Drops (Dimetindene maleate)" ||
+        med==="Sinecod Syrup (Butamirate)"
     )
     {
         dynamicArea.innerHTML=`
@@ -970,6 +972,39 @@ else if(med==="Nomit Syrup (Ondansetron)"){
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">20-40 drops TID</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Sinecod Syrup (Butamirate)"){
+
+            if(months<36){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 3 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 ml TID</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 ml TID</div>
 </div>
 `;
             }
