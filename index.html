@@ -375,7 +375,8 @@ input[type=number] {
 <option value="Zyrtec Drops (Cetrizine)">
 <option value="Fenistil Drops (Dimetindene maleate)">
 <option value="Sinecod Syrup (Butamirate)">
-<option value="Sinecod Drops (Butamirate)">   
+<option value="Sinecod Drops (Butamirate)">
+<option value="Duphalac / Soflax Syrup (Lactulose)">   
 </datalist>
 
 <div id="dynamicArea"></div>
@@ -464,7 +465,9 @@ function renderInputs(){
         med==="Zyrtec Drops (Cetrizine)" ||
         med==="Fenistil Drops (Dimetindene maleate)" ||
         med==="Sinecod Syrup (Butamirate)" ||
-        med==="Sinecod Drops (Butamirate)"
+        med==="Sinecod Drops (Butamirate)" ||
+        med==="Duphalac / Soflax Syrup (Lactulose)"
+
     )
     {
         dynamicArea.innerHTML=`
@@ -1049,6 +1052,38 @@ else if(med==="Nomit Syrup (Ondansetron)"){
 <div class="dose-box single-dose">
     <div class="dose-value">25 drops QID</div>
     <div class="dose-note">Used for 7 days (preferred before meals)</div>
+</div>
+`;
+            }
+        }
+
+    else if(med==="Duphalac / Soflax Syrup (Lactulose)"){
+
+            if(months<12){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">Upto 5 ml OD</div>
+</div>
+`;
+            }
+            else if(months<84){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5-10 ml OD</div>
+</div>
+`;
+            }
+            else if(months<180){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10-15 ml OD</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15-45 ml OD</div>
 </div>
 `;
             }
