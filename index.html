@@ -324,6 +324,10 @@ input[type=number] {
     transition: all 0.25s ease;
 }
 
+#avgContent {
+    display: none;
+}
+    
 .avg-weight-box.collapsed .avg-body{
     display: none;
 }
@@ -1279,8 +1283,7 @@ function calculateAverageWeight(){
     }
 }
 
-let isCollapsed = false;
-
+let isCollapsed = true;
 function toggleAvgBox(){
     const content = document.getElementById("avgContent");
     const arrow = document.getElementById("arrow");
@@ -1372,6 +1375,8 @@ function toggleMounjaroBox(){
         arrow.innerHTML = "▼";
     }
 }
+
+document.getElementById("arrow").innerHTML = "▶";
     
 </script>
 
