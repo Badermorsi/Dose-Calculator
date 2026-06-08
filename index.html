@@ -236,6 +236,12 @@ input[type=number] {
     transition: all 0.25s ease;
 }
 
+#mounjaroBody{
+    display: none;
+    margin-top: 10px;
+    transition: all 0.25s ease;
+}
+    
 .result-box{
     margin-top: 12px;
     font-size: 16px;
@@ -312,6 +318,7 @@ input[type=number] {
 }
 
 .avg-body{
+    display: none;    
     margin-top: 10px;
     transition: all 0.25s ease;
 }
@@ -374,11 +381,11 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box" id="mounjaroBox">
 
-    <h3 onclick="toggleMounjaroBox()" style="cursor:pointer;">
-        Mounjaro Clicks <span id="mounjaroArrow">▼</span>
-    </h3>
+    <div class="avg-header" onclick="openMounjaro()">
+        <h3>Mounjaro Clicks <span id="mounjaroArrow">▼</span></h3>
+    </div>
 
-    <div id="mounjaroContent">
+    <div class="avg-body" id="mounjaroBody">
 
         <label>Mounjaro Pen Strength</label>
         <select id="penStrength" onchange="calculateMounjaroClicks()">
@@ -1343,17 +1350,19 @@ function calculateMounjaroClicks(){
     resultBox.innerHTML = `= ${clicks} clicks`;
 }
 
+let mounjaroCollapsed = false;
+
 function toggleMounjaroBox(){
 
-    const content = document.getElementById("mounjaroContent");
+    const box = document.getElementById("mounjaroBox");
+    const body = document.getElementById("mounjaroBody");
     const arrow = document.getElementById("mounjaroArrow");
 
     mounjaroCollapsed = !mounjaroCollapsed;
 
     if(mounjaroCollapsed){
 
-        // hide
-        content.style.display = "none";
+        box.classList.add("collapsed");
         arrow.innerHTML = "▶";
 
         // RESET ALL VALUES
@@ -1361,10 +1370,9 @@ function toggleMounjaroBox(){
         document.getElementById("doseRequired").value = "";
         document.getElementById("mounjaroResult").innerHTML = "";
 
-    }else{
+    } else {
 
-        // show
-        content.style.display = "block";
+        box.classList.remove("collapsed");
         arrow.innerHTML = "▼";
     }
 }
