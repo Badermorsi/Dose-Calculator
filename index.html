@@ -349,6 +349,49 @@ input[type=number] {
 
 </div>
 
+<div class="avg-weight-box" id="mounjaroBox" style="top:15px; left:270px;">
+
+    <h3 onclick="toggleMounjaroBox()" style="cursor:pointer;">
+        Mounjaro Clicks <span id="mounjaroArrow">▼</span>
+    </h3>
+
+    <div id="mounjaroContent">
+
+        <label>Mounjaro Pen Strength</label>
+        <select id="penStrength" onchange="calculateMounjaroClicks()">
+            <option value="">Select</option>
+            <option value="2.5">2.5 mg</option>
+            <option value="5">5 mg</option>
+            <option value="7.5">7.5 mg</option>
+            <option value="10">10 mg</option>
+            <option value="12.5">12.5 mg</option>
+            <option value="15">15 mg</option>
+        </select>
+
+        <br><br>
+
+        <label>Dose Required</label>
+        <select id="doseRequired" onchange="calculateMounjaroClicks()">
+            <option value="">Select</option>
+            <option value="2.5">2.5 mg</option>
+            <option value="5">5 mg</option>
+            <option value="7.5">7.5 mg</option>
+            <option value="10">10 mg</option>
+            <option value="12.5">12.5 mg</option>
+            <option value="15">15 mg</option>
+        </select>
+
+        <div id="mounjaroResult" style="
+            margin-top:12px;
+            font-size:16px;
+            font-weight:bold;
+            color:#0b63ce;
+        "></div>
+
+    </div>
+
+</div>
+    
 <div class="container">
     
 <h2>Dose Calculator</h2>
@@ -1261,6 +1304,40 @@ document.addEventListener("click", function (event) {
     arrow.innerHTML = "▶";
     isCollapsed = true;
 });
+
+function calculateMounjaroClicks(){
+
+    let pen = parseFloat(document.getElementById("penStrength").value);
+    let dose = parseFloat(document.getElementById("doseRequired").value);
+
+    if(isNaN(pen) || isNaN(dose)){
+        document.getElementById("mounjaroResult").innerHTML = "";
+        return;
+    }
+
+    let clicks = (dose * 60 / pen).toFixed(0);
+
+    document.getElementById("mounjaroResult").innerHTML =
+        "= " + clicks + " clicks";
+}
+
+let mounjaroCollapsed = false;
+
+function toggleMounjaroBox(){
+
+    const content = document.getElementById("mounjaroContent");
+    const arrow = document.getElementById("mounjaroArrow");
+
+    mounjaroCollapsed = !mounjaroCollapsed;
+
+    if(mounjaroCollapsed){
+        content.style.display = "none";
+        arrow.innerHTML = "▶";
+    }else{
+        content.style.display = "block";
+        arrow.innerHTML = "▼";
+    }
+}
     
 </script>
 
