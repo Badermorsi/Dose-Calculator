@@ -376,7 +376,9 @@ input[type=number] {
 <option value="Fenistil Drops (Dimetindene maleate)">
 <option value="Sinecod Syrup (Butamirate)">
 <option value="Sinecod Drops (Butamirate)">
-<option value="Duphalac / Soflax Syrup (Lactulose)">   
+<option value="Duphalac / Soflax Syrup (Lactulose)">
+<option value="Mucum / Ambolar (Ambroxol 15mg/5ml)">
+<option value="Mucosolvan (Ambroxol 30mg/5ml)">   
 </datalist>
 
 <div id="dynamicArea"></div>
@@ -466,7 +468,9 @@ function renderInputs(){
         med==="Fenistil Drops (Dimetindene maleate)" ||
         med==="Sinecod Syrup (Butamirate)" ||
         med==="Sinecod Drops (Butamirate)" ||
-        med==="Duphalac / Soflax Syrup (Lactulose)"
+        med==="Duphalac / Soflax Syrup (Lactulose)" ||
+        med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
+        med==="Mucosolvan (Ambroxol 30mg/5ml)"
 
     )
     {
@@ -1084,6 +1088,78 @@ else if(med==="Nomit Syrup (Ondansetron)"){
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">15-45 ml OD</div>
+</div>
+`;
+            }
+        }
+
+ else if(med==="Mucum / Ambolar (Ambroxol 15mg/5ml)"){
+
+            if(months<24){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 ml BID</div>
+</div>
+
+<div class="warning-box" style="margin-top:10px;">
+Use under medical supervision below 2 years old
+</div>
+`;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 ml TID</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID/div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 ml TID</div>
+</div>
+`;
+            }
+        }
+
+ else if(med==="Mucosolvan (Ambroxol 30mg/5ml)"){
+
+            if(months<24){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">1.25 ml BID</div>
+</div>
+
+<div class="warning-box" style="margin-top:10px;">
+Use under medical supervision below 2 years old
+</div>
+`;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">1.25 ml TID</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 ml TID/div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID</div>
 </div>
 `;
             }
