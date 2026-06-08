@@ -230,6 +230,18 @@ input[type=number] {
 
     z-index: 1000;
 }
+
+#mounjaroContent{
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+.result-box{
+    margin-top: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #0b63ce;
+}
     
 /* TITLE (smaller + cleaner) */
 .avg-weight-box h3{
@@ -362,41 +374,41 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box" id="mounjaroBox">
 
-        <h3 onclick="toggleMounjaroBox()" style="cursor:pointer;">
-            Mounjaro Clicks <span id="mounjaroArrow">▼</span>
-        </h3>
+    <h3 onclick="toggleMounjaroBox()" style="cursor:pointer;">
+        Mounjaro Clicks <span id="mounjaroArrow">▼</span>
+    </h3>
 
-        <div id="mounjaroContent">
+    <div id="mounjaroContent">
 
-            <label>Mounjaro Pen Strength</label>
-            <select id="penStrength" onchange="calculateMounjaroClicks()">
-                <option value="">Select</option>
-                <option value="2.5">2.5 mg</option>
-                <option value="5">5 mg</option>
-                <option value="7.5">7.5 mg</option>
-                <option value="10">10 mg</option>
-                <option value="12.5">12.5 mg</option>
-                <option value="15">15 mg</option>
-            </select>
+        <label>Mounjaro Pen Strength</label>
+        <select id="penStrength" onchange="calculateMounjaroClicks()">
+            <option value="">Select</option>
+            <option value="2.5">2.5 mg</option>
+            <option value="5">5 mg</option>
+            <option value="7.5">7.5 mg</option>
+            <option value="10">10 mg</option>
+            <option value="12.5">12.5 mg</option>
+            <option value="15">15 mg</option>
+        </select>
 
-            <br><br>
+        <br><br>
 
-            <label>Dose Required</label>
-            <select id="doseRequired" onchange="calculateMounjaroClicks()">
-                <option value="">Select</option>
-                <option value="2.5">2.5 mg</option>
-                <option value="5">5 mg</option>
-                <option value="7.5">7.5 mg</option>
-                <option value="10">10 mg</option>
-                <option value="12.5">12.5 mg</option>
-                <option value="15">15 mg</option>
-            </select>
+        <label>Dose Required</label>
+        <select id="doseRequired" onchange="calculateMounjaroClicks()">
+            <option value="">Select</option>
+            <option value="2.5">2.5 mg</option>
+            <option value="5">5 mg</option>
+            <option value="7.5">7.5 mg</option>
+            <option value="10">10 mg</option>
+            <option value="12.5">12.5 mg</option>
+            <option value="15">15 mg</option>
+        </select>
 
-            <div id="mounjaroResult"></div>
+        <div id="mounjaroResult" class="result-box"></div>
 
-        </div>
     </div>
-
+</div>
+    
 </div>
 
 <div class="container">
@@ -1311,6 +1323,51 @@ document.addEventListener("click", function (event) {
     arrow.innerHTML = "▶";
     isCollapsed = true;
 });
+
+let mounjaroCollapsed = false;
+
+function calculateMounjaroClicks(){
+
+    let pen = parseFloat(document.getElementById("penStrength").value);
+    let dose = parseFloat(document.getElementById("doseRequired").value);
+
+    let resultBox = document.getElementById("mounjaroResult");
+
+    if(isNaN(pen) || isNaN(dose)){
+        resultBox.innerHTML = "";
+        return;
+    }
+
+    let clicks = (dose * 60 / pen).toFixed(0);
+
+    resultBox.innerHTML = `= ${clicks} clicks`;
+}
+
+function toggleMounjaroBox(){
+
+    const content = document.getElementById("mounjaroContent");
+    const arrow = document.getElementById("mounjaroArrow");
+
+    mounjaroCollapsed = !mounjaroCollapsed;
+
+    if(mounjaroCollapsed){
+
+        // hide
+        content.style.display = "none";
+        arrow.innerHTML = "▶";
+
+        // RESET ALL VALUES
+        document.getElementById("penStrength").value = "";
+        document.getElementById("doseRequired").value = "";
+        document.getElementById("mounjaroResult").innerHTML = "";
+
+    }else{
+
+        // show
+        content.style.display = "block";
+        arrow.innerHTML = "▼";
+    }
+}
     
 </script>
 
