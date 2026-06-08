@@ -237,9 +237,12 @@ input[type=number] {
 }
 
 #mounjaroBody{
-    display: none;
     margin-top: 10px;
-    transition: all 0.25s ease;
+}
+
+.avg-weight-box.collapsed .avg-body,
+.avg-weight-box.collapsed #mounjaroBody{
+    display: none;
 }
     
 .result-box{
@@ -318,7 +321,6 @@ input[type=number] {
 }
 
 .avg-body{
-    display: none;    
     margin-top: 10px;
     transition: all 0.25s ease;
 }
@@ -379,41 +381,43 @@ input[type=number] {
     </div>
 
     <!-- 2. Mounjaro Clicks -->
-    <div class="avg-weight-box" id="mounjaroBox">
+    <div class="avg-weight-box collapsed" id="mounjaroBox">
 
-    <div class="avg-header" onclick="openMounjaro()">
-        <h3>Mounjaro Clicks <span id="mounjaroArrow">▼</span></h3>
+        <div class="avg-header" onclick="toggleMounjaroBox()">
+            <h3>Mounjaro Clicks <span id="mounjaroArrow">▶</span></h3>
+        </div>
+
+        <div class="avg-body" id="mounjaroBody">
+
+            <label>Mounjaro Pen Strength</label>
+            <select id="penStrength" onchange="calculateMounjaroClicks()">
+                <option value="">Select</option>
+                <option value="2.5">2.5 mg</option>
+                <option value="5">5 mg</option>
+                <option value="7.5">7.5 mg</option>
+                <option value="10">10 mg</option>
+                <option value="12.5">12.5 mg</option>
+                <option value="15">15 mg</option>
+            </select>
+
+            <br><br>
+
+            <label>Dose Required</label>
+            <select id="doseRequired" onchange="calculateMounjaroClicks()">
+                <option value="">Select</option>
+                <option value="2.5">2.5 mg</option>
+                <option value="5">5 mg</option>
+                <option value="7.5">7.5 mg</option>
+                <option value="10">10 mg</option>
+                <option value="12.5">12.5 mg</option>
+                <option value="15">15 mg</option>
+            </select>
+
+            <div id="mounjaroResult" class="result-box"></div>
+
+        </div>
     </div>
 
-    <div class="avg-body" id="mounjaroBody">
-
-        <label>Mounjaro Pen Strength</label>
-        <select id="penStrength" onchange="calculateMounjaroClicks()">
-            <option value="">Select</option>
-            <option value="2.5">2.5 mg</option>
-            <option value="5">5 mg</option>
-            <option value="7.5">7.5 mg</option>
-            <option value="10">10 mg</option>
-            <option value="12.5">12.5 mg</option>
-            <option value="15">15 mg</option>
-        </select>
-
-        <br><br>
-
-        <label>Dose Required</label>
-        <select id="doseRequired" onchange="calculateMounjaroClicks()">
-            <option value="">Select</option>
-            <option value="2.5">2.5 mg</option>
-            <option value="5">5 mg</option>
-            <option value="7.5">7.5 mg</option>
-            <option value="10">10 mg</option>
-            <option value="12.5">12.5 mg</option>
-            <option value="15">15 mg</option>
-        </select>
-
-        <div id="mounjaroResult" class="result-box"></div>
-
-    </div>
 </div>
     
 </div>
@@ -1350,28 +1354,24 @@ function calculateMounjaroClicks(){
     resultBox.innerHTML = `= ${clicks} clicks`;
 }
 
-let mounjaroCollapsed = false;
+let mounjaroCollapsed = true; // start collapsed
 
 function toggleMounjaroBox(){
 
     const box = document.getElementById("mounjaroBox");
-    const body = document.getElementById("mounjaroBody");
     const arrow = document.getElementById("mounjaroArrow");
 
     mounjaroCollapsed = !mounjaroCollapsed;
 
     if(mounjaroCollapsed){
-
         box.classList.add("collapsed");
         arrow.innerHTML = "▶";
 
-        // RESET ALL VALUES
+        // RESET
         document.getElementById("penStrength").value = "";
         document.getElementById("doseRequired").value = "";
         document.getElementById("mounjaroResult").innerHTML = "";
-
     } else {
-
         box.classList.remove("collapsed");
         arrow.innerHTML = "▼";
     }
