@@ -239,10 +239,6 @@ input[type=number] {
 #mounjaroBody{
     margin-top: 10px;
 }
-
-.avg-weight-box.collapsed .avg-body{
-    display: none;
-}
     
 .result-box{
     margin-top: 12px;
@@ -323,11 +319,7 @@ input[type=number] {
     margin-top: 10px;
     transition: all 0.25s ease;
 }
-
-#avgContent {
-    display: none;
-}
-    
+   
 .avg-weight-box.collapsed .avg-body{
     display: none;
 }
@@ -370,8 +362,8 @@ input[type=number] {
             Average weight calculator <span id="arrow">▼</span>
         </h3>
 
-        <div id="avgContent">
-            <label>Age (years)</label>
+    <div class="avg-body" id="avgContent">            
+    <label>Age (years)</label>
             <input type="number"
                    id="avgAge"
                    placeholder="Enter age"
@@ -1303,7 +1295,6 @@ function toggleAvgBox(){
         arrow.innerHTML = "▼";
     }
 }
-
 document.addEventListener("focusin", function(e){
     if(e.target && e.target.id === "weight"){
         e.target.value = "";
