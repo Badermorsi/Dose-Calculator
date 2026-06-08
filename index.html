@@ -386,9 +386,13 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box collapsed" id="mounjaroBox">
 
-    <div class="avg-header" onclick="toggleMounjaroBox()">
-        <h3>Mounjaro Clicks <span id="mounjaroArrow">▶</span></h3>
-    </div>
+ <div class="avg-header" onclick="toggleMounjaroBox()">
+
+    <h3>Mounjaro Clicks</h3>
+
+    <span id="mounjaroArrow">▶</span>
+
+</div>
 
     <div class="avg-body" id="mounjaroBody">
             <label>Mounjaro Pen Strength</label>
@@ -1285,16 +1289,17 @@ function calculateAverageWeight(){
 
 let isCollapsed = true;
 function toggleAvgBox(){
-    const content = document.getElementById("avgContent");
+
+    const box = document.getElementById("avgBox");
     const arrow = document.getElementById("arrow");
 
     isCollapsed = !isCollapsed;
 
     if(isCollapsed){
-        content.style.display = "none";
+        box.classList.add("collapsed");
         arrow.innerHTML = "▶";
     } else {
-        content.style.display = "block";
+        box.classList.remove("collapsed");
         arrow.innerHTML = "▼";
     }
 }
@@ -1322,18 +1327,40 @@ document.addEventListener("autoWeightUpdate", function(e){
 
 // 3. Collapse avg box when clicking outside
 document.addEventListener("click", function (event) {
-    const box = document.getElementById("avgBox");
-    const content = document.getElementById("avgContent");
-    const arrow = document.getElementById("arrow");
 
-    if (!box || !content) return;
+    const avgBox = document.getElementById("avgBox");
+    const mounjaroBox = document.getElementById("mounjaroBox");
 
-    if (isCollapsed) return;
-    if (box.contains(event.target)) return;
+    const avgContent = document.getElementById("avgContent");
+    const avgArrow = document.getElementById("arrow");
 
-    content.style.display = "none";
-    arrow.innerHTML = "▶";
-    isCollapsed = true;
+    const mounjaroArrow = document.getElementById("mounjaroArrow");
+
+    // ===== AVG WIDGET =====
+    if (avgBox && !avgBox.contains(event.target)) {
+        if (avgContent && avgContent.style.display === "block") {
+            avgContent.style.display = "none";
+            avgArrow.innerHTML = "▶";
+            isCollapsed = true;
+        }
+    }
+
+    // ===== MOUNJARO WIDGET =====
+    if (mounjaroBox && !mounjaroBox.contains(event.target)) {
+        if (!mounjaroBox.classList.contains("collapsed")) {
+
+            mounjaroBox.classList.add("collapsed");
+            mounjaroCollapsed = true;
+
+            if (mounjaroArrow) mounjaroArrow.innerHTML = "▶";
+
+            // reset values
+            document.getElementById("penStrength").value = "";
+            document.getElementById("doseRequired").value = "";
+            document.getElementById("mounjaroResult").innerHTML = "";
+        }
+    }
+
 });
 
 function calculateMounjaroClicks(){
@@ -1375,8 +1402,6 @@ function toggleMounjaroBox(){
         arrow.innerHTML = "▼";
     }
 }
-
-document.getElementById("arrow").innerHTML = "▶";
     
 </script>
 
