@@ -240,8 +240,7 @@ input[type=number] {
     margin-top: 10px;
 }
 
-.avg-weight-box.collapsed .avg-body,
-.avg-weight-box.collapsed #mounjaroBody{
+.avg-weight-box.collapsed .avg-body{
     display: none;
 }
     
@@ -383,12 +382,11 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box collapsed" id="mounjaroBox">
 
-        <div class="avg-header" onclick="toggleMounjaroBox()">
-            <h3>Mounjaro Clicks <span id="mounjaroArrow">▶</span></h3>
-        </div>
+    <div class="avg-header" onclick="toggleMounjaroBox()">
+        <h3>Mounjaro Clicks <span id="mounjaroArrow">▶</span></h3>
+    </div>
 
-        <div class="avg-body" id="mounjaroBody">
-
+    <div class="avg-body" id="mounjaroBody">
             <label>Mounjaro Pen Strength</label>
             <select id="penStrength" onchange="calculateMounjaroClicks()">
                 <option value="">Select</option>
@@ -1182,14 +1180,14 @@ Use under medical supervision below 2 years old
             else if(months<72){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">2.5 ml TID</div>
+<div class="dose-value">2.5 ml TID</div>
 </div>
 `;
             }
             else if(months<144){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">5 ml TID/div>
+<div class="dose-value">5 ml TID</div>
 </div>
 `;
             }
@@ -1225,7 +1223,7 @@ Use under medical supervision below 2 years old
             else if(months<144){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">2.5 ml TID/div>
+<div class="dose-value">2.5 ml TID</div>
 </div>
 `;
             }
@@ -1334,8 +1332,6 @@ document.addEventListener("click", function (event) {
     arrow.innerHTML = "▶";
     isCollapsed = true;
 });
-
-let mounjaroCollapsed = false;
 
 function calculateMounjaroClicks(){
 
