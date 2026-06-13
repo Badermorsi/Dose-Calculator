@@ -540,6 +540,30 @@ function renderInputs(){
         dynamicArea.innerHTML=html;
     }
 
+else if(med==="Claritine Syrup (Loratadine)"){
+
+    dynamicArea.innerHTML = `
+
+    <div class="small-input-box">
+        <label>🎂 Enter Age</label>
+        <input type="number"
+               id="age"
+               placeholder="Years"
+               oninput="calculate()">
+    </div>
+
+    <div class="small-input-box">
+        <label>⚖️ Enter Weight</label>
+        <input type="number"
+               id="weight"
+               step="0.1"
+               placeholder="kg"
+               oninput="calculate()">
+    </div>
+
+    `;
+}
+        
     // Age Based
     else if(
         med==="Zyrtec / Cetralon Syrup (Cetrizine)" ||
@@ -550,8 +574,7 @@ function renderInputs(){
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)" ||
-        med==="Claritine Syrup (Loratadine)"
+        med==="Mucoplexil (Oxomemazine)"
 
     )
     {
