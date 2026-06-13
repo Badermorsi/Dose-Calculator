@@ -1328,12 +1328,11 @@ else if(med==="Claritine Syrup (Loratadine)"){
     }
 
     if(ageYears >= 12){
-        text = `
+        result.innerHTML = `
         <div class="dose-box single-dose">
             <div class="dose-value">10 mL OD</div>
         </div>
         `;
-        result.innerHTML = text;
         return;
     }
 
