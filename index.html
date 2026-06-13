@@ -454,7 +454,8 @@ input[type=number] {
 <option value="Duphalac / Soflax Syrup (Lactulose)">
 <option value="Mucum / Ambolar (Ambroxol 15mg/5ml)">
 <option value="Mucosolvan (Ambroxol 30mg/5ml)">
-<option value="Mucoplexil (Oxomemazine)">   
+<option value="Mucoplexil Syrup(Oxomemazine)">
+<option value="Claritine Syrup (Loratadine)">
 
 </datalist>
 
@@ -548,7 +549,8 @@ function renderInputs(){
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)"
+        med==="Mucoplexil (Oxomemazine)" ||
+        med==="Claritine Syrup (Loratadine)"
 
     )
     {
@@ -583,11 +585,12 @@ function showAgeInput(){
            id="age"
            step="0.1"
            min="0"
-           oninput="calculate()"
+           oninput="handleClaritineAge(); calculate();"
            placeholder="${ageType === 'months' ? 'Months' : 'Years'}">
 </div>
+
+<div id="claritineWeightArea"></div>
 `;
-    
 }
 
 function setManualWeight(){
@@ -1287,6 +1290,58 @@ Use under medical supervision below 2 years old
     }
 }
 
+else if(med==="Claritine Syrup (Loratadine)"){
+
+    let years = months / 12;
+
+    if(years < 2){
+
+        result.innerHTML = `
+        <div class="warning-box">
+        ❌ Not recommended below 2 years
+        </div>
+        `;
+        return;
+    }
+
+    else if(years >= 12){
+
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
+    }
+
+    else{
+
+        let weight =
+            parseFloat(document.getElementById("claritineWeight")?.value);
+
+        if(isNaN(weight)){
+            result.innerHTML = "";
+            return;
+        }
+
+        if(weight < 30){
+
+            text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL OD</div>
+</div>
+`;
+        }
+        else{
+
+            text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
+        }
+    }
+}    
+
 function calculateAverageWeight(){
 
     let age = parseFloat(document.getElementById("avgAge").value);
@@ -1401,6 +1456,47 @@ document.addEventListener("click", function (event) {
 
 });
 
+function handleClaritineAge(){
+
+    const med = medicineInput.value;
+
+    if(med !== "Claritine Syrup (Loratadine)") return;
+
+    const ageInput = document.getElementById("age");
+    const ageType = document.getElementById("ageType").value;
+    const area = document.getElementById("claritineWeightArea");
+
+    if(!ageInput || !area) return;
+
+    let age = parseFloat(ageInput.value);
+
+    if(isNaN(age)){
+        area.innerHTML = "";
+        return;
+    }
+
+    let years = ageType === "months"
+        ? age / 12
+        : age;
+
+    if(years >= 2 && years < 12){
+
+        area.innerHTML = `
+<div class="small-input-box">
+    <label>⚖️ Enter Weight</label>
+    <input type="number"
+           id="claritineWeight"
+           step="0.1"
+           placeholder="kg"
+           oninput="calculate()">
+</div>
+`;
+    }
+    else{
+        area.innerHTML = "";
+    }
+}
+    
 function calculateMounjaroClicks(){
 
     let pen = parseFloat(document.getElementById("penStrength").value);
