@@ -583,13 +583,40 @@ function showAgeInput(){
            id="age"
            step="0.1"
            min="0"
-           oninput="calculate()"
+           oninput="handleClaritineUI(); calculate()"
            placeholder="${ageType === 'months' ? 'Months' : 'Years'}">
 </div>
+
+<div class="small-input-box" id="claritineWeightBox" style="display:none;">
+    <label>⚖️ Enter Weight</label>
+    <input type="number"
+           id="weight"
+           step="0.1"
+           placeholder="kg"
+           oninput="setManualWeight(); calculate()">
+</div>
 `;
-    
 }
 
+function handleClaritineUI(){
+
+    const med = document.getElementById("medicine").value;
+    if(med !== "Claritine Syrup (Loratadine)") return;
+
+    let age = parseFloat(document.getElementById("age")?.value);
+    let box = document.getElementById("claritineWeightBox");
+
+    if(!box) return;
+
+    // default hide
+    box.style.display = "none";
+
+    // show only 2–11 years
+    if(age >= 2 && age < 12){
+        box.style.display = "block";
+    }
+}
+    
 function setManualWeight(){
 
     let weightInput = document.getElementById("weight");
@@ -1282,6 +1309,45 @@ Use under medical supervision below 2 years old
 `;
             }
         }
+
+else if(med==="Claritine Syrup (Loratadine)"){
+
+    if(months < 24){
+        result.innerHTML=`
+        <div class="warning-box">
+            Not recommended below 2 years
+        </div>`;
+        return;
+    }
+
+    else if(months >= 144){
+
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">10 mL OD</div>
+        </div>`;
+    }
+
+    else{
+
+        let wt = parseFloat(document.getElementById("weight")?.value);
+
+        if(isNaN(wt)) return;
+
+        if(wt >= 30){
+            text = `
+            <div class="dose-box single-dose">
+                <div class="dose-value">10 mL OD</div>
+            </div>`;
+        }
+        else{
+            text = `
+            <div class="dose-box single-dose">
+                <div class="dose-value">5 mL OD</div>
+            </div>`;
+        }
+    }
+}
         
         result.innerHTML=text;
     }
