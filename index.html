@@ -539,30 +539,6 @@ function renderInputs(){
 
         dynamicArea.innerHTML=html;
     }
-
-else if(med==="Claritine Syrup (Loratadine)"){
-
-    dynamicArea.innerHTML = `
-
-    <div class="small-input-box">
-        <label>🎂 Enter Age</label>
-        <input type="number"
-               id="age"
-               placeholder="Years"
-               oninput="calculate()">
-    </div>
-
-    <div class="small-input-box">
-        <label>⚖️ Enter Weight</label>
-        <input type="number"
-               id="weight"
-               step="0.1"
-               placeholder="kg"
-               oninput="calculate()">
-    </div>
-
-    `;
-}
         
     // Age Based
     else if(
@@ -574,7 +550,9 @@ else if(med==="Claritine Syrup (Loratadine)"){
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)"
+        med==="Mucoplexil (Oxomemazine)" ||
+        med==="Claritine Syrup (Loratadine"
+
 
     )
     {
@@ -1311,60 +1289,48 @@ Use under medical supervision below 2 years old
 
 else if(med==="Claritine Syrup (Loratadine)"){
 
-    if(months < 24){
+    dynamicArea.innerHTML = `
 
-        text = `
-        <div class="warning-box red">
-            ❌ Not recommended below 2 years
-        </div>
-        `;
+    <div class="small-input-box">
+        <label>🎂 Enter Age</label>
+        <input type="number"
+               id="age"
+               placeholder="Years"
+               oninput="toggleClaritineWeight(); calculate()">
+    </div>
 
-    }
+    <div class="small-input-box" id="claritineWeightBox" style="display:none;">
+        <label>⚖️ Enter Weight</label>
+        <input type="number"
+               id="weight"
+               step="0.1"
+               placeholder="kg"
+               oninput="setManualWeight(); calculate()">
+    </div>
 
-    else if(months >= 144){   // 12 years and above
-
-        text = `
-        <div class="dose-box single-dose">
-            <div class="dose-value">10 ml OD</div>
-        </div>
-        `;
-    }
-
-    else{   // 2 to <12 years
-
-        if(!wt || wt <= 0){
-
-            text = `
-            <div class="warning-box">
-                Enter weight
-            </div>
-            `;
-        }
-
-        else if(wt >30){
-
-            text = `
-            <div class="dose-box single-dose">
-                <div class="dose-value">10 ml OD</div>
-            </div>
-            `;
-        }
-
-        else{
-
-            text = `
-            <div class="dose-box single-dose">
-                <div class="dose-value">5 ml OD</div>
-            </div>
-            `;
-        }
-    }
+    `;
 }
         
         result.innerHTML=text;
     }
 }
 
+function toggleClaritineWeight(){
+
+    let age = parseFloat(document.getElementById("age")?.value);
+    let weightBox = document.getElementById("claritineWeightBox");
+
+    if(!weightBox) return;
+
+    if(age >= 2 && age < 12){
+        weightBox.style.display = "block";
+    } else {
+        weightBox.style.display = "none";
+    }
+
+    calculate();
+}
+    
 function calculateAverageWeight(){
 
     let age = parseFloat(document.getElementById("avgAge").value);
