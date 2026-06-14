@@ -475,11 +475,10 @@ const medicineInput = document.getElementById("medicine");
 const dynamicArea = document.getElementById("dynamicArea");
 const result = document.getElementById("result");
 
-medicineInput.addEventListener("input", () => {
+medicineInput.addEventListener("change", () => {
     renderInputs();
     calculate();
 });
-
 medicineInput.addEventListener("change", () => {
     renderInputs();
     calculate();
@@ -593,7 +592,7 @@ function showAgeInput(){
 <div class="small-input-box" id="claritineWeightBox" style="display:none;">
     <label>⚖️ Enter Weight</label>
     <input type="number"
-           id="weight"
+           id="claritineWeight"
            step="0.1"
            placeholder="kg"
            oninput="setManualWeight(); calculate()">
@@ -642,12 +641,27 @@ function calculate(){
     // WEIGHT BASED
     if(document.getElementById("weight")) {
 
+
     let weightInput = document.getElementById("weight");
 
-    let w = (autoWeight !== null && autoWeight !== undefined)
-        ? autoWeight
-        : parseFloat(weightInput.value);
+let w = autoWeight;
 
+if (w === null || w === undefined || isNaN(w)) {
+    if (weightInput) {
+        w = parseFloat(weightInput.value);
+    }
+}
+
+let w = autoWeight;
+
+if (w === null || w === undefined || isNaN(w)) {
+    if (weightInput) {
+        w = parseFloat(weightInput.value);
+    }
+}
+
+console.log("weight:", w, "autoWeight:", autoWeight);
+        
     if(isNaN(w)) {
         result.innerHTML = "";
         return;
@@ -959,7 +973,8 @@ else if(med==="Nomit Syrup (Ondansetron)"){
     // AGE BASED
     if(document.getElementById("age")){
 
-        let age=parseFloat(document.getElementById("age").value);
+        let ageInput = document.getElementById("age");
+        let age = ageInput ? parseFloat(ageInput.value) : NaN;
         let ageTypeElement=document.getElementById("ageType");
 
         if(!ageTypeElement) return;
@@ -1339,7 +1354,7 @@ else if(med === "Claritine Syrup (Loratadine)"){
 
     // 👦 2–11 years
     else{
-        let wt = parseFloat(document.getElementById("weight")?.value);
+        let wt = parseFloat(document.getElementById("claritineWeight")?.value);
 
         if(isNaN(wt)){
             text = `
@@ -1426,7 +1441,6 @@ document.addEventListener("focusin", function(e){
     if(e.target && e.target.id === "weight"){
         e.target.value = "";
         isManualWeight = false;
-        autoWeight = null;
         result.innerHTML = "";
 
         let badge = document.getElementById("autoBadge");
