@@ -1079,7 +1079,7 @@ else if(med==="Claritine Syrup (Loratadine)"){
 
         result.innerHTML = `
         <div class="warning-box">
-            Not recommended unless prescribed by a doctor (Above 2 years old)
+                ❌ Not recommended below 2 years
         </div>
         `;
         return;
@@ -1108,7 +1108,7 @@ else if(med==="Claritine Syrup (Loratadine)"){
             return;
         }
 
-        if(w < 30){
+        if(w <= 30){
 
             text = `
 <div class="dose-box single-dose">
