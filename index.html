@@ -484,14 +484,6 @@ medicineInput.addEventListener("change", () => {
     renderInputs();
     calculate();
 });
-
-medicineInput.addEventListener("click", () => {
-    if(medicineInput.value !== ""){
-        medicineInput.value = "";
-        dynamicArea.innerHTML = "";
-        result.innerHTML = "";
-    }
-});
     
 function renderInputs(){
 
