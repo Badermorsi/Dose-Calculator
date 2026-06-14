@@ -509,7 +509,8 @@ function renderInputs(){
         "Iburon Suppository (Ibuprofen)",
         "Hidrasec / Diasec Sachets (Racecadotril)",
         "Dompy Syrup (Domperidone)",
-        "Nomit Syrup (Ondansetron)"
+        "Nomit Syrup (Ondansetron)",
+        "Claritine Syrup (Loratadine)"
     ].includes(med))
     {
         let html="";
@@ -548,7 +549,9 @@ function renderInputs(){
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)"
+        med==="Mucoplexil (Oxomemazine)" ||            
+        med==="Claritine Syrup (Loratadine)"
+
 
     )
     {
@@ -1282,6 +1285,56 @@ Use under medical supervision below 2 years old
 `;
             }
         }
+
+else if(med==="Claritine Syrup (Loratadine)"){
+
+    if(months >= 144){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>`;
+    }
+
+    else if(months >= 24){
+
+        let weightInput = document.getElementById("weight");
+        let w = parseFloat(weightInput ? weightInput.value : NaN);
+
+        // 👇 SHOW WEIGHT INPUT if not yet shown
+        if(!document.getElementById("weight")){
+            dynamicArea.innerHTML += `
+            <div class="small-input-box">
+                <label>⚖️ Enter Weight</label>
+                <input type="number"
+                       id="weight"
+                       step="0.1"
+                       placeholder="kg"
+                       oninput="calculate()">
+            </div>`;
+            return;
+        }
+
+        if(isNaN(w)){
+            result.innerHTML = "";
+            return;
+        }
+
+        let dose = (w > 30) ? "10 mL OD" : "5 mL OD";
+
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">${dose}</div>
+</div>`;
+    }
+
+    else{
+        result.innerHTML = `
+        <div class="warning-box">
+            ❌ Not recommended below 2 years
+        </div>`;
+        return;
+    }
+}
         
         result.innerHTML=text;
     }
