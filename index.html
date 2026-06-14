@@ -498,24 +498,26 @@ function renderInputs(){
     dynamicArea.innerHTML = "";
     result.innerHTML = "";
 
-    const med = medicineInput.value;
-
+const med = medicineInput.value;
+if(!med) return;
+    
      // Weight Based
-    if([
-        "Adol 120mg/5ml Syrup (Paracetamol)",
-        "Adol 250mg/5ml Syrup (Paracetamol)",
-        "Adol Drops (Paracetamol)",
-        "Adol Suppository (Paracetamol)",
-        "Panadol 240mg/5ml Syrup (Paracetamol)",
-        "Brufen Syrup (Ibuprofen)",
-        "Iburon Suppository (Ibuprofen)",
-        "Hidrasec / Diasec Sachets (Racecadotril)",
-        "Dompy Syrup (Domperidone)",
-        "Nomit Syrup (Ondansetron)",
-        "Claritine Syrup (Loratadine)"
-    ].includes(med))
-    {
-        let html="";
+   const weightBasedMeds = [
+    "Adol 120mg/5ml Syrup (Paracetamol)",
+    "Adol 250mg/5ml Syrup (Paracetamol)",
+    "Adol Drops (Paracetamol)",
+    "Adol Suppository (Paracetamol)",
+    "Panadol 240mg/5ml Syrup (Paracetamol)",
+    "Brufen Syrup (Ibuprofen)",
+    "Iburon Suppository (Ibuprofen)",
+    "Hidrasec / Diasec Sachets (Racecadotril)",
+    "Dompy Syrup (Domperidone)",
+    "Nomit Syrup (Ondansetron)",
+    "Claritine Syrup (Loratadine)"
+];
+    
+if (weightBasedMeds.includes(med)) {
+    let html = "";
 
         if(med==="Adol Drops (Paracetamol)"){
             html+=`
@@ -930,10 +932,10 @@ else if(med==="Nomit Syrup (Ondansetron)"){
 }        
        result.innerHTML=text;
     }
-
+    
 // AGE BASED
-if(document.getElementById("age")){
-
+const ageEl = document.getElementById("age");
+if(!ageEl) return;
     let age=parseFloat(document.getElementById("age").value);
     let ageTypeElement=document.getElementById("ageType");
 
@@ -971,23 +973,21 @@ if(document.getElementById("age")){
             return;
         }
 
-        let weightBox = document.getElementById("claritineWeight");
+if(!document.getElementById("claritineWeight")){
+dynamicArea.innerHTML = `
+    <div class="small-input-box" id="claritineWeight">
+        <label>⚖️ Enter Weight</label>
+        <input type="number"
+               id="claritineWeightInput"
+               step="0.1"
+               placeholder="kg"
+               oninput="calculate()">
+    </div>`;
+    return;
+}
 
-        if(!weightBox){
-            dynamicArea.innerHTML += `
-            <div class="small-input-box" id="claritineWeight">
-                <label>⚖️ Enter Weight</label>
-                <input type="number"
-                       id="weight"
-                       step="0.1"
-                       placeholder="kg"
-                       oninput="calculate()">
-            </div>`;
-            return;
-        }
-
-        let w = parseFloat(document.getElementById("weight").value);
-
+let w = parseFloat(document.getElementById("claritineWeightInput").value);
+        
         if(isNaN(w)){
             result.innerHTML = "";
             return;
@@ -1339,8 +1339,9 @@ Use under medical supervision below 2 years old
             }
         }
         
-        result.innerHTML=text;
-    }
+if(text){
+    result.innerHTML = text;
+}    }
 }
 
 function calculateAverageWeight(){
