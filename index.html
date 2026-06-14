@@ -548,8 +548,8 @@ function renderInputs(){
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)"
-
+        med==="Mucoplexil (Oxomemazine)" ||
+        med==="Claritine Syrup (Loratadine)"
     )
     {
         dynamicArea.innerHTML=`
@@ -576,7 +576,7 @@ function showAgeInput(){
         return;
     }
 
-    ageContainer.innerHTML=`
+ageContainer.innerHTML=`
 <div class="small-input-box">
     <label>👶 Enter Age</label>
     <input type="number"
@@ -586,8 +586,9 @@ function showAgeInput(){
            oninput="calculate()"
            placeholder="${ageType === 'months' ? 'Months' : 'Years'}">
 </div>
+
+<div id="claritineWeightContainer"></div>
 `;
-    
 }
 
 function setManualWeight(){
@@ -1066,6 +1067,75 @@ else if(med==="Nomit Syrup (Ondansetron)"){
             }
         }
 
+else if(med==="Claritine Syrup (Loratadine)"){
+
+    let weightDiv = document.getElementById("claritineWeightContainer");
+
+    if(months < 24){
+
+        if(weightDiv) weightDiv.innerHTML = "";
+
+        result.innerHTML = `
+        <div class="warning-box">
+            Not recommended unless prescribed by a doctor (Above 2 years old)
+        </div>
+        `;
+        return;
+    }
+
+    else if(months < 144){
+
+        if(weightDiv && !document.getElementById("claritineWeight")){
+
+            weightDiv.innerHTML = `
+            <div class="small-input-box">
+                <label>⚖️ Enter Weight</label>
+                <input type="number"
+                       id="claritineWeight"
+                       step="0.1"
+                       placeholder="kg"
+                       oninput="calculate()">
+            </div>
+            `;
+        }
+
+        let w = parseFloat(document.getElementById("claritineWeight")?.value);
+
+        if(isNaN(w)){
+            result.innerHTML = "";
+            return;
+        }
+
+        if(w < 30){
+
+            text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL OD</div>
+</div>
+`;
+        }
+        else{
+
+            text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
+        }
+    }
+
+    else{
+
+        if(weightDiv) weightDiv.innerHTML = "";
+
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
+    }
+}
+            
         else if(med==="Sinecod Syrup (Butamirate)"){
 
             if(months<36){
