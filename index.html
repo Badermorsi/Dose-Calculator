@@ -477,12 +477,12 @@ const result = document.getElementById("result");
 
 medicineInput.addEventListener("input", () => {
     renderInputs();
-    calculate();
+    setTimeout(calculate, 0);
 });
 
 medicineInput.addEventListener("change", () => {
     renderInputs();
-    calculate();
+    setTimeout(calculate, 0);
 });
     
 function renderInputs(){
@@ -926,23 +926,19 @@ else if(med==="Nomit Syrup (Ondansetron)"){
     }
     
 // AGE BASED
+const ageTypeElement = document.getElementById("ageType");
 const ageEl = document.getElementById("age");
-if(!ageEl) return;
-    let age=parseFloat(document.getElementById("age").value);
-    let ageTypeElement=document.getElementById("ageType");
 
-    if(!ageTypeElement) return;
+// If no age system exists yet, just skip AGE logic (don’t kill function)
+if(!ageTypeElement || !ageEl) {
+    // still allow weight-based logic to continue if needed
+} else {
+    let age = parseFloat(ageEl.value);
+    let type = ageTypeElement.value;
 
-    let type=ageTypeElement.value;
+    if(type && !isNaN(age)) {
+        let months = (type === "years") ? age * 12 : age;
 
-    if(!type) return;
-
-    if(isNaN(age)){
-        result.innerHTML="";
-        return;
-    }
-
-    let months=(type==="years") ? age*12 : age;
 
     let text="";
 
