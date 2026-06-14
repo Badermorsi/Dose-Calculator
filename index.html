@@ -454,9 +454,7 @@ input[type=number] {
 <option value="Duphalac / Soflax Syrup (Lactulose)">
 <option value="Mucum / Ambolar (Ambroxol 15mg/5ml)">
 <option value="Mucosolvan (Ambroxol 30mg/5ml)">
-<option value="Mucoplexil (Oxomemazine)">
-<option value="Claritine Syrup (Loratadine)">   
-
+<option value="Mucoplexil (Oxomemazine)">   
 
 </datalist>
 
@@ -477,12 +475,20 @@ const result = document.getElementById("result");
 
 medicineInput.addEventListener("input", () => {
     renderInputs();
-    setTimeout(calculate, 0);
+    calculate();
 });
 
 medicineInput.addEventListener("change", () => {
     renderInputs();
-    setTimeout(calculate, 0);
+    calculate();
+});
+
+medicineInput.addEventListener("click", () => {
+    if(medicineInput.value !== ""){
+        medicineInput.value = "";
+        dynamicArea.innerHTML = "";
+        result.innerHTML = "";
+    }
 });
     
 function renderInputs(){
@@ -490,26 +496,23 @@ function renderInputs(){
     dynamicArea.innerHTML = "";
     result.innerHTML = "";
 
-const med = medicineInput.value;
-if(!med) return;
-    
+    const med = medicineInput.value;
+
      // Weight Based
-   const weightBasedMeds = [
-    "Adol 120mg/5ml Syrup (Paracetamol)",
-    "Adol 250mg/5ml Syrup (Paracetamol)",
-    "Adol Drops (Paracetamol)",
-    "Adol Suppository (Paracetamol)",
-    "Panadol 240mg/5ml Syrup (Paracetamol)",
-    "Brufen Syrup (Ibuprofen)",
-    "Iburon Suppository (Ibuprofen)",
-    "Hidrasec / Diasec Sachets (Racecadotril)",
-    "Dompy Syrup (Domperidone)",
-    "Nomit Syrup (Ondansetron)",
-    "Claritine Syrup (Loratadine)"
-];
-    
-if (weightBasedMeds.includes(med)) {
-    let html = "";
+    if([
+        "Adol 120mg/5ml Syrup (Paracetamol)",
+        "Adol 250mg/5ml Syrup (Paracetamol)",
+        "Adol Drops (Paracetamol)",
+        "Adol Suppository (Paracetamol)",
+        "Panadol 240mg/5ml Syrup (Paracetamol)",
+        "Brufen Syrup (Ibuprofen)",
+        "Iburon Suppository (Ibuprofen)",
+        "Hidrasec / Diasec Sachets (Racecadotril)",
+        "Dompy Syrup (Domperidone)",
+        "Nomit Syrup (Ondansetron)"
+    ].includes(med))
+    {
+        let html="";
 
         if(med==="Adol Drops (Paracetamol)"){
             html+=`
@@ -545,9 +548,7 @@ if (weightBasedMeds.includes(med)) {
         med==="Duphalac / Soflax Syrup (Lactulose)" ||
         med==="Mucum / Ambolar (Ambroxol 15mg/5ml)" ||
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
-        med==="Mucoplexil (Oxomemazine)" ||            
-        med==="Claritine Syrup (Loratadine)"
-
+        med==="Mucoplexil (Oxomemazine)"
 
     )
     {
@@ -924,73 +925,28 @@ else if(med==="Nomit Syrup (Ondansetron)"){
 }        
        result.innerHTML=text;
     }
-    
-// AGE BASED
-const ageTypeElement = document.getElementById("ageType");
-const ageEl = document.getElementById("age");
 
-// If no age system exists yet, just skip AGE logic (don’t kill function)
-if(!ageTypeElement || !ageEl) {
-    // still allow weight-based logic to continue if needed
-} else {
-    let age = parseFloat(ageEl.value);
-    let type = ageTypeElement.value;
+    // AGE BASED
+    if(document.getElementById("age")){
 
-    if(type && !isNaN(age)) {
-        let months = (type === "years") ? age * 12 : age;
+        let age=parseFloat(document.getElementById("age").value);
+        let ageTypeElement=document.getElementById("ageType");
 
+        if(!ageTypeElement) return;
 
-    let text="";
+        let type=ageTypeElement.value;
 
-    // ===== CLARITINE (SPECIAL CASE) =====
-    if(med==="Claritine Syrup (Loratadine)"){
+        if(!type) return;
 
-        if(months >= 144){
-            result.innerHTML = `
-            <div class="dose-box single-dose">
-                <div class="dose-value">10 mL OD</div>
-            </div>`;
+        if(isNaN(age)){
+            result.innerHTML="";
             return;
         }
 
-        if(months < 24){
-            result.innerHTML = `
-            <div class="warning-box">
-                ❌ Not recommended below 2 years
-            </div>`;
-            return;
-        }
+        let months=(type==="years") ? age*12 : age;
 
-if(!document.getElementById("claritineWeight")){
-dynamicArea.innerHTML = `
-    <div class="small-input-box" id="claritineWeight">
-        <label>⚖️ Enter Weight</label>
-        <input type="number"
-               id="claritineWeightInput"
-               step="0.1"
-               placeholder="kg"
-               oninput="calculate()">
-    </div>`;
-    return;
-}
+        let text="";
 
-let w = parseFloat(document.getElementById("claritineWeightInput").value);
-        
-        if(isNaN(w)){
-            result.innerHTML = "";
-            return;
-        }
-
-        let dose = (w > 30) ? "10 mL OD" : "5 mL OD";
-
-        result.innerHTML = `
-        <div class="dose-box single-dose">
-            <div class="dose-value">${dose}</div>
-        </div>`;
-
-        return; // ⭐ VERY IMPORTANT
-    }
-        
         if(med==="Zyrtec / Cetralon Syrup (Cetrizine)"){
 
             if(months<24){
@@ -1327,9 +1283,8 @@ Use under medical supervision below 2 years old
             }
         }
         
-if(text){
-    result.innerHTML = text;
-}    }
+        result.innerHTML=text;
+    }
 }
 
 function calculateAverageWeight(){
