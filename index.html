@@ -1568,28 +1568,57 @@ Preferred between meals
 else if(med==="Les Zamis Reflux Drops"){
 
     if(months<7){
+
         text = `
 <div class="dose-box single-dose">
     <div class="dose-value">5 drops (0.5 mL)</div>
     <div class="dose-note special-note">4 to 5 times daily</div>
-<div class="warning-box">
-Preferred 15 minutes before meals
-</div>  
+
+    <div class="warning-box">
+        Preferred 15 minutes before meals
+    </div>
 </div>
 `;
     }
+
     else{
+
+        let minDrops = 5;
+        let maxDrops = 10;
+
+        let minMl = 0.5;
+        let maxMl = 1;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
         text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">5 - 10 drops (0.5 - 1 mL)</div>
-    <div class="dose-note special-note">4 to 5 times daily</div>
 <div class="warning-box">
-Preferred 15 minutes before meals
-</div>  
+    Preferred 15 minutes before meals
+</div>
+
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note special-note">4 to 5 times daily</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note special-note">4 to 5 times daily</div>
+        </div>
+    </div>
+
 </div>
 `;
     }
-}
+        
 
 else if(med==="Les Zamis Constipation Drops"){
 
