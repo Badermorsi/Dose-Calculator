@@ -172,6 +172,12 @@ select:focus {
     white-space:nowrap;
 }
 
+.special-note{
+    font-size:16px;
+    font-weight:700;
+    color:#0057d9;
+}
+    
 /* SINGLE CARD */
 .single-dose{
     max-width:300px;
@@ -1538,7 +1544,7 @@ Use under medical supervision below 2 years old
               text = `
 <div class="dose-box single-dose">
     <div class="dose-value">5 drops (0.5 mL) BID or TID</div>
-<div class="warning-box">
+    <div class="dose-note special-note">
     In Severe cases > Administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
 </div>
 </div>
@@ -1559,7 +1565,8 @@ else if(med==="Les Zamis Reflux Drops"){
         text = `
 <div class="dose-box single-dose">
     <div class="dose-value">5 drops (0.5 mL)</div>
-    <div class="dose-note">QID up to 5 times daily</div>
+    <div class="dose-note special-note">
+QID up to 5 times daily</div>
 <div class="warning-box">
 To be taken 15 minutes before meals</div>  
 </div>
