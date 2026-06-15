@@ -458,6 +458,14 @@ input[type=number] {
 <option value="Claritine Syrup (Loratadine)">
 <option value="Fludrex Syrup">
 <option value="Toulacough Syrup">   
+<option value="Toularynx Thym Syrup">
+<option value="Panacough Syrup">
+<option value="Les Zamis Cough Syrup">   
+<option value="Les Zamis Teething Drops">   
+<option value="Les Zamis Reflux Drops">   
+<option value="Les Zamis Constipation Drops">   
+<option value="Les Zamis Cold & Sinus Drops">   
+<option value="Les Zamis Infant Colic Drops">   
 
 
 </datalist>
@@ -555,8 +563,15 @@ function renderInputs(){
         med==="Mucoplexil (Oxomemazine)" ||
         med==="Claritine Syrup (Loratadine)" ||
         med==="Fludrex Syrup" ||
-        med==="Toulacough Syrup"
-
+        med==="Toulacough Syrup" ||
+        med==="Toularynx Thym Syrup" ||
+        med==="Panacough Syrup" ||
+        med==="Les Zamis Cough Syrup" ||
+        med==="Les Zamis Teething Drops" ||
+        med==="Les Zamis Reflux Drops" ||
+        med==="Les Zamis Constipation Drops" ||
+        med==="Les Zamis Cold & Sinus Drops" ||
+        med==="Les Zamis Infant Colic Drops"
     )
     {
         dynamicArea.innerHTML=`
@@ -1420,6 +1435,245 @@ Use under medical supervision below 2 years old
     <div class="dose-value">15 ml QID</div>
     <div class="dose-note">Used for Dry cough</div>
 </div>
+`;
+            }
+        }
+
+        else if(med==="Toularynx Thym Syrup"){
+
+            if(months<6){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 months
+                </div>
+                `;
+                return;
+            }
+            else if(months<24){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID</div>
+    <div class="dose-note">Used for Productive cough</div>
+
+</div>
+`;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL QID</div>
+    <div class="dose-note">Used for Productive cough</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 ml TID</div>
+    <div class="dose-note">Used for Productive cough</div>
+</div>
+`;    
+          }      
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 ml QID</div>
+    <div class="dose-note">Used for Productive cough</div>
+</div>
+`;
+            }
+        }
+        
+        else if(med==="Panacough Syrup"){
+
+            if(months<72){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 Years
+                </div>
+                `;
+                return;
+            }
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 ml TID</div>
+</div>
+`;
+            }
+        }
+
+ else if(med==="Les Zamis Cough Syrup"){
+
+            if(months<60){
+                    text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL TID or QID</div>
+    <div class="dose-note">To be taken between meals</div>
+
+</div>
+`;
+                }
+      
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL TID (upto 5 times daily)</div>
+    <div class="dose-note">To be taken between meals</div>
+</div>
+`;
+            }
+        }
+
+ else if(med==="Les Zamis Teething Drops"){
+
+            if(months<=24){
+              text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops (0.5 mL) BID or TID</div>
+<div class="warning-box">
+    In Severe cases > Administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+</div>
+`;
+            }
+
+            else{
+                text = `
+<div class="warning-box">
+❌ Used upto 2 years old
+</div>    
+`;
+            }
+        }
+else if(med==="Les Zamis Reflux Drops"){
+
+    if(months<7){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops (0.5 mL) QID (up to 5 times daily)</div>
+    <div class="dose-note">To be taken 15 minutes before meals</div>
+</div>
+`;
+    }
+    else{
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 to 10 drops (0.5 to 1 mL) QID (up to 5 times daily)</div>
+    <div class="dose-note">To be taken 15 minutes before meals</div>
+</div>
+`;
+    }
+}
+
+else if(med==="Les Zamis Constipation Drops"){
+
+    if(months<12){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">1 to 5 drops (0.1 to 0.5 mL)</div>
+    <div class="dose-note">OD upto TID</div>
+    <div class="warning-box">Dropped under tongue or can be mixed with 5 - 10 mL water</div>
+</div>
+`;
+    }
+
+    else if(months<72){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 to 10 drops (0.5 to 1 mL)</div>
+    <div class="dose-note">OD upto TID</div>
+    <div class="warning-box">Dropped under tongue or can be mixed with 5 - 10 mL water</div>
+</div>
+`;
+    }
+
+    else if(months<=132){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 to 15 drops (0.5 to 1.5 mL)</div>
+    <div class="dose-note">OD upto TID</div>
+    <div class="warning-box">Dropped under tongue or can be mixed with 5 - 10 mL water</div>
+</div>
+`;
+    }
+
+    else{
+        text = `
+<div class="warning-box">
+    ❌ Used up to 11 years old
+</div>
+`;
+    }
+}
+
+else if(med==="Les Zamis Cold & Sinus Drops"){
+
+    if(months<=24){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops (0.5 mL) BID or TID</div>
+    <div class="warning-box">
+        In severe cases, administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+    </div>
+</div>
+`;
+    }
+
+    else if(months<=96){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 to 10 drops (0.5 to 1 mL) BID or TID</div>
+    <div class="warning-box">
+        In severe cases, administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+    </div>
+</div>
+`;
+    }
+
+    else if(months<=144){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 to 15 drops (1 to 1.5 mL) BID or TID</div>
+    <div class="warning-box">
+        In severe cases, administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+    </div>
+</div>
+`;
+    }
+
+    else{
+        text = `
+<div class="warning-box">
+    ❌ Used up to 12 years old
+</div>
+`;
+    }
+}
+
+ else if(med==="Les Zamis Infant Colic Drops"){
+
+            if(months<=24){
+              text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 drops (0.5 mL) BID or TID</div>
+<div class="warning-box">
+    In Severe cases > Administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+</div>
+`;
+            }
+
+            else{
+                text = `
+<div class="warning-box">
+❌ Used upto 2 years old
+</div>    
 `;
             }
         }
