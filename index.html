@@ -456,7 +456,9 @@ input[type=number] {
 <option value="Mucosolvan (Ambroxol 30mg/5ml)">
 <option value="Mucoplexil (Oxomemazine)">
 <option value="Claritine Syrup (Loratadine)">
-<option value="Fludrex Syrup">   
+<option value="Fludrex Syrup">
+<option value="Toulacough Syrup">   
+
 
 </datalist>
 
@@ -552,7 +554,9 @@ function renderInputs(){
         med==="Mucosolvan (Ambroxol 30mg/5ml)" ||
         med==="Mucoplexil (Oxomemazine)" ||
         med==="Claritine Syrup (Loratadine)" ||
-        med==="Fludrex Syrup"
+        med==="Fludrex Syrup" ||
+        med==="Toulacough Syrup"
+
     )
     {
         dynamicArea.innerHTML=`
@@ -1374,7 +1378,52 @@ Use under medical supervision below 2 years old
 `;
             }
         }
-                    
+
+        else if(med==="Toulacough Syrup"){
+
+            if(months<6){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 months
+                </div>
+                `;
+                return;
+            }
+            else if(months<12){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 ml TID or QID</div>
+    <div class="dose-note">Used for Dry cough</div>
+
+</div>
+`;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 ml TID or QID</div>
+    <div class="dose-note">Used for Dry cough</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 ml TID or QID</div>
+    <div class="dose-note">Used for Dry cough</div>
+</div>
+`;    
+          }      
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 ml QID</div>
+    <div class="dose-note">Used for Dry cough</div>
+</div>
+`;
+            }
+        }
+        
         result.innerHTML=text;
     }
 }
