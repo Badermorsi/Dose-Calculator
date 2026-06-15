@@ -1592,18 +1592,14 @@ else if(med==="Les Zamis Reflux Drops"){
         let min = `${minDrops} drops (${minMl} mL)`;
         let max = `${maxDrops} drops (${maxMl} mL)`;
 
-        text = `
-<div class="warning-box">
-    Preferred 15 minutes before meals
-</div>
-
+text = `
 <div class="dose-grid">
 
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
         <div class="dose-box">
             <div class="dose-value">${min}</div>
-            <div class="dose-note special-note">4 to 5 times daily</div>
+            <div class="dose-note">4 to 5 times daily</div>
         </div>
     </div>
 
@@ -1611,10 +1607,14 @@ else if(med==="Les Zamis Reflux Drops"){
         <div class="dose-heading">Maximum Dose</div>
         <div class="dose-box">
             <div class="dose-value">${max}</div>
-            <div class="dose-note special-note">4 to 5 times daily</div>
+            <div class="dose-note">4 to 5 times daily</div>
         </div>
     </div>
 
+</div>
+
+<div class="warning-box">
+    Preferred 15 minutes before meals
 </div>
 `;
     }
@@ -1622,32 +1622,101 @@ else if(med==="Les Zamis Reflux Drops"){
 else if(med==="Les Zamis Constipation Drops"){
 
     if(months<12){
-        text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">1 - 5 drops (0.1 - 0.5 mL)</div>
-    <div class="dose-note special-note">OD to TID</div>
+        let minDrops = 1;
+        let maxDrops = 5;
+
+        let minMl = 0.1;
+        let maxMl = 0.5;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
+text = `
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
 </div>
 `;
-    }
-
+    }  
     else if(months<72){
-        text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">5 - 10 drops (0.5 - 1 mL)</div>
-    <div class="dose-note special-note">OD to TID</div>
+        let minDrops = 5;
+        let maxDrops = 10;
+
+        let minMl = 0.5;
+        let maxMl = 1;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
+text = `
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
 </div>
 `;
-    }
-
+    }  
     else if(months<=132){
-        text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">5 - 15 drops (0.5 - 1.5 mL)</div>
-    <div class="dose-note special-note">OD to TID</div>
+        let minDrops = 5;
+        let maxDrops = 15;
+
+        let minMl = 0.5;
+        let maxMl = 1.5;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
+text = `
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note">OD to TID</div>
+        </div>
+    </div>
+
 </div>
 `;
-    }
-
+    }  
     else{
         text = `
 <div class="warning-box">
@@ -1672,29 +1741,74 @@ else if(med==="Les Zamis Cold & Sinus Drops"){
     }
 
     else if(months<=96){
-        text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">5 - 10 drops (0.5 - 1 mL)</div>
-    <div class="dose-note special-note">BID to TID</div>
+        let minDrops = 5;
+        let maxDrops = 10;
+
+        let minMl = 0.5;
+        let maxMl = 1;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
+text = `
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note">BID to TID</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note">BID to TID</div>
+        </div>
+    </div>
+</div>
 <div class="warning-box">
     In Severe cases > Administer every 15-20 minutes for 3 doses, then return to regular dosage BID or TID
-</div>
 </div>
 `;
     }
 
     else if(months<=144){
-        text = `
-<div class="dose-box single-dose">
-    <div class="dose-value">10 - 15 drops (1 - 1.5 mL)</div>
-    <div class="dose-note special-note">BID to TID</div>
-<div class="warning-box">
-        In severe cases > administer every 15 to 20 minutes for 3 doses, then return to regular dosage BID or TID
+        let minDrops = 10;
+        let maxDrops = 15;
+
+        let minMl = 1;
+        let maxMl = 1.5;
+
+        let min = `${minDrops} drops (${minMl} mL)`;
+        let max = `${maxDrops} drops (${maxMl} mL)`;
+
+text = `
+<div class="dose-grid">
+
+    <div class="dose-column">
+        <div class="dose-heading">Minimum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${min}</div>
+            <div class="dose-note">BID to TID</div>
+        </div>
     </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Maximum Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${max}</div>
+            <div class="dose-note">BID to TID</div>
+        </div>
+    </div>
+</div>
+<div class="warning-box">
+    In Severe cases > Administer every 15-20 minutes for 3 doses, then return to regular dosage BID or TID
 </div>
 `;
     }
-
     else{
         text = `
 <div class="warning-box">
