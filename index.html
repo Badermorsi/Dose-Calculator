@@ -471,8 +471,12 @@ input[type=number] {
 <option value="Les Zamis Reflux Drops">   
 <option value="Les Zamis Constipation Drops">   
 <option value="Les Zamis Cold & Sinus Drops">   
-<option value="Les Zamis Infant Colic Drops">   
-
+<option value="Les Zamis Infant Colic Drops">
+<option value="Chlorohistol Syrup (Chlorpheniramine)">   
+<option value="Aerius / Dora Syrup (Desloratadine)">
+<option value="Balsam Syrup">   
+<option value="Prospan Syrup">
+<option value="Amydramine Syrup">   
 
 </datalist>
 
@@ -577,7 +581,13 @@ function renderInputs(){
         med==="Les Zamis Reflux Drops" ||
         med==="Les Zamis Constipation Drops" ||
         med==="Les Zamis Cold & Sinus Drops" ||
-        med==="Les Zamis Infant Colic Drops"
+        med==="Les Zamis Infant Colic Drops" ||
+        med==="Chlorohistol Syrup (Chlorpheniramine)" ||
+        med==="Aerius / Dora Syrup (Desloratadine)" ||
+        med==="Balsam Syrup" ||
+        med==="Prospan Syrup" ||
+        med==="Amydramine Syrup"
+
     )
     {
         dynamicArea.innerHTML=`
@@ -1839,11 +1849,168 @@ text = `
 `;
             }
         }
+
+        else if(med==="Chlorohistol Syrup (Chlorpheniramine)"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 1 year
+                </div>
+                `;
+                return;
+            }
+            else if(months<24){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL BID</div>
+</div>
+`;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL every 4-6 hours</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL every 4-6 hours</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL every 4-6 hours</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Aerius / Dora Syrup (Desloratadine)"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 1 year
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL OD</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL OD</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL OD</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Balsam Syrup"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 1 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL TID</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL TID</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 mL TID</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Prospan Syrup"){
+
+            if(months<72){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL BID</div>
+</div>
+`;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL BID</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL TID</div>
+</div>
+`;
+            }
+        }       
         
         result.innerHTML=text;
     }
 }
 
+        else if(med==="Amydramine Syrup"){
+
+            if(months<72){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<144){
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL every 4-6 hours</div>
+</div>
+`;
+            }
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL every 4-6 hours</div>
+</div>
+`;
+            }
+        }
+    
 function calculateAverageWeight(){
 
     let age = parseFloat(document.getElementById("avgAge").value);
