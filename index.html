@@ -1000,10 +1000,10 @@ else if(med==="Nomit Syrup (Ondansetron)"){
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">2.5 mL</div>
-    <div class="dose-note special-note">Once Daily at bedtime</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
 </div>
 <div class="warning-box">
- Maximum dose: 5 mL Daily
+ Maximum dose: 5 mL per day
 </div>
 `;
         } 
@@ -1015,16 +1015,15 @@ else if(med==="Nomit Syrup (Ondansetron)"){
     <div class="dose-note special-note">Once daily at bedtime</div>
 </div>
 <div class="warning-box">
- Maximum dose: 10 mL Daily
+ Maximum dose: 10 mL per day
 </div>
-`;
-                
+`;                
        }         
             else{
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">10 mL</div>
-    <div class="dose-note special-note">Once Daily at Bedtime</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
 </div>
 `;
             }
@@ -1035,7 +1034,7 @@ else if(med==="Nomit Syrup (Ondansetron)"){
             if(months<6){
                 result.innerHTML=`
                 <div class="warning-box">
-                Not recommended unless prescribed by a doctor (Above 6 month)
+              ❌ Not recommended unless prescribed by a doctor (Above 6 month)
                 </div>
                 `;
                 return;
@@ -1043,7 +1042,8 @@ else if(med==="Nomit Syrup (Ondansetron)"){
             else if(months<24){
                  text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">5 drops OD</div>
+    <div class="dose-value">5 drops</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
 </div>
 `;
             }
@@ -1051,22 +1051,29 @@ else if(med==="Nomit Syrup (Ondansetron)"){
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">5 drops OD</div>
-    <div class="dose-note">Maximum 10 drops OD</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
+</div>
+<div class="warning-box">
+ Maximum dose: 10 drops per day
 </div>
 `;
             }
             else if(months<144){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">10 drops OD</div>
-    <div class="dose-note">Maximum 20 drops OD</div>
+    <div class="dose-value">10 drops</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
+</div>
+<div class="warning-box">
+ Maximum dose: 20 drops per day
 </div>
 `;
             }
             else{
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">20 drops OD</div>
+    <div class="dose-value">20</div>
+    <div class="dose-note special-note">Once daily at bedtime</div>
 </div>
 `;
             }
@@ -1085,28 +1092,34 @@ else if(med==="Nomit Syrup (Ondansetron)"){
             else if(months<12){
                  text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">3-7 drops TID</div>
+    <div class="dose-value">3-7 drops</div>
+    <div class="dose-note special-note">Three times daily</div>
 </div>
 `;
             }
             else if(months<36){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">7-10 drops TID</div>
+    <div class="dose-value">7 - 10 drops</div>
+    <div class="dose-note special-note">Three times daily</div>
 </div>
 `;
             }
             else if(months<144){
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">10-15 drops TID</div>
+    <div class="dose-value">10-15 drops</div>
+    <div class="dose-note special-note">Three times daily</div>
+
 </div>
 `;
             }
             else{
                 text = `
 <div class="dose-box single-dose">
-    <div class="dose-value">20-40 drops TID</div>
+    <div class="dose-value">20-40 drops</div>
+    <div class="dose-note special-note">Three times daily</div>
+
 </div>
 `;
             }
