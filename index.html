@@ -326,12 +326,8 @@ input[type=number] {
     transition: all 0.25s ease;
 }
    
-#avgContent {
+.avg-weight-box.collapsed .avg-body{
     display: none;
-}
-
-#avgBox.open #avgContent {
-    display: block;
 }
 
 #avgAge{
@@ -492,9 +488,6 @@ input[type=number] {
 
 <script>
 
-let avgOpen = false;
-let mounjaroOpen = false;
-    
 let autoWeight = null;
 let isManualWeight = false;
     
@@ -2191,59 +2184,43 @@ document.addEventListener("autoWeightUpdate", function(e){
     calculate();
 });
 
-avgHeader.addEventListener("click", function (event) {
-    event.stopPropagation();
-
-    avgOpen = !avgOpen;
-
-    if (avgOpen) {
-        avgBox.classList.add("open");
-        avgArrow.innerHTML = "▼";
-    } else {
-        avgBox.classList.remove("open");
-        avgArrow.innerHTML = "▶";
-    }
-});
-
-document.addEventListener("click", function (event) {
-
-    const avgBox = document.getElementById("avgBox");
-    const avgArrow = document.getElementById("arrow");
-
-    if (avgBox && !avgBox.contains(event.target)) {
-        avgOpen = false;
-        avgBox.classList.remove("open");
-        avgArrow.innerHTML = "▶";
-    }
-});
-    
 // 3. Collapse avg box when clicking outside
 document.addEventListener("click", function (event) {
 
     const avgBox = document.getElementById("avgBox");
-    const avgArrow = document.getElementById("arrow");
-
     const mounjaroBox = document.getElementById("mounjaroBox");
+
+    const avgArrow = document.getElementById("arrow");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
 
-    // ===== AVG =====
+    // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
-        avgOpen = false;
-        avgBox.classList.remove("open");
-        if (avgArrow) avgArrow.innerHTML = "▶";
+
+        if (!avgBox.classList.contains("collapsed")) {
+
+            avgBox.classList.add("collapsed");
+
+            if (avgArrow) {
+                avgArrow.innerHTML = "▶";
+            }
+        }
     }
 
-    // ===== MOUNJARO =====
+    // ===== MOUNJARO WIDGET =====
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
 
-        mounjaroOpen = false;
-        mounjaroBox.classList.add("collapsed");
+        if (!mounjaroBox.classList.contains("collapsed")) {
 
-        if (mounjaroArrow) mounjaroArrow.innerHTML = "▶";
+            mounjaroBox.classList.add("collapsed");
 
-        document.getElementById("penStrength").value = "";
-        document.getElementById("doseRequired").value = "";
-        document.getElementById("mounjaroResult").innerHTML = "";
+            if (mounjaroArrow) {
+                mounjaroArrow.innerHTML = "▶";
+            }
+
+            document.getElementById("penStrength").value = "";
+            document.getElementById("doseRequired").value = "";
+            document.getElementById("mounjaroResult").innerHTML = "";
+        }
     }
 });
 
