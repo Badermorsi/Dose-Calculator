@@ -368,10 +368,15 @@ input[type=number] {
 
     <!-- 1. Average Weight -->
 <div class="avg-weight-box collapsed" id="avgBox">
-        <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
-            Average weight calculator <span id="arrow">▶</span>
-        </h3>
+     
+    <div class="avg-header" onclick="toggleAvgBox()">
 
+        <h3>Average weight calculator</h3>
+
+    <span id="avgArrow">▶</span>
+
+</div>
+        
     <div class="avg-body" id="avgContent">            
     <label>Age (years)</label>
             <input type="number"
