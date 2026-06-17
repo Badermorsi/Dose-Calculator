@@ -255,6 +255,15 @@ input[type=number] {
     font-weight: bold;
     color: #0b63ce;
 }
+
+#wegovyContent{
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+#wegovyoBody{
+    margin-top: 10px;
+}
     
 /* TITLE (smaller + cleaner) */
 .avg-weight-box h3{
@@ -345,7 +354,8 @@ input[type=number] {
 }
 
 #arrow,
-#mounjaroArrow{
+#mounjaroArrow,
+#wegovyArrow{
     color:#1f3b73;
 }
     
@@ -429,8 +439,42 @@ input[type=number] {
         </div>
     </div>
 
-</div>
-    
+<!-- 3. Wegovy Clicks -->
+<div class="avg-weight-box collapsed" id="wegovyBox">
+
+    <div class="avg-header" onclick="toggleWegovyBox()">
+        <h3>Wegovy Clicks</h3>
+        <span id="wegovyArrow">▶</span>
+    </div>
+
+    <div class="avg-body" id="wegovyBody">
+
+        <label>Wegovy Pen Strength</label>
+        <select id="penStrength" onchange="calculateWegovyClicks()">
+            <option value="">Select</option>
+            <option value="0.25">0.25 mg</option>
+            <option value="0.5">0.5 mg</option>
+            <option value="1">1 mg</option>
+            <option value="1.7">1.7 mg</option>
+            <option value="2.4">2.4 mg</option>
+        </select>
+
+        <br><br>
+
+        <label>Dose Required</label>
+        <select id="doseRequired" onchange="calculateWegovyClicks()">
+            <option value="">Select</option>
+            <option value="0.25">0.25 mg</option>
+            <option value="0.5">0.5 mg</option>
+            <option value="1">1 mg</option>
+            <option value="1.7">1.7 mg</option>
+            <option value="2.4">2.4 mg</option>
+        </select>
+
+        <div id="wegovyResult" class="result-box"></div>
+
+    </div>
+   
 </div>
 
 <div class="container">
@@ -2192,9 +2236,12 @@ document.addEventListener("click", function (event) {
 
     const avgBox = document.getElementById("avgBox");
     const mounjaroBox = document.getElementById("mounjaroBox");
+    const wegovyBox = document.getElementById("wegovyBox");
+
 
     const avgArrow = document.getElementById("arrow");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
+    const wegovyArrow = document.getElementById("wegovyArrow");
 
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
@@ -2225,6 +2272,23 @@ document.addEventListener("click", function (event) {
             document.getElementById("mounjaroResult").innerHTML = "";
         }
     }
+
+    // ===== Wegovy WIDGET =====
+    if (wegovyBox && !wegovyBox.contains(event.target)) {
+
+        if (!wegovyBox.classList.contains("collapsed")) {
+
+            wegovyBox.classList.add("collapsed");
+
+            if (wegovyArrow) {
+                wegovyArrow.innerHTML = "▶";
+            }
+
+            document.getElementById("penStrength").value = "";
+            document.getElementById("doseRequired").value = "";
+            document.getElementById("wegovyResult").innerHTML = "";
+        }
+    }
 });
 
 function calculateMounjaroClicks(){
@@ -2244,7 +2308,38 @@ function calculateMounjaroClicks(){
     resultBox.innerHTML = `= ${clicks} clicks`;
 }
 
+function calculateWegovyClicks() {
+
+    const penStrength = parseFloat(document.getElementById("wegovyPenStrength").value);
+    const doseRequired = parseFloat(document.getElementById("wegovyDoseRequired").value);
+    const result = document.getElementById("wegovyResult");
+
+    if (!penStrength || !doseRequired) {
+        result.innerHTML = "";
+        return;
+    }
+
+    let clicks;
+
+    if (penStrength === 0.25 || penStrength === 0.5) {
+        clicks = (doseRequired * 37) / penStrength;
+    }
+    else if (penStrength === 1 || penStrength === 1.7 || penStrength === 2.4) {
+        clicks = (doseRequired * 75) / penStrength;
+    }
+    else {
+        result.innerHTML = "Invalid pen strength";
+        return;
+    }
+
+    result.innerHTML = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">${Math.round(clicks)} Clicks</div>
+        </div>
+    `;
+}
 let mounjaroCollapsed = true; // start collapsed
+let wegovyCollapsed = true; // start collapsed
 
 function toggleMounjaroBox(){
 
@@ -2254,6 +2349,27 @@ function toggleMounjaroBox(){
     mounjaroCollapsed = !mounjaroCollapsed;
 
     if(mounjaroCollapsed){
+        box.classList.add("collapsed");
+        arrow.innerHTML = "▶";
+
+        // RESET
+        document.getElementById("penStrength").value = "";
+        document.getElementById("doseRequired").value = "";
+        document.getElementById("mounjaroResult").innerHTML = "";
+    } else {
+        box.classList.remove("collapsed");
+        arrow.innerHTML = "▼";
+    }
+}
+
+function togglewegovyBox(){
+
+    const box = document.getElementById("wegovyBox");
+    const arrow = document.getElementById("wegovyArrow");
+
+    wegovyCollapsed = !wegovyCollapsed;
+
+    if(wegovyCollapsed){
         box.classList.add("collapsed");
         arrow.innerHTML = "▶";
 
