@@ -1,3 +1,6 @@
+UPDATED_____________
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -2148,19 +2151,19 @@ function calculateAverageWeight(){
 }
 
 let isCollapsed = true;
-function toggleAvgBox() {
+function toggleAvgBox(){
 
-    const avgBox = document.getElementById("avgBox");
-    const avgArrow = document.getElementById("arrow");
+    const box = document.getElementById("avgBox");
+    const arrow = document.getElementById("arrow");
 
-    const isCollapsed = avgBox.classList.contains("collapsed");
+    isCollapsed = !isCollapsed;
 
-    if (isCollapsed) {
-        avgBox.classList.remove("collapsed");
-        avgArrow.innerHTML = "▼";
+    if(isCollapsed){
+        box.classList.add("collapsed");
+        arrow.innerHTML = "▶";
     } else {
-        avgBox.classList.add("collapsed");
-        avgArrow.innerHTML = "▶";
+        box.classList.remove("collapsed");
+        arrow.innerHTML = "▼";
     }
 }
 document.addEventListener("focusin", function(e){
@@ -2196,30 +2199,33 @@ document.addEventListener("click", function (event) {
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
 
-        avgBox.classList.add("collapsed");
+        if (!avgBox.classList.contains("collapsed")) {
 
-        if (avgArrow) {
-            avgArrow.innerHTML = "▶";
+            avgBox.classList.add("collapsed");
+
+            if (avgArrow) {
+                avgArrow.innerHTML = "▶";
+            }
         }
     }
 
     // ===== MOUNJARO WIDGET =====
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
 
-        mounjaroBox.classList.add("collapsed");
+        if (!mounjaroBox.classList.contains("collapsed")) {
 
-        if (mounjaroArrow) {
-            mounjaroArrow.innerHTML = "▶";
+            mounjaroBox.classList.add("collapsed");
+
+            if (mounjaroArrow) {
+                mounjaroArrow.innerHTML = "▶";
+            }
+
+            document.getElementById("penStrength").value = "";
+            document.getElementById("doseRequired").value = "";
+            document.getElementById("mounjaroResult").innerHTML = "";
         }
-
-        const penStrength = document.getElementById("penStrength");
-        const doseRequired = document.getElementById("doseRequired");
-        const mounjaroResult = document.getElementById("mounjaroResult");
-
-        if (penStrength) penStrength.value = "";
-        if (doseRequired) doseRequired.value = "";
-        if (mounjaroResult) mounjaroResult.innerHTML = "";
     }
+});
 
 function calculateMounjaroClicks(){
 
