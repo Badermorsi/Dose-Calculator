@@ -2184,36 +2184,36 @@ document.addEventListener("autoWeightUpdate", function(e){
     calculate();
 });
 
-// 3. Collapse avg box when clicking outside
 document.addEventListener("click", function (event) {
 
     const avgBox = document.getElementById("avgBox");
-    const mounjaroBox = document.getElementById("mounjaroBox");
-
     const avgContent = document.getElementById("avgContent");
     const avgArrow = document.getElementById("arrow");
 
+    const mounjaroBox = document.getElementById("mounjaroBox");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
 
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
-        if (avgContent && avgContent.style.display === "block") {
+
+        if (avgContent && getComputedStyle(avgContent).display !== "none") {
             avgContent.style.display = "none";
-            avgArrow.innerHTML = "▶";
-            isCollapsed = true;
+
+            if (avgArrow) {
+                avgArrow.innerHTML = "▶";
+            }
         }
     }
 
     // ===== MOUNJARO WIDGET =====
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
+
         if (!mounjaroBox.classList.contains("collapsed")) {
 
             mounjaroBox.classList.add("collapsed");
-            mounjaroCollapsed = true;
 
             if (mounjaroArrow) mounjaroArrow.innerHTML = "▶";
 
-            // reset values
             document.getElementById("penStrength").value = "";
             document.getElementById("doseRequired").value = "";
             document.getElementById("mounjaroResult").innerHTML = "";
@@ -2221,7 +2221,6 @@ document.addEventListener("click", function (event) {
     }
 
 });
-
 function calculateMounjaroClicks(){
 
     let pen = parseFloat(document.getElementById("penStrength").value);
