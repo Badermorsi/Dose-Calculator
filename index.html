@@ -9,7 +9,7 @@
 body{
     font-family:Arial,sans-serif;
     background:linear-gradient(135deg,#f4f6ff,#eef7ff);
-    padding:15px;
+    margin:0;
 }
 
 .container{
@@ -20,11 +20,12 @@ body{
 
     width:700px;
     max-width:90%;
-    padding:25px;
 
-    background:#fff;
-    border-radius:20px;
-    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    margin:0;
+    z-index:9999;
+
+    /* ADD THIS */
+    box-sizing:border-box;
 }
 
 .container h2{
