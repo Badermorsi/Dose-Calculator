@@ -326,7 +326,7 @@ input[type=number] {
     transition: all 0.25s ease;
 }
    
-#avgBox.collapsed #avgContent {
+#avgContent.collapsed {
     display: none;
 }
 
@@ -2153,15 +2153,19 @@ function calculateAverageWeight(){
 }
 
 let isCollapsed = true;
-function toggleAvgBox(){
+function toggleAvgBox() {
 
     const box = document.getElementById("avgBox");
+    const content = document.getElementById("avgContent");
     const arrow = document.getElementById("arrow");
 
-    const isNowCollapsed = box.classList.toggle("collapsed");
+    if (!box || !content) return;
 
-    arrow.innerHTML = isNowCollapsed ? "▶" : "▼";
-}
+    const isNowCollapsed = content.classList.toggle("collapsed");
+
+    if (arrow) {
+        arrow.innerHTML = isNowCollapsed ? "▶" : "▼";
+    }
 }
 document.addEventListener("focusin", function(e){
     if(e.target && e.target.id === "weight"){
@@ -2193,7 +2197,7 @@ document.addEventListener("click", function (event) {
     const mounjaroBox = document.getElementById("mounjaroBox");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
 
-    // ===== AVG =====
+    // AVG
     if (avgBox && !avgBox.contains(event.target)) {
 
         if (!avgBox.classList.contains("collapsed")) {
@@ -2202,22 +2206,12 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    // ===== MOUNJARO =====
+    // MOUNJARO
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
 
         if (!mounjaroBox.classList.contains("collapsed")) {
-
             mounjaroBox.classList.add("collapsed");
-
             if (mounjaroArrow) mounjaroArrow.innerHTML = "▶";
-
-            const pen = document.getElementById("penStrength");
-            const dose = document.getElementById("doseRequired");
-            const result = document.getElementById("mounjaroResult");
-
-            if (pen) pen.value = "";
-            if (dose) dose.value = "";
-            if (result) result.innerHTML = "";
         }
     }
 });
@@ -2241,24 +2235,27 @@ function calculateMounjaroClicks(){
 
 let mounjaroCollapsed = true; // start collapsed
 
-function toggleMounjaroBox(){
+function toggleMounjaroBox() {
 
     const box = document.getElementById("mounjaroBox");
     const arrow = document.getElementById("mounjaroArrow");
 
-    mounjaroCollapsed = !mounjaroCollapsed;
+    if (!box) return;
 
-    if(mounjaroCollapsed){
-        box.classList.add("collapsed");
-        arrow.innerHTML = "▶";
+    const isNowCollapsed = box.classList.toggle("collapsed");
 
-        // RESET
-        document.getElementById("penStrength").value = "";
-        document.getElementById("doseRequired").value = "";
-        document.getElementById("mounjaroResult").innerHTML = "";
-    } else {
-        box.classList.remove("collapsed");
-        arrow.innerHTML = "▼";
+    if (arrow) {
+        arrow.innerHTML = isNowCollapsed ? "▶" : "▼";
+    }
+
+    if (isNowCollapsed) {
+        const pen = document.getElementById("penStrength");
+        const dose = document.getElementById("doseRequired");
+        const result = document.getElementById("mounjaroResult");
+
+        if (pen) pen.value = "";
+        if (dose) dose.value = "";
+        if (result) result.innerHTML = "";
     }
 }
     
