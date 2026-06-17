@@ -371,7 +371,7 @@ input[type=number] {
      
     <div class="avg-header" onclick="toggleAvgBox()">
 
-        <h3>Average weight calculator</h3>
+        <h3>Average Weight Calculator</h3>
 
     <span id="avgArrow">▶</span>
 
@@ -2202,15 +2202,19 @@ document.addEventListener("click", function (event) {
 
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
-        if (avgContent && avgContent.style.display === "block") {
-            avgContent.style.display = "none";
-            avgArrow.innerHTML = "▶";
+
+        if (avgContent && !avgContent.classList.contains("collapsed")) {
+
+            avgContent.classList.add("collapsed");
+            if (avgArrow) avgArrow.innerHTML = "▶";
+
             isCollapsed = true;
         }
     }
 
     // ===== MOUNJARO WIDGET =====
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
+
         if (!mounjaroBox.classList.contains("collapsed")) {
 
             mounjaroBox.classList.add("collapsed");
@@ -2218,13 +2222,11 @@ document.addEventListener("click", function (event) {
 
             if (mounjaroArrow) mounjaroArrow.innerHTML = "▶";
 
-            // reset values
             document.getElementById("penStrength").value = "";
             document.getElementById("doseRequired").value = "";
             document.getElementById("mounjaroResult").innerHTML = "";
         }
     }
-
 });
 
 function calculateMounjaroClicks(){
