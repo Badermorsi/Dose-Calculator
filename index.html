@@ -16,14 +16,18 @@ body{
 }
 
 .container{
-    max-width:700px;
-    margin:auto;
-    background:white;
-    padding:20px;
-    border-radius:16px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.08);
+    max-width: 700px;
+    margin: 60px auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
+.container h2{
+    text-align: center;
+}
+    
 h2{
     text-align:center;
     margin-bottom:15px;
@@ -61,9 +65,8 @@ select {
 }
 
 .search-box{
-    width: 92%;
-    margin-bottom: 15px;
-    position: relative;
+    display: flex;
+    justify-content: center;
 }
     
 .search-box input:focus,
@@ -229,14 +232,10 @@ input[type=number] {
 }
 
 .widget-stack{
+.widget-stack{
     position: fixed;
     top: 15px;
     left: 15px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-
     z-index: 1000;
 }
 
