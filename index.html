@@ -496,7 +496,6 @@ input[type=number] {
 </div>
 
 <script>
-
 let autoWeight = null;
 let isManualWeight = false;
     
@@ -2163,10 +2162,16 @@ function toggleAvgBox() {
     const content = document.getElementById("avgContent");
     const arrow = document.getElementById("arrow");
 
-    const isNowCollapsed = content.classList.toggle("collapsed");
+    if (!content || !arrow) {
+        console.log("AVG elements missing");
+        return;
+    }
 
-    arrow.innerHTML = isNowCollapsed ? "▶" : "▼";
+    const isCollapsed = content.classList.toggle("collapsed");
+
+    arrow.innerHTML = isCollapsed ? "▶" : "▼";
 }
+    
 document.addEventListener("focusin", function(e){
     if(e.target && e.target.id === "weight"){
         e.target.value = "";
@@ -2197,7 +2202,6 @@ document.addEventListener("click", function (event) {
     const mounjaro = document.getElementById("mounjaroContent");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
 
-    // AVG
     if (avg && !avg.contains(event.target)) {
         if (!avg.classList.contains("collapsed")) {
             avg.classList.add("collapsed");
@@ -2205,7 +2209,6 @@ document.addEventListener("click", function (event) {
         }
     }
 
-    // MOUNJARO
     if (mounjaro && !mounjaro.contains(event.target)) {
         if (!mounjaro.classList.contains("collapsed")) {
             mounjaro.classList.add("collapsed");
@@ -2237,12 +2240,18 @@ function toggleMounjaroBox() {
     const content = document.getElementById("mounjaroContent");
     const arrow = document.getElementById("mounjaroArrow");
 
-    const isNowCollapsed = content.classList.toggle("collapsed");
+    if (!content || !arrow) {
+        console.log("Mounjaro elements missing");
+        return;
+    }
 
-    arrow.innerHTML = isNowCollapsed ? "▶" : "▼";
+    const isCollapsed = content.classList.toggle("collapsed");
+
+    arrow.innerHTML = isCollapsed ? "▶" : "▼";
 }
     
 </script>
+<script src="script.js"></script>
 
 </body>
 </html>
