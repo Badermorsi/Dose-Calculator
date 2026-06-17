@@ -429,6 +429,47 @@ input[type=number] {
         </div>
     </div>
 
+<!-- 3. Wegovy Clicks -->
+<div class="avg-weight-box collapsed" id="wegovyBox">
+
+    <div class="avg-header" onclick="toggleWegovyBox()">
+
+        <h3>Wegovy Clicks</h3>
+
+        <span id="wegovyArrow">▶</span>
+
+    </div>
+
+    <div class="avg-body" id="wegovyBody">
+
+        <label>Wegovy Pen Strength</label>
+        <select id="wegovyPenStrength" onchange="calculateWegovyClicks()">
+            <option value="">Select</option>
+            <option value="0.25">0.25 mg</option>
+            <option value="0.5">0.5 mg</option>
+            <option value="1">1 mg</option>
+            <option value="1.7">1.7 mg</option>
+            <option value="2.4">2.4 mg</option>
+        </select>
+
+        <br><br>
+
+        <label>Dose Required</label>
+        <select id="wegovyDoseRequired" onchange="calculateWegovyClicks()">
+            <option value="">Select</option>
+            <option value="0.25">0.25 mg</option>
+            <option value="0.5">0.5 mg</option>
+            <option value="1">1 mg</option>
+            <option value="1.7">1.7 mg</option>
+            <option value="2.4">2.4 mg</option>
+        </select>
+
+        <div id="wegovyResult" class="result-box"></div>
+
+    </div>
+
+</div>
+    
 </div>
     
 </div>
@@ -2150,6 +2191,47 @@ function calculateAverageWeight(){
     }
 }
 
+function toggleWegovyBox() {
+
+    const box = document.getElementById("wegovyBox");
+    const arrow = document.getElementById("wegovyArrow");
+
+    if (box.classList.contains("collapsed")) {
+        box.classList.remove("collapsed");
+        arrow.innerHTML = "▼";
+    } else {
+        box.classList.add("collapsed");
+        arrow.innerHTML = "▶";
+    }
+}
+
+function calculateWegovyClicks() {
+
+    const penStrength = parseFloat(document.getElementById("wegovyPenStrength").value);
+    const doseRequired = parseFloat(document.getElementById("wegovyDoseRequired").value);
+    const result = document.getElementById("wegovyResult");
+
+    if (!penStrength || !doseRequired) {
+        result.innerHTML = "";
+        return;
+    }
+
+    let clicks;
+
+    if (penStrength === 0.25 || penStrength === 0.5) {
+        clicks = (doseRequired * 37) / penStrength;
+    }
+    else if (penStrength === 1 || penStrength === 1.7 || penStrength === 2.4) {
+        clicks = (doseRequired * 75) / penStrength;
+    }
+
+    result.innerHTML = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">${Math.round(clicks)} Clicks</div>
+        </div>
+    `;
+}
+    
 let isCollapsed = true;
 function toggleAvgBox(){
 
@@ -2192,9 +2274,11 @@ document.addEventListener("click", function (event) {
 
     const avgBox = document.getElementById("avgBox");
     const mounjaroBox = document.getElementById("mounjaroBox");
+    const wegovyBox = document.getElementById("wegovyBox");
 
     const avgArrow = document.getElementById("arrow");
     const mounjaroArrow = document.getElementById("mounjaroArrow");
+    const wegovyArrow = document.getElementById("wegovyArrow");
 
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
