@@ -433,11 +433,8 @@ input[type=number] {
 <div class="avg-weight-box collapsed" id="wegovyBox">
 
     <div class="avg-header" onclick="toggleWegovyBox()">
-
         <h3>Wegovy Clicks</h3>
-
         <span id="wegovyArrow">▶</span>
-
     </div>
 
     <div class="avg-body" id="wegovyBody">
@@ -467,6 +464,8 @@ input[type=number] {
         <div id="wegovyResult" class="result-box"></div>
 
     </div>
+
+</div> <!-- MISSING CLOSING TAG ADDED HERE -->
 
 <div class="container">
     
@@ -2186,7 +2185,6 @@ function calculateAverageWeight(){
 }
 
 function toggleWegovyBox() {
-
     const box = document.getElementById("wegovyBox");
     const arrow = document.getElementById("wegovyArrow");
 
