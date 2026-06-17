@@ -295,7 +295,7 @@ input[type=number] {
     font-weight: 700;
 }
 
-.avg-header {
+.avg-header{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -303,11 +303,10 @@ input[type=number] {
     padding: 2px 4px;
 }
 
-.avg-header h3 {
+.avg-header h3{
     font-size: 13px;
     margin: 0;
     color: #1f3b73;
-    font-family: Arial, sans-serif;
 }
 
 #avgToggle{
@@ -369,29 +368,31 @@ input[type=number] {
 
     <!-- 1. Average Weight -->
 <div class="avg-weight-box collapsed" id="avgBox">
+        <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
+            Average weight calculator <span id="arrow">▶</span>
+        </h3>
 
-    <div class="avg-header" id="avgHeader">
-        <h3>Average Weight Calculator</h3>
-        <span id="arrow">▶</span>
+    <div class="avg-body" id="avgContent">            
+    <label>Age (years)</label>
+            <input type="number"
+                   id="avgAge"
+                   placeholder="Enter age"
+                   oninput="calculateAverageWeight()">
+
+            <div id="avgResult"></div>
+            <div id="autoBadge" class="auto-badge">AUTO weight active</div>
+        </div>
+
     </div>
-
-    <div class="avg-body" id="avgContent">
-        <label>Age (years)</label>
-        <input type="number" id="avgAge" oninput="calculateAverageWeight()">
-
-        <div id="avgResult"></div>
-        <div id="autoBadge" class="auto-badge">AUTO weight active</div>
-    </div>
-
-</div>
 
     <!-- 2. Mounjaro Clicks -->
-<div class="avg-weight-box collapsed" id="mounjaroBox">
+    <div class="avg-weight-box collapsed" id="mounjaroBox">
 
-    <div class="avg-header" id="mounjaroHeader">
-        <h3>Mounjaro Clicks</h3>
-        <span id="mounjaroArrow">▶</span>
-    </div>
+ <div class="avg-header" onclick="toggleMounjaroBox()">
+
+    <h3>Mounjaro Clicks</h3>
+
+    <span id="mounjaroArrow">▶</span>
 
 </div>
 
@@ -2147,19 +2148,19 @@ function calculateAverageWeight(){
 }
 
 let isCollapsed = true;
-function toggleAvgBox(){
+function toggleAvgBox() {
 
-    const box = document.getElementById("avgBox");
-    const arrow = document.getElementById("arrow");
+    const avgBox = document.getElementById("avgBox");
+    const avgArrow = document.getElementById("arrow");
 
-    isCollapsed = !isCollapsed;
+    const isCollapsed = avgBox.classList.contains("collapsed");
 
-    if(isCollapsed){
-        box.classList.add("collapsed");
-        arrow.innerHTML = "▶";
+    if (isCollapsed) {
+        avgBox.classList.remove("collapsed");
+        avgArrow.innerHTML = "▼";
     } else {
-        box.classList.remove("collapsed");
-        arrow.innerHTML = "▼";
+        avgBox.classList.add("collapsed");
+        avgArrow.innerHTML = "▶";
     }
 }
 document.addEventListener("focusin", function(e){
@@ -2195,33 +2196,30 @@ document.addEventListener("click", function (event) {
     // ===== AVG WIDGET =====
     if (avgBox && !avgBox.contains(event.target)) {
 
-        if (!avgBox.classList.contains("collapsed")) {
+        avgBox.classList.add("collapsed");
 
-            avgBox.classList.add("collapsed");
-
-            if (avgArrow) {
-                avgArrow.innerHTML = "▶";
-            }
+        if (avgArrow) {
+            avgArrow.innerHTML = "▶";
         }
     }
 
     // ===== MOUNJARO WIDGET =====
     if (mounjaroBox && !mounjaroBox.contains(event.target)) {
 
-        if (!mounjaroBox.classList.contains("collapsed")) {
+        mounjaroBox.classList.add("collapsed");
 
-            mounjaroBox.classList.add("collapsed");
-
-            if (mounjaroArrow) {
-                mounjaroArrow.innerHTML = "▶";
-            }
-
-            document.getElementById("penStrength").value = "";
-            document.getElementById("doseRequired").value = "";
-            document.getElementById("mounjaroResult").innerHTML = "";
+        if (mounjaroArrow) {
+            mounjaroArrow.innerHTML = "▶";
         }
+
+        const penStrength = document.getElementById("penStrength");
+        const doseRequired = document.getElementById("doseRequired");
+        const mounjaroResult = document.getElementById("mounjaroResult");
+
+        if (penStrength) penStrength.value = "";
+        if (doseRequired) doseRequired.value = "";
+        if (mounjaroResult) mounjaroResult.innerHTML = "";
     }
-});
 
 function calculateMounjaroClicks(){
 
