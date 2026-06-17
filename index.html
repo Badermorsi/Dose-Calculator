@@ -16,12 +16,16 @@ body{
 }
 
 .container{
-    max-width: 700px;
-    margin: 60px auto;
-    padding: 25px;
-    background: #fff;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:700px;
+    max-width:90%;
+    padding:25px;
+    background:#fff;
+    border-radius:20px;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
 }
 
 .container h2{
@@ -65,8 +69,9 @@ select {
 }
 
 .search-box{
-    display: flex;
-    justify-content: center;
+    display:flex;
+    justify-content:center;
+    margin-bottom:15px;
 }
     
 .search-box input:focus,
@@ -84,8 +89,10 @@ select:focus {
     margin-bottom: 15px;
 }
 
-.search-box input {
-    padding-left: 42px;
+.search-box input{
+    width:100%;
+    max-width:450px;
+    padding-left:42px;
 }
 
 .search-box::before {
@@ -231,7 +238,6 @@ input[type=number] {
     font-family: Arial, sans-serif;
 }
 
-.widget-stack{
 .widget-stack{
     position: fixed;
     top: 15px;
