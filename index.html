@@ -23,7 +23,7 @@ body{
 
     padding:25px;
 
-    background:rgba(255,255,255,0.75);
+    background:rgba(200,230,255,0.6);
     backdrop-filter:blur(10px);
 
     border-radius:20px;
@@ -387,7 +387,9 @@ input[type=number] {
     
     <!-- 1. Average Weight -->
 <div class="avg-weight-box collapsed" id="avgBox">
-      <h3 class="widget-title">Average weight calculator <span id="arrow">▶</span></h3>
+        <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
+            Average weight calculator <span id="arrow">▶</span>
+        </h3>
 
     <div class="avg-body" id="avgContent">            
     <label>Age (years)</label>
@@ -407,7 +409,9 @@ input[type=number] {
 
  <div class="avg-header" onclick="toggleMounjaroBox()">
 
-<h3 class="widget-title">Mounjaro Clicks <span id="mounjaroArrow">▶</span></h3>
+    <h3>Mounjaro Clicks</h3>
+
+    <span id="mounjaroArrow">▶</span>
 
 </div>
 
