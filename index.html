@@ -2250,7 +2250,7 @@ function calculateWegovyClicks() {
 
     result.innerHTML = `
         <div class="dose-box single-dose">
-            <div class="dose-value">${Math.round(clicks)} Clicks</div>
+            <div class="dose-value">=${Math.round(clicks)} clicks</div>
         </div>
     `;
 }
@@ -2365,7 +2365,11 @@ function calculateMounjaroClicks(){
 
     let clicks = (dose * 60 / pen).toFixed(0);
 
-    resultBox.innerHTML = `= ${clicks} clicks`;
+resultBox.innerHTML = `
+    <div class="dose-box single-dose">
+        <div class="dose-value">= ${clicks} clicks</div>
+    </div>
+`;
 }
 
 let mounjaroCollapsed = true; // start collapsed
