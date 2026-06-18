@@ -239,6 +239,13 @@ input[type=number] {
     overflow:hidden;
 }
 
+.widget-arrow{
+    color:#005792;      /* same blue as Average Weight */
+    font-size:18px;
+    font-weight:bold;
+    flex-shrink:0;
+}
+    
 .widget-stack{
     position: fixed;
     top: 15px;
@@ -265,18 +272,18 @@ input[type=number] {
 /* TITLE (smaller + cleaner) */
 .avg-weight-box h3,
 .mounjaro-box h3,
-.wegovy-box h3,
-.avg-header h3{
-    font-size:16px;
-    font-weight:600;
-    margin:0;
-    padding:14px 16px;
-
+.wegovy-box h3{
     display:flex;
     justify-content:space-between;
     align-items:center;
 
-    color:#1f4f7a;
+    margin:0;
+    padding:16px 18px;
+
+    font-size:16px;
+    font-weight:600;
+    color:#005792;
+
     cursor:pointer;
 }
     
@@ -389,9 +396,10 @@ input[type=number] {
     
     <!-- 1. Average Weight -->
 <div class="avg-weight-box collapsed" id="avgBox">
-        <h3 onclick="toggleAvgBox()" style="cursor:pointer;">
-            Average weight calculator <span id="arrow">▶</span>
-        </h3>
+<h3 onclick="toggleAvgBox()">
+    <span>Average weight calculator</span>
+    <span id="avgArrow" class="widget-arrow">▶</span>
+</h3>
 
     <div class="avg-body" id="avgContent">            
     <label>Age (years)</label>
@@ -409,11 +417,10 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box collapsed" id="mounjaroBox">
 
- <div class="avg-header" onclick="toggleMounjaroBox()">
-
-    <h3>Mounjaro Clicks</h3>
-
-    <span id="mounjaroArrow">▶</span>
+<h3 onclick="toggleMounjaroBox()">
+    <span>Mounjaro Clicks</span>
+    <span id="mounjaroArrow" class="widget-arrow">▶</span>
+</h3>
 
 </div>
 
@@ -450,10 +457,10 @@ input[type=number] {
 <!-- 3. Wegovy Clicks -->
 <div class="avg-weight-box collapsed" id="wegovyBox">
 
-    <div class="avg-header" onclick="toggleWegovyBox()">
-        <h3>Wegovy Clicks</h3>
-        <span id="wegovyArrow">▶</span>
-    </div>
+<h3 onclick="toggleWegovyBox()">
+    <span>Wegovy Clicks</span>
+    <span id="wegovyArrow" class="widget-arrow">▶</span>
+</h3>
 
     <div class="avg-body" id="wegovyBody">
 
