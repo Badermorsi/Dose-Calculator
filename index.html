@@ -286,7 +286,7 @@ input[type=number] {
 .mounjaro-box h3,
 .wegovy-box h3,
 .avg-header h3{
-    font-size:15px;
+    font-size:13px;
     font-weight:600;
     margin:0;
     color:#1f4f7a;
@@ -2248,9 +2248,13 @@ function calculateWegovyClicks() {
         clicks = (doseRequired * 75) / penStrength;
     }
 
-    resultBox.innerHTML = `= ${Math.round(clicks)} Clicks`;
-    }
-
+    result.innerHTML = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">${Math.round(clicks)} Clicks</div>
+        </div>
+    `;
+}
+    
 let isCollapsed = true;
 function toggleAvgBox(){
 
