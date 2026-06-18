@@ -239,11 +239,13 @@ input[type=number] {
     overflow:hidden;
 }
 
-.widget-arrow{
-    color:#005792;      /* same blue as Average Weight */
+#arrow,
+#mounjaroArrow,
+#wegovyArrow{
+    color:#005792;      /* blue */
     font-size:18px;
     font-weight:bold;
-    flex-shrink:0;
+    margin-left:auto;   /* push arrow to far right */
 }
     
 .widget-stack{
@@ -261,6 +263,15 @@ input[type=number] {
 #mounjaroBody{
     margin-top: 10px;
 }
+
+#wegovyContent{
+    overflow: hidden;
+    transition: all 0.25s ease;
+}
+
+#wegovyBody{
+    margin-top: 10px;
+}
     
 .result-box{
     margin-top: 12px;
@@ -272,19 +283,12 @@ input[type=number] {
 /* TITLE (smaller + cleaner) */
 .avg-weight-box h3,
 .mounjaro-box h3,
-.wegovy-box h3{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    margin:0;
-    padding:16px 18px;
-
+.wegovy-box h3,
+.avg-header h3{
     font-size:16px;
     font-weight:600;
-    color:#005792;
-
-    cursor:pointer;
+    margin:0;
+    color:#1f4f7a;
 }
     
 /* INPUT */
@@ -319,11 +323,13 @@ input[type=number] {
 }
 
 .avg-header{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 2px 4px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    width:100%;
+    padding:14px 16px;
+    box-sizing:border-box;
+    cursor:pointer;
 }
 
 #avgToggle{
@@ -396,10 +402,10 @@ input[type=number] {
     
     <!-- 1. Average Weight -->
 <div class="avg-weight-box collapsed" id="avgBox">
-<h3 onclick="toggleAvgBox()">
-    <span>Average weight calculator</span>
-    <span id="avgArrow" class="widget-arrow">▶</span>
-</h3>
+<div class="avg-header" onclick="toggleAvgBox()">
+    <h3>Average weight calculator</h3>
+    <span id="arrow">▶</span>
+</div>
 
     <div class="avg-body" id="avgContent">            
     <label>Age (years)</label>
@@ -417,11 +423,9 @@ input[type=number] {
     <!-- 2. Mounjaro Clicks -->
     <div class="avg-weight-box collapsed" id="mounjaroBox">
 
-<h3 onclick="toggleMounjaroBox()">
-    <span>Mounjaro Clicks</span>
-    <span id="mounjaroArrow" class="widget-arrow">▶</span>
-</h3>
-
+<div class="avg-header" onclick="toggleMounjaroBox()">
+    <h3>Mounjaro Clicks</h3>
+    <span id="mounjaroArrow">▶</span>
 </div>
 
     <div class="avg-body" id="mounjaroBody">
@@ -457,10 +461,10 @@ input[type=number] {
 <!-- 3. Wegovy Clicks -->
 <div class="avg-weight-box collapsed" id="wegovyBox">
 
-<h3 onclick="toggleWegovyBox()">
-    <span>Wegovy Clicks</span>
-    <span id="wegovyArrow" class="widget-arrow">▶</span>
-</h3>
+<div class="avg-header" onclick="toggleWegovyBox()">
+    <h3>Wegovy Clicks</h3>
+    <span id="wegovyArrow">▶</span>
+</div>
 
     <div class="avg-body" id="wegovyBody">
 
