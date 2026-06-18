@@ -2248,13 +2248,9 @@ function calculateWegovyClicks() {
         clicks = (doseRequired * 75) / penStrength;
     }
 
-    result.innerHTML = `
-        <div class="dose-box single-dose">
-            <div class="dose-value">${Math.round(clicks)} Clicks</div>
-        </div>
-    `;
-}
-    
+    resultBox.innerHTML = `= ${Math.round(clicks)} Clicks`;
+    }
+
 let isCollapsed = true;
 function toggleAvgBox(){
 
