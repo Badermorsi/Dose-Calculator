@@ -251,10 +251,7 @@ input[type=number] {
     top:15px;
     left:15px;
 
-    width:250px;   /* was 350px */
-
-    max-width:calc(100vw - 30px);
-
+    width:280px;
     z-index:1000;
 }
 #mounjaroContent{
@@ -400,8 +397,10 @@ input[type=number] {
 
 @media (max-width:700px){
 
-   .container{
+    .container{
         width:100%;
+        max-width:700px;
+        margin:20px auto;
         padding:10px;
     }
 
@@ -413,9 +412,12 @@ select{
 }
 
     .widget-stack{
-        top:10px;
-        left:10px;
-        width:calc(100vw - 20px);
+        position:relative;   /* no longer fixed */
+        top:0;
+        left:0;
+        width:100%;
+        max-width:280px;
+        margin:10px;
     }
     
 }
