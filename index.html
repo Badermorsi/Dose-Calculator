@@ -425,10 +425,29 @@ input[type=number] {
 }
 
 /* separate breakpoint — must be OUTSIDE */
-@media (max-width: 1000px) {
 
+/* when screen starts shrinking */
+@media (max-width: 1200px) {
     .widget-stack {
-        width: 180px;
+        width: 200px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .widget-stack {
+        width: 170px;
+    }
+}
+
+@media (max-width: 850px) {
+    .widget-stack {
+        width: 140px;
+    }
+}
+
+@media (max-width: 700px) {
+    .widget-stack {
+        width: 120px;
     }
 }
 </style>
