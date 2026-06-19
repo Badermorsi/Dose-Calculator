@@ -249,12 +249,16 @@ input[type=number] {
 }
     
 .widget-stack{
-    width:100%;
-    max-width:700px;
-    margin:0 auto;
-    z-index: 1000;
-}
+    position:fixed;
+    top:15px;
+    left:15px;
 
+    width:350px;
+    max-width:calc(100vw - 30px);
+
+    z-index:1000;
+    box-sizing:border-box;
+}
 #mounjaroContent{
     overflow: hidden;
     transition: all 0.25s ease;
@@ -413,6 +417,12 @@ select{
     box-sizing:border-box;
 }
 
+    .widget-stack{
+        top:10px;
+        left:10px;
+        width:calc(100vw - 20px);
+    }
+    
 }
     
 </style>
