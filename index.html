@@ -14,13 +14,13 @@ body{
 }
 
 .container{
-    position:fixed;
-    top:80px;
-    left:50%;
-    transform:translateX(-50%);
+    position:relative;
 
-    width:700px;
-    max-width:90%;
+    width:100%;
+    max-width:700px;
+
+    margin:80px auto 20px auto;
+    box-sizing:border-box;
 
     padding:25px;
 
@@ -249,9 +249,9 @@ input[type=number] {
 }
     
 .widget-stack{
-    position: fixed;
-    top: 15px;
-    left: 15px;
+    width:100%;
+    max-width:700px;
+    margin:0 auto;
     z-index: 1000;
 }
 
@@ -394,6 +394,25 @@ input[type=number] {
     margin:0;
     color:#1f3b73;
     cursor:pointer;
+}
+
+@media (max-width:700px){
+
+    .container{
+        width:100%;
+        padding:10px;
+    }
+
+    .avg-header h3{
+        font-size:14px;
+    }
+
+input,
+select{
+    width:100%;
+    box-sizing:border-box;
+}
+
 }
     
 </style>
