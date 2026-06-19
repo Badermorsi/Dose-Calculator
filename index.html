@@ -251,7 +251,10 @@ input[type=number] {
     top:15px;
     left:15px;
 
-    width:280px;
+    width:220px;
+    max-width:25vw;   /* shrink with browser */
+    min-width:160px;  /* don't become too small */
+
     z-index:1000;
 }
 #mounjaroContent{
@@ -411,14 +414,15 @@ select{
     box-sizing:border-box;
 }
 
-    .widget-stack{
-        position:relative;   /* no longer fixed */
-        top:0;
-        left:0;
-        width:100%;
-        max-width:280px;
-        margin:10px;
-    }
+.widget-stack{
+    position:relative;
+    top:0;
+    left:0;
+    width:100%;
+    max-width:220px;
+    margin:10px;
+    box-sizing:border-box;
+}
     
 }
     
