@@ -192,6 +192,13 @@ select:focus {
     font-weight:600;
     color:#333;
 }
+
+.max-dose-card{
+    background: linear-gradient(145deg, #fff8e6, #fff3cd);
+    border: 1px solid #ffcc66;
+    border-radius: 14px;
+    padding: 12px;
+}
     
 /* SINGLE CARD */
 .single-dose{
@@ -412,14 +419,7 @@ input[type=number] {
         width: 100%;
         box-sizing: border-box;
     }
-
-.max-dose-card{
-    background: linear-gradient(145deg, #fff8e6, #fff3cd);
-    border: 1px solid #ffcc66;
-    border-radius: 14px;
-    padding: 12px;
-}
-    
+   
     .widget-stack {
         position: relative;
         top: 0;
@@ -1170,8 +1170,8 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
         Maximum Dose
     </div>
 
-    <div class="max-dose-card">
-        ${getBestDose(maximumTarget)}
+<div class="max-dose-card ${maximumTarget >= 150 ? 'warning' : ''}">
+     ${getBestDose(maximumTarget)}
     </div>
 </div>
 
