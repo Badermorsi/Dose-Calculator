@@ -1090,7 +1090,8 @@ else if(med==="Nomit Syrup (Ondansetron)"){
 }       
 else if(med==="Voltaren Suppository (Diclofenac)"){
 
-    let target = w * 2; // 2 mg/kg/day
+    let recommendedTarget = w * 2; // 2 mg/kg/day
+    let maximumTarget = w * 3;     // 3 mg/kg/day
 
     let options = [
         {strength:12.5, freq:1},
@@ -1110,33 +1111,29 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
         {strength:100, freq:3}
     ];
 
-    let best = null;
-    let bestDailyDose = 0;
+    function getBestDose(target){
 
-    options.forEach(opt => {
+        let best = null;
+        let bestDailyDose = 0;
 
-        let dailyDose = opt.strength * opt.freq;
+        options.forEach(opt => {
 
-        // only accept doses that DO NOT exceed target
-        if(dailyDose <= target && dailyDose > bestDailyDose){
-            bestDailyDose = dailyDose;
-            best = opt;
+            let dailyDose = opt.strength * opt.freq;
+
+            if(dailyDose <= target && dailyDose > bestDailyDose){
+                bestDailyDose = dailyDose;
+                best = opt;
+            }
+        });
+
+        if(!best){
+            return "❌ Not suitable for Voltaren Suppository";
         }
-    });
-
-    if(!best){
-        text = `
-        <div class="warning-box">
-            ❌ Not recommended to use voltaren suppository
-        </div>
-        `;
-    }
-    else{
 
         let freqText = "";
 
         if(best.freq === 1){
-            freqText = "Once time daily";
+            freqText = "One time daily";
         }
         else if(best.freq === 2){
             freqText = "Two times daily";
@@ -1145,22 +1142,32 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
             freqText = "Three times daily";
         }
 
-        text = `
-        <div class="dose-box single-dose">
-            <div class="dose-value">
-                Voltaren ${best.strength} mg
-            </div>
-            <div class="dose-note">
-                ${freqText}
+        return `
+            <div class="dose-value">Voltaren ${best.strength} mg suppository</div>
+            <div class="dose-note">${freqText}</div>
+        `;
+    }
+
+    text = `
+    <div class="dose-grid">
+
+        <div class="dose-column">
+            <div class="dose-heading">Recommended Dose</div>
+            <div class="dose-box">
+                ${getBestDose(recommendedTarget)}
             </div>
         </div>
 
-        <div class="warning-box" style="margin-top:10px;">
-            Recommended dose: ${target.toFixed(0)} mg/day
+        <div class="dose-column">
+            <div class="dose-heading">Maximum Dose</div>
+            <div class="dose-box">
+                ${getBestDose(maximumTarget)}
+            </div>
         </div>
-        `;
-    }
-}       
+
+    </div>
+    `;
+}
        result.innerHTML=text;
     }
 
