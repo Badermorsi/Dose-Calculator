@@ -1093,6 +1093,10 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     let recommendedTarget = w * 2; // 2 mg/kg/day
     let maximumTarget = w * 3;     // 3 mg/kg/day
 
+    // HARD CAP 150 mg/day
+    recommendedTarget = Math.min(recommendedTarget, 150);
+    maximumTarget = Math.min(maximumTarget, 150);
+
     let options = [
         {strength:12.5, freq:1},
         {strength:12.5, freq:2},
@@ -1127,7 +1131,7 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
         });
 
         if(!best){
-            return "❌ Not suitable for Voltaren Suppository";
+            return `<div class="dose-value">Not suitable</div>`;
         }
 
         let freqText = "";
@@ -1143,7 +1147,7 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
         }
 
         return `
-            <div class="dose-value">Voltaren ${best.strength} mg suppository</div>
+            <div class="dose-value">Voltaren ${best.strength} mg</div>
             <div class="dose-note">${freqText}</div>
         `;
     }
@@ -1152,14 +1156,22 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     <div class="dose-grid">
 
         <div class="dose-column">
-            <div class="dose-heading">Recommended Dose</div>
+            <div class="dose-heading">
+                <span style="color:red;font-weight:bold;">
+                    Recommended Dose
+                </span>
+            </div>
+
             <div class="dose-box">
                 ${getBestDose(recommendedTarget)}
             </div>
         </div>
 
         <div class="dose-column">
-            <div class="dose-heading">Maximum Dose</div>
+            <div class="dose-heading">
+                Maximum Dose
+            </div>
+
             <div class="dose-box">
                 ${getBestDose(maximumTarget)}
             </div>
