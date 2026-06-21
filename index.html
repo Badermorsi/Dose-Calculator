@@ -194,54 +194,34 @@ select:focus {
 }
 
 .max-dose-card{
-    background: #fff9e6;
+    background: #fff8e1;
     border: 1px solid #f3d37a;
     border-left: 5px solid #f4b400;
-    border-radius: 12px;
-    padding: 16px 18px;
-    text-align: center;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    position: relative;
-    font-family: Arial, sans-serif;
+    border-radius: 14px;
+    padding: 16px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+    max-width: 360px;
 }
 
-/* subtle top label (small, not aggressive) */
-.max-dose-card::before{
-    content: "Maximum Safe Dose";
-    position: absolute;
-    top: -10px;
-    left: 14px;
-    background: #f4b400;
-    color: #1f1f1f;
-    font-size: 11px;
-    font-weight: 600;
-    padding: 3px 8px;
-    border-radius: 6px;
-    letter-spacing: 0.2px;
-}
-
-/* right side warning badge (clean pill) */
-.side-badge{
-    position: absolute;
-    top: 12px;
-    right: 12px;
+.dose-warning{
+    display: flex;
+    align-items: center;
+    gap: 6px;
     background: #fff3c4;
     border: 1px solid #f4b400;
     color: #7a5b00;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
-    padding: 4px 10px;
+    padding: 6px 10px;
     border-radius: 999px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    white-space: nowrap;
 }
 
-/* optional icon styling inside badge */
-.side-badge::before{
-    content: "⚠";
-    font-size: 12px;
+/* ICON STYLE */
+.dose-warning .icon{
+    font-size: 14px;
 }
+    
 /* center everything inside */
 .max-dose-card .dose-value,
 .max-dose-card .dose-note{
@@ -1235,9 +1215,16 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     <div class="max-dose-content">
         ${getBestDose(maximumTarget)}
     </div>
-</div>
+    <div class="dose-warning">
+        <span class="icon">⚠</span>
+        <span>Maximum Safe Dose</span>
+            </div>
+
+        </div>
 
     </div>
+
+</div>
     `;
 }
        result.innerHTML=text;
