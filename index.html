@@ -413,6 +413,13 @@ input[type=number] {
         box-sizing: border-box;
     }
 
+.max-dose-card{
+    background: linear-gradient(145deg, #fff8e6, #fff3cd);
+    border: 1px solid #ffcc66;
+    border-radius: 14px;
+    padding: 12px;
+}
+    
     .widget-stack {
         position: relative;
         top: 0;
@@ -1157,16 +1164,16 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
             </div>
         </div>
 
-        <!-- Maximum -->
-        <div class="dose-column">
-            <div class="dose-heading">
-                Maximum Dose
-            </div>
+<!-- Maximum -->
+<div class="dose-column">
+    <div class="dose-heading">
+        Maximum Dose
+    </div>
 
-            <div class="warning-box">
-                ${getBestDose(maximumTarget)}
-            </div>
-        </div>
+    <div class="max-dose-card">
+        ${getBestDose(maximumTarget)}
+    </div>
+</div>
 
     </div>
     `;
