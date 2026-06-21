@@ -570,6 +570,7 @@ input[type=number] {
 <option value="Adol 250mg/5ml Syrup (Paracetamol)">
 <option value="Adol Drops (Paracetamol)">
 <option value="Adol Suppository (Paracetamol)">
+<option value="Voltaren Suppository (Diclofenac)">
 <option value="Panadol 240mg/5ml Syrup (Paracetamol)">
 <option value="Brufen Syrup (Ibuprofen)">
 <option value="Iburon Suppository (Ibuprofen)">
@@ -650,6 +651,7 @@ function renderInputs(){
         "Adol 250mg/5ml Syrup (Paracetamol)",
         "Adol Drops (Paracetamol)",
         "Adol Suppository (Paracetamol)",
+        "Voltaren Suppository (Diclofenac)",
         "Panadol 240mg/5ml Syrup (Paracetamol)",
         "Brufen Syrup (Ibuprofen)",
         "Iburon Suppository (Ibuprofen)",
@@ -711,7 +713,7 @@ function renderInputs(){
         med==="Balsam Syrup" ||
         med==="Prospan Syrup" ||
         med==="Amydramine Syrup"
-
+    
     )
     {
         dynamicArea.innerHTML=`
@@ -1085,7 +1087,80 @@ else if(med==="Nomit Syrup (Ondansetron)"){
         <div class="dose-note">Q8hr for 3 days</div>
     </div>
       `;
-}        
+}       
+else if(med==="Voltaren Suppository (Diclofenac)"){
+
+    let target = w * 2; // 2 mg/kg/day
+
+    let options = [
+        {strength:12.5, freq:1},
+        {strength:12.5, freq:2},
+        {strength:12.5, freq:3},
+
+        {strength:25, freq:1},
+        {strength:25, freq:2},
+        {strength:25, freq:3},
+
+        {strength:50, freq:1},
+        {strength:50, freq:2},
+        {strength:50, freq:3},
+
+        {strength:100, freq:1},
+        {strength:100, freq:2},
+        {strength:100, freq:3}
+    ];
+
+    let best = null;
+    let bestDailyDose = 0;
+
+    options.forEach(opt => {
+
+        let dailyDose = opt.strength * opt.freq;
+
+        // only accept doses that DO NOT exceed target
+        if(dailyDose <= target && dailyDose > bestDailyDose){
+            bestDailyDose = dailyDose;
+            best = opt;
+        }
+    });
+
+    if(!best){
+        text = `
+        <div class="warning-box">
+            ❌ Not recommended to use voltaren suppository
+        </div>
+        `;
+    }
+    else{
+
+        let freqText = "";
+
+        if(best.freq === 1){
+            freqText = "Once time daily";
+        }
+        else if(best.freq === 2){
+            freqText = "Two times daily";
+        }
+        else{
+            freqText = "Three times daily";
+        }
+
+        text = `
+        <div class="dose-box single-dose">
+            <div class="dose-value">
+                Voltaren ${best.strength} mg
+            </div>
+            <div class="dose-note">
+                ${freqText}
+            </div>
+        </div>
+
+        <div class="warning-box" style="margin-top:10px;">
+            Recommended dose: ${target.toFixed(0)} mg/day
+        </div>
+        `;
+    }
+}       
        result.innerHTML=text;
     }
 
