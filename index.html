@@ -1090,10 +1090,10 @@ else if(med==="Nomit Syrup (Ondansetron)"){
 }       
 else if(med==="Voltaren Suppository (Diclofenac)"){
 
-    let recommendedTarget = w * 2; // 2 mg/kg/day
-    let maximumTarget = w * 3;     // 3 mg/kg/day
+    let recommendedTarget = w * 2;
+    let maximumTarget = w * 3;
 
-    // HARD CAP 150 mg/day
+    // CAP at 150 mg/day
     recommendedTarget = Math.min(recommendedTarget, 150);
     maximumTarget = Math.min(maximumTarget, 150);
 
@@ -1134,17 +1134,8 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
             return `<div class="dose-value">Not suitable</div>`;
         }
 
-        let freqText = "";
-
-        if(best.freq === 1){
-            freqText = "One time daily";
-        }
-        else if(best.freq === 2){
-            freqText = "Two times daily";
-        }
-        else{
-            freqText = "Three times daily";
-        }
+        let freqText = best.freq === 1 ? "One time Daily" :
+                       best.freq === 2 ? "Two times daily" : "Three times daily";
 
         return `
             <div class="dose-value">Voltaren ${best.strength} mg</div>
@@ -1155,11 +1146,10 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     text = `
     <div class="dose-grid">
 
+        <!-- Recommended -->
         <div class="dose-column">
             <div class="dose-heading">
-                <span style="color:red;font-weight:bold;">
-                    Recommended Dose
-                </span>
+                Recommended Dose
             </div>
 
             <div class="dose-box">
@@ -1167,12 +1157,13 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
             </div>
         </div>
 
+        <!-- Maximum -->
         <div class="dose-column">
             <div class="dose-heading">
                 Maximum Dose
             </div>
 
-            <div class="dose-box">
+            <div class="warning-box">
                 ${getBestDose(maximumTarget)}
             </div>
         </div>
