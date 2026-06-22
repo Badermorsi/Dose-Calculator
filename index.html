@@ -125,9 +125,10 @@ select:focus {
 
 /* DOSE CARDS */
 .dose-grid{
-    display: flex;
-    gap: 20px;
-    align-items: stretch; /* CRITICAL for equal height */
+    display:flex;
+    gap:12px;
+    margin-top:15px;
+    flex-wrap:wrap;
 }
 
 @media (max-width:600px){
@@ -140,8 +141,7 @@ select:focus {
 }
 
 .dose-column{
-    flex: 1;
-    display: flex;
+    flex:1;
 }
 
 .dose-heading {
@@ -191,90 +191,6 @@ select:focus {
     font-size:16px;
     font-weight:600;
     color:#333;
-}
-
-.max-dose-content{
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 14px; /* keeps it compact */
-}
-    
-.max-dose-card{
-    position: relative;
-    background: linear-gradient(135deg, #fff8e6, #fff3cd);
-    border: 2px solid #f2c14e;
-    border-radius: 16px;
-
-    padding: 26px 16px 18px;
-    overflow: hidden;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-/* BIG FADED WARNING ICON (RIGHT SIDE BACKGROUND STYLE) */
-.dose-big-watermark{
-    position: absolute;
-    right: 14px;
-    top: 50%;
-    transform: translateY(-50%);
-
-    font-size: 70px;
-    color: rgba(242, 193, 78, 0.15);
-
-    pointer-events: none;
-}
-
-.max-dose-content .dose-value{
-    font-size: 22px;
-    font-weight: 700;
-    color: #1f5fbf;
-    text-align: center;
-}
-
-.max-dose-content .dose-note{
-    font-size: 14px;
-    color: #666;
-    margin-top: 6px;
-    text-align: center;
-}
-    
-/* TOP BORDER LABEL (CENTERED ON BORDER) */
-.dose-warning{
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-
-    display: flex;
-    align-items: center;
-    gap: 6px;
-
-    background: #f2b01e;
-    color: #1f1f1f;
-
-    font-size: 12px;
-    font-weight: 700;
-
-    padding: 5px 12px;
-    border-radius: 999px;
-
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
-}
-
-.dose-warning .icon{
-    font-size: 12px;
-}
-
-/* TEXT stays left */
-.dose-warning span:not(.icon){
-    order: 1;
 }
     
 /* SINGLE CARD */
@@ -496,7 +412,7 @@ input[type=number] {
         width: 100%;
         box-sizing: border-box;
     }
-   
+
     .widget-stack {
         position: relative;
         top: 0;
@@ -1241,23 +1157,18 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
             </div>
         </div>
 
-<!-- Maximum -->
-<div class="dose-column">
+        <!-- Maximum -->
+        <div class="dose-column">
+            <div class="dose-heading">
+                Maximum Dose
+            </div>
 
-<div class="max-dose-card">
+            <div class="warning-box">
+                ${getBestDose(maximumTarget)}
+            </div>
+        </div>
 
-    <div class="dose-warning">
-        <span class="icon">⚠</span>
-        <span>Maximum Safe Dose</span>
     </div>
-
-    <div class="max-dose-content">
-        ${getBestDose(maximumTarget)}
-    </div>
-
-    <div class="dose-big-watermark">⚠</div>
-
-</div>
     `;
 }
        result.innerHTML=text;
