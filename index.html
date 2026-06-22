@@ -193,6 +193,14 @@ select:focus {
     color:#333;
 }
 
+.max-dose-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+    
 .max-dose-card{
     background: #fff8e1;
     border: 1px solid #f3d37a;
@@ -214,7 +222,9 @@ select:focus {
 
     display: flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+
+    gap: 10px;
 
     background: #fff3c4;
     border: 1px solid #f4b400;
@@ -223,16 +233,22 @@ select:focus {
     font-size: 12px;
     font-weight: 700;
 
-    padding: 4px 10px;
+    padding: 4px 12px;
     border-radius: 999px;
 
     white-space: nowrap;
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* ICON on right side of text */
+/* MOVE ICON TO RIGHT SIDE */
 .dose-warning .icon{
+    order: 2;          /* pushes icon to right */
     font-size: 14px;
+}
+
+/* TEXT stays left */
+.dose-warning span:not(.icon){
+    order: 1;
 }
     
 /* SINGLE CARD */
@@ -1201,18 +1217,20 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
 
 <!-- Maximum -->
 <div class="dose-column">
-    <div class="dose-heading">
-        Maximum Dose
+
+    <div class="max-dose-card">
+
+        <div class="max-dose-content">
+            ${getBestDose(maximumTarget)}
+        </div>
+
+        <div class="dose-warning">
+            <span class="icon">⚠</span>
+            <span>Maximum Safe Dose</span>
+        </div>
+
     </div>
 
-<div class="max-dose-card">
-    <div class="max-dose-content">
-        ${getBestDose(maximumTarget)}
-    </div>
-    <div class="dose-warning">
-        <span class="icon">⚠</span>
-        <span>Maximum Safe Dose</span>
-    </div>
 </div>
     `;
 }
