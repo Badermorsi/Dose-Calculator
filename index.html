@@ -128,8 +128,6 @@ select:focus {
     display: flex;
     gap: 12px;
     margin-top: 15px;
-
-    flex-wrap: nowrap; /* 🔥 IMPORTANT: keeps both on same row */
     align-items: stretch;
 }
 
@@ -151,8 +149,9 @@ select:focus {
 }
     
 .dose-column{
-    flex: 1;
+    flex: 1;               /* 🔥 same width */
     display: flex;
+    flex-direction: column;
 }
 
 .dose-heading {
@@ -1217,18 +1216,21 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     <div class="dose-grid">
 
         <!-- Recommended -->
-        <div class="dose-column">
-            <div class="dose-heading">
-                Recommended Dose
-            </div>
+ <div class="dose-column">
 
-            <div class="dose-box">
-                ${getBestDose(recommendedTarget)}
-            </div>
-        </div>
+    <div class="dose-title">
+        Recommended Dose
+    </div>
+
+    <div class="dose-box">
+        ${getBestDose(recommendedTarget)}
+    </div>
+
+</div>
 
 <!-- Maximum -->
 <div class="dose-column">
+
     <div class="max-dose-card">
 
         <div class="max-dose-badge">
@@ -1240,6 +1242,7 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
         </div>
 
     </div>
+
 </div>
     `;
 }
