@@ -198,28 +198,29 @@ select:focus {
     display: flex;
     flex-direction: column;
     align-items: center;
+    font-size: 14px; /* keeps it compact */
 }
     
 .max-dose-card{
     position: relative;
-    background: linear-gradient(135deg, #fff7e6, #fff3d6);
-    border: 1px solid #f4b400;
-    border-left: 6px solid #f4b400;
-    border-radius: 14px;
-    padding: 26px 16px 18px;
+    background: linear-gradient(135deg, #fffaf0, #fff6db);
+    border: 1px solid #f2c14e;
+    border-left: 5px solid #f2c14e;
+    border-radius: 12px;
+    padding: 20px 14px 14px;
     overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 }
 
 /* BIG FADED WARNING ICON (RIGHT SIDE BACKGROUND STYLE) */
 .dose-big-watermark{
     position: absolute;
-    right: 12px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
 
-    font-size: 70px;
-    color: rgba(244, 180, 0, 0.18);
+    font-size: 48px;   /* reduced from 70px */
+    color: rgba(244, 180, 0, 0.12); /* lighter */
 
     pointer-events: none;
 }
@@ -227,28 +228,28 @@ select:focus {
 /* TOP BORDER LABEL (CENTERED ON BORDER) */
 .dose-warning{
     position: absolute;
-    top: -12px;
+    top: -10px;
     left: 50%;
     transform: translateX(-50%);
 
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
 
     background: #f4b400;
     color: #1f1f1f;
 
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
 
-    padding: 5px 12px;
+    padding: 4px 10px;
     border-radius: 999px;
 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
 .dose-warning .icon{
-    font-size: 14px;
+    font-size: 12px;
 }
 
 /* TEXT stays left */
