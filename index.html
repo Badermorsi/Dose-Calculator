@@ -201,44 +201,55 @@ select:focus {
     padding: 16px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
     max-width: 360px;
-}
 
-.dose-warning{
+    /* NEW */
+    position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 6px;
-    background: #fff3c4;
-    border: 1px solid #f4b400;
-    color: #7a5b00;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 6px 10px;
-    border-radius: 999px;
-    white-space: nowrap;
 }
 
-/* ICON STYLE */
-.dose-warning .icon{
-    font-size: 14px;
-}
-    
-/* center everything inside */
-.max-dose-card .dose-value,
-.max-dose-card .dose-note{
-    text-align: center;
-}
-
-/* stronger emphasis on value */
+/* VALUE */
 .max-dose-card .dose-value{
     font-size: 18px;
     font-weight: 700;
     color: #b30000;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    text-align: center;
 }
 
+/* NOTE */
 .max-dose-card .dose-note{
     font-size: 13px;
     color: #7a1f1f;
+    text-align: center;
+}
+
+/* WARNING BADGE (top-right floating style) */
+.dose-warning{
+    position: absolute;
+    top: 12px;
+    right: 12px;
+
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    background: #fff3c4;
+    border: 1px solid #f4b400;
+    color: #7a5b00;
+
+    font-size: 12px;
+    font-weight: 600;
+    padding: 6px 10px;
+    border-radius: 999px;
+
+    white-space: nowrap;
+}
+
+/* ICON */
+.dose-warning .icon{
+    font-size: 14px;
 }
     
 /* SINGLE CARD */
