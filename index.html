@@ -452,22 +452,42 @@ input[type=number] {
 }
 
 .max-dose-card{
+    position: relative;
     background: linear-gradient(135deg, #fff8e6, #fff3cd);
     border: 1px solid #ffd36b;
     border-left: 6px solid #ffb300;
     border-radius: 14px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    padding: 22px 16px 16px; /* extra top space for badge */
     box-shadow: 0 6px 18px rgba(255, 193, 7, 0.15);
 }
 
-/* center dose like recommended */
-.max-dose-content{
-    text-align: center;
+/* 🔥 FLOATING BADGE (THE CUT EFFECT) */
+.max-dose-badge{
+    position: absolute;
+    top: -12px;   /* pulls it outside the box */
+    left: 50%;
+    transform: translateX(-50%);
+
+    background: #ffb300;
+    color: #3b2a00;
+
+    font-weight: 700;
+    font-size: 12px;
+
+    padding: 6px 12px;
+    border-radius: 999px;
+
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    border: 2px solid #fff3cd;
+    white-space: nowrap;
 }
 
+/* center dose content */
+.max-dose-content{
+    text-align: center;
+    margin-top: 10px;
+}
+    
 /* warning strip inside box */
 .max-dose-warning{
     display: flex;
@@ -1204,13 +1224,12 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
 
     <div class="max-dose-card">
 
-        <div class="max-dose-content">
-            ${getBestDose(maximumTarget)}
+        <div class="max-dose-badge">
+            ⚠ Maximum Safe Dose
         </div>
 
-        <div class="max-dose-warning">
-            <span class="warning-icon">⚠</span>
-            <span>Maximum Safe Dose</span>
+        <div class="max-dose-content">
+            ${getBestDose(maximumTarget)}
         </div>
 
     </div>
