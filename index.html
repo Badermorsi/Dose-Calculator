@@ -198,38 +198,19 @@ select:focus {
     border: 1px solid #f3d37a;
     border-left: 5px solid #f4b400;
     border-radius: 14px;
-    padding: 16px;
+    padding: 22px 16px 16px;
     box-shadow: 0 4px 14px rgba(0,0,0,0.05);
     max-width: 360px;
 
-    /* NEW */
     position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
 }
 
-/* VALUE */
-.max-dose-card .dose-value{
-    font-size: 18px;
-    font-weight: 700;
-    color: #b30000;
-    margin-bottom: 6px;
-    text-align: center;
-}
-
-/* NOTE */
-.max-dose-card .dose-note{
-    font-size: 13px;
-    color: #7a1f1f;
-    text-align: center;
-}
-
-/* WARNING BADGE (top-right floating style) */
+/* TOP BORDER LABEL (CENTERED ON BORDER) */
 .dose-warning{
     position: absolute;
-    top: 12px;
-    right: 12px;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
 
     display: flex;
     align-items: center;
@@ -240,14 +221,16 @@ select:focus {
     color: #7a5b00;
 
     font-size: 12px;
-    font-weight: 600;
-    padding: 6px 10px;
+    font-weight: 700;
+
+    padding: 4px 10px;
     border-radius: 999px;
 
     white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
 }
 
-/* ICON */
+/* ICON on right side of text */
 .dose-warning .icon{
     font-size: 14px;
 }
@@ -1229,12 +1212,7 @@ else if(med==="Voltaren Suppository (Diclofenac)"){
     <div class="dose-warning">
         <span class="icon">⚠</span>
         <span>Maximum Safe Dose</span>
-            </div>
-
-        </div>
-
     </div>
-
 </div>
     `;
 }
