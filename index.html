@@ -670,7 +670,8 @@ input[type=number] {
 <option value="Aerius / Dora Syrup (Desloratadine)">
 <option value="Balsam Syrup">   
 <option value="Prospan Syrup">
-<option value="Amydramine Syrup">   
+<option value="Amydramine Syrup">
+<option value="Simedil Syrup">   
 
 </datalist>
 
@@ -781,6 +782,7 @@ function renderInputs(){
         med==="Aerius / Dora Syrup (Desloratadine)" ||
         med==="Balsam Syrup" ||
         med==="Prospan Syrup" ||
+        med==="Simedil Syrup" ||
         med==="Amydramine Syrup"
     
     )
@@ -2381,6 +2383,45 @@ text = `
 `;
             }
         }
+
+else if(med==="Simedil Syrup"){
+
+    if(months<=12){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL</div>
+    <div class="dose-note special-note">With or After each feed (Maximum 6 times per day)</div>
+</div>
+<div class="warning-box" style="margin-top:10px;">
+    Shake well before use / Can be added to milk or given directly
+</div>
+`;
+    }
+
+    else if(months<144){
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL</div>
+    <div class="dose-note special-note">1 to 3 times daily</div>
+</div>
+<div class="warning-box" style="margin-top:10px;">
+    Shake well before use / Can be added to milk or given directly
+</div>
+`;
+    }
+
+    else{
+        text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+    <div class="dose-note special-note">1 to 3 times daily</div>
+</div>
+<div class="warning-box" style="margin-top:10px;">
+    Shake well before use
+</div>
+`;
+    }
+}
         
         result.innerHTML=text;
     }
