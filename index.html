@@ -2461,7 +2461,43 @@ else if(med==="Simedil Syrup"){
 `;
             }
         }
-                    
+
+        else if(med==="Feroglobin Syrup"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 1 year
+                </div>
+                `;
+                return;
+            }
+            else if(months<48){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 mL</div>
+   <div class="dose-note special-note">One time daily</div>
+</div>
+`;
+            }
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">One time daily</div>
+</div>
+`;
+            }                
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Two times daily</div>
+</div>
+`;
+            }
+        }
+    
         result.innerHTML=text;
     }
 }
