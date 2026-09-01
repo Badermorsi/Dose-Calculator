@@ -679,6 +679,7 @@ input[type=number] {
 <option value="Bronchipret Syrup">
 <option value="Broncholeve Syrup">
 <option value="Coldifed-P Syrup">
+<option value="Scopinal / Hyopan (Hyoscine) Syrup">
 
 </datalist>
 
@@ -797,6 +798,7 @@ function renderInputs(){
         med==="Bronchipret Syrup" || 
         med==="Broncholeve Syrup" || 
         med==="Coldifed-P Syrup" || 
+        med==="Scopinal / Hyopan (Hyoscine) Syrup" || 
         med==="Simedil Syrup"
         
     )
@@ -2669,6 +2671,42 @@ Lorinase D tablets are recommended
                 text = `
 <div class="dose-box single-dose">
     <div class="dose-value">10 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Scopinal / Hyopan Syrup"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Under medlical suprevision
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            } 
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }   
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">20 mL</div>
    <div class="dose-note special-note">Three times daily</div>
 </div>
 `;
