@@ -675,6 +675,10 @@ input[type=number] {
 <option value="Osteocare Syrup">
 <option value="Feroglobin Syrup">
 <option value="Lorinase Syrup">
+<option value="Mukinate Syrup">
+<option value="Bronchipret Syrup">
+<option value="Broncholeve Syrup">
+<option value="Coldifed-P Syrup">
 
 </datalist>
 
@@ -789,6 +793,10 @@ function renderInputs(){
         med==="Osteocare Syrup" || 
         med==="Feroglobin Syrup" || 
         med==="Lorinase Syrup" || 
+        med==="Mukinate Syrup" || 
+        med==="Bronchipret Syrup" || 
+        med==="Broncholeve Syrup" || 
+        med==="Coldifed-P Syrup" || 
         med==="Simedil Syrup"
         
     )
@@ -2526,7 +2534,142 @@ else if(med==="Simedil Syrup"){
    <div class="dose-note special-note">Two times daily</div>
 </div>
 <div class="warning-box">
-Better take Lorinase D tablets
+Lorinase D tablets are recommended
+</div>
+`;
+            }
+        }
+        else if(med==="Mukinate Syrup"){
+
+            if(months<24){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 2 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<60){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Two times daily</div>
+</div>
+`;
+            } 
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Four times daily</div>
+</div>
+`;
+            }   
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Bronchipret Syrup"){
+
+            if(months<12){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 1 year
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">3.2 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            } 
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">4.3 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }   
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5.4 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Broncholeve Syrup"){
+
+            if(months<24){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 2 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<72){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">2.5 - 5 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            } 
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 - 10 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }   
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">15 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }
+        }
+
+        else if(med==="Coldifed-P Syrup"){
+
+            if(months<72){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
+</div>
+`;
+            }   
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">10 mL</div>
+   <div class="dose-note special-note">Three times daily</div>
 </div>
 `;
             }
