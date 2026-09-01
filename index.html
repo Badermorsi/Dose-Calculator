@@ -674,6 +674,7 @@ input[type=number] {
 <option value="Simedil Syrup">
 <option value="Osteocare Syrup">
 <option value="Feroglobin Syrup">
+<option value="Lorinase Syrup">
 
 </datalist>
 
@@ -787,6 +788,7 @@ function renderInputs(){
         med==="Amydramine Syrup" || 
         med==="Osteocare Syrup" || 
         med==="Feroglobin Syrup" || 
+        med==="Lorinase Syrup" || 
         med==="Simedil Syrup"
         
     )
@@ -2498,7 +2500,38 @@ else if(med==="Simedil Syrup"){
 `;
             }
         }
-    
+
+        else if(med==="Lorinase Syrup"){
+
+            if(months<72){
+                result.innerHTML=`
+                <div class="warning-box">
+                ❌ Not recommended below 6 years
+                </div>
+                `;
+                return;
+            }
+            else if(months<144){
+                 text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Two times daily</div>
+</div>
+`;
+            }         
+            else{
+                text = `
+<div class="dose-box single-dose">
+    <div class="dose-value">5 mL</div>
+   <div class="dose-note special-note">Two times daily</div>
+</div>
+<div class="warning-box">
+Better take Lorinase D tablets
+</div>
+`;
+            }
+        }
+        
         result.innerHTML=text;
     }
 }
