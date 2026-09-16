@@ -124,7 +124,11 @@ select:focus {
 }
 
 /* DOSE CARDS */
-.dose-grid{
+/* ================================
+   DOSE GRID
+   ================================ */
+
+.dose-grid {
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -133,20 +137,22 @@ select:focus {
 }
 
 /* Recommended Dose - full width on top */
-.recommended-dose {
+.dose-column.recommended-dose {
+    flex: 0 0 100%;
     width: 100%;
-    flex-basis: 100%;
     order: -1;
 }
 
 /* Recommended Dose heading */
-.recommended-dose .dose-heading {
+.dose-column.recommended-dose .dose-heading {
     background: #d9ead3;
     color: #274e13;
+    border-radius: 8px 8px 0 0;
+    padding: 8px;
 }
 
 /* Recommended Dose box */
-.recommended-dose .dose-box {
+.dose-column.recommended-dose .dose-box {
     background: #f1f8ee;
     border: 2px solid #b6d7a8;
 }
@@ -537,6 +543,28 @@ input[type=number] {
 .warning-icon{
     font-size: 18px;
     color: #ff9800;
+}
+
+/* ================================
+   RECOMMENDED DOSE - FINAL OVERRIDE
+   ================================ */
+
+.dose-column.recommended-dose {
+    flex: 0 0 100% !important;
+    width: 100%;
+    order: -1;
+}
+
+/* Recommended Dose heading */
+.dose-column.recommended-dose .dose-heading {
+    background: #d9ead3;
+    color: #274e13;
+}
+
+/* Recommended Dose box */
+.dose-column.recommended-dose .dose-box {
+    background: #f1f8ee;
+    border: 2px solid #b6d7a8;
 }
     
 </style>
