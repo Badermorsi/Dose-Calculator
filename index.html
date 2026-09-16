@@ -880,6 +880,7 @@ function calculate(){
         if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/120).toFixed(1);
             let max=(15*w*5/120).toFixed(1);
+            let rec=(13*w*5/120).toFixed(1);
 
             text = `
 <div class="dose-grid">
@@ -896,6 +897,14 @@ function calculate(){
         <div class="dose-heading">Maximum Dose</div>
         <div class="dose-box">
             <div class="dose-value">${max} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+
+    <div class="dose-column">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
             <div class="dose-note">Q6hr / Q8hr</div>
         </div>
     </div>
