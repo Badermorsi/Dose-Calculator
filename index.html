@@ -981,9 +981,18 @@ if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
         else if(med==="Adol 250mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/250).toFixed(1);
             let max=(15*w*5/250).toFixed(1);
-
+            let rec=(13*w*5/250).toFixed(1);
+            
             text = `
 <div class="dose-grid">
+
+    <div class="dose-column recommended-dose">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
 
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
@@ -1014,16 +1023,26 @@ if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
     if(mode==="ml"){
         min=(10*w*1/100).toFixed(1);
         max=(15*w*1/100).toFixed(1);
+        rec=(13*w*1/100).toFixed(1);
         unit="mL";
     } else {
         min=(10*w*1/100*20).toFixed(0);
         max=(15*w*1/100*20).toFixed(0);
+        rec=(13*w*1/100*20).toFixed(0);
         unit="drops";
     }
 
     text = `
 <div class="dose-grid">
 
+    <div class="dose-column recommended-dose">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
+    
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
         <div class="dose-box">
@@ -1086,10 +1105,18 @@ if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
         else if(med==="Panadol 240mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/240).toFixed(1);
             let max=(15*w*5/240).toFixed(1);
+            let rec=(13*w*5/240).toFixed(1);
 
             text = `
 <div class="dose-grid">
 
+    <div class="dose-column recommended-dose">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>    
+    
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
         <div class="dose-box">
@@ -1112,10 +1139,18 @@ if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
         else if(med==="Brufen Syrup (Ibuprofen)"){
             let min=(5*w*5/100).toFixed(1);
             let max=(10*w*5/100).toFixed(1);
+            let rec=(7*w*5/100).toFixed(1);
 
             text = `
 <div class="dose-grid">
 
+    <div class="dose-column recommended-dose">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>    
+    
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
         <div class="dose-box">
