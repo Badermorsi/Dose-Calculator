@@ -558,23 +558,31 @@ input[type=number] {
     width: 100%;
     order: -1;
     box-sizing: border-box;
+    align-items: center;
 }
 
 /* Recommended Dose heading */
 .dose-column.recommended-dose .dose-heading {
-    background: #dbeafe;
-    color: #1d4ed8;
+    background: #e8d5ff;
+    color: #6b21a8;
+    padding: 8px 16px;
+    border-radius: 8px;
+    margin-bottom: 10px;
 }
 
-/* Recommended Dose box */
+/* Recommended Dose box - same size as Min/Max */
 .dose-column.recommended-dose .dose-box {
-    background: #eff6ff;
-    border: 2px solid #60a5fa;
-    border-radius: 12px;
-    padding: 12px;
+    width: calc(50% - 6px);
     min-height: 52px;
     box-sizing: border-box;
-    box-shadow: 0 6px 15px rgba(59,130,246,0.15);
+
+    background: #f3e8ff;
+    border: 2px solid #c084fc;
+    border-radius: 12px;
+
+    padding: 12px;
+
+    box-shadow: 0 6px 15px rgba(168,85,247,0.18);
 }
     
 </style>
