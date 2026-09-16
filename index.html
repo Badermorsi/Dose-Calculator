@@ -126,6 +126,7 @@ select:focus {
 /* DOSE CARDS */
 .dose-grid{
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     margin-top: 15px;
     align-items: stretch;
@@ -134,7 +135,8 @@ select:focus {
 /* Recommended Dose - full width on top */
 .recommended-dose {
     width: 100%;
-    flex: 0 0 100%;
+    flex-basis: 100%;
+    order: -1;
 }
 
 /* Recommended Dose heading */
