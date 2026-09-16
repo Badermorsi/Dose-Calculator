@@ -126,34 +126,11 @@ select:focus {
 /* DOSE CARDS */
 .dose-grid{
     display: flex;
-    flex-wrap: wrap;
     gap: 12px;
     margin-top: 15px;
     align-items: stretch;
 }
 
-.recommended-dose{
-    width: 100%;
-}
-
-.dose-column:not(.recommended-dose){
-    flex: 1;
-}
-
-.recommended-dose .dose-heading {
-    background: #d9ead3;
-    color: #274e13;
-}
-
-.recommended-dose .dose-box {
-    background: #edf7e9;
-    border: 2px solid #a9d18e;
-}
-
-.recommended-dose .dose-value {
-    color: #274e13;
-}
-    
 @media (max-width:600px){
     .dose-column {
     flex: 1;
@@ -903,21 +880,10 @@ function calculate(){
         if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
             let min=(10*w*5/120).toFixed(1);
             let max=(15*w*5/120).toFixed(1);
-            let rec=(13*w*5/120).toFixed(1);
 
-text = `
+            text = `
 <div class="dose-grid">
 
-    <!-- Recommended Dose - TOP -->
-    <div class="dose-column recommended-dose">
-        <div class="dose-heading">Recommended Dose</div>
-        <div class="dose-box">
-            <div class="dose-value">${rec} mL</div>
-            <div class="dose-note">Q6hr / Q8hr</div>
-        </div>
-    </div>
-
-    <!-- Minimum Dose -->
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
         <div class="dose-box">
@@ -926,7 +892,6 @@ text = `
         </div>
     </div>
 
-    <!-- Maximum Dose -->
     <div class="dose-column">
         <div class="dose-heading">Maximum Dose</div>
         <div class="dose-box">
@@ -934,9 +899,6 @@ text = `
             <div class="dose-note">Q6hr / Q8hr</div>
         </div>
     </div>
-
-</div>
-`;
 
 </div>
 `;
