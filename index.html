@@ -131,6 +131,24 @@ select:focus {
     align-items: stretch;
 }
 
+/* Recommended Dose - full width on top */
+.recommended-dose {
+    width: 100%;
+    flex: 0 0 100%;
+}
+
+/* Recommended Dose heading */
+.recommended-dose .dose-heading {
+    background: #d9ead3;
+    color: #274e13;
+}
+
+/* Recommended Dose box */
+.recommended-dose .dose-box {
+    background: #f1f8ee;
+    border: 2px solid #b6d7a8;
+}
+    
 @media (max-width:600px){
     .dose-column {
     flex: 1;
@@ -877,12 +895,21 @@ function calculate(){
 
         let text="";
 
-        if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
-            let min=(10*w*5/120).toFixed(1);
-            let max=(15*w*5/120).toFixed(1);
+if(med==="Adol 120mg/5ml Syrup (Paracetamol)"){
+    let min=(10*w*5/120).toFixed(1);
+    let rec=(13*w*5/120).toFixed(1);
+    let max=(15*w*5/120).toFixed(1);
 
-            text = `
+    text = `
 <div class="dose-grid">
+
+    <div class="dose-column recommended-dose">
+        <div class="dose-heading">Recommended Dose</div>
+        <div class="dose-box">
+            <div class="dose-value">${rec} mL</div>
+            <div class="dose-note">Q6hr / Q8hr</div>
+        </div>
+    </div>
 
     <div class="dose-column">
         <div class="dose-heading">Minimum Dose</div>
